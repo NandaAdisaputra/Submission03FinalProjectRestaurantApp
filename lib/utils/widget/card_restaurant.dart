@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/model/restaurant_model.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
+import 'package:submission3nanda/utils/resource_helper/colors.dart';
+import 'package:submission3nanda/utils/resource_helper/fonts.dart';
+import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 
 class CardRestaurant extends StatefulWidget {
   final Restaurant restaurant;
@@ -15,11 +20,10 @@ class CardRestaurant extends StatefulWidget {
 
 class _CardRestaurantState extends State<CardRestaurant> {
   final FavoriteController databaseController =
-  Get.put(FavoriteController(databaseHelper: DatabaseHelper()));
+      Get.put(FavoriteController(databaseHelper: DatabaseHelper()));
 
   @override
   Widget build(BuildContext context) {
-    String? imageBaseUrl = 'https://restaurant-api.dicoding.dev/images/small/';
     return FutureBuilder<bool>(
       future: databaseController.isFavorite(widget.restaurant.id.toString()),
       builder: (context, snapshot) {
@@ -29,48 +33,55 @@ class _CardRestaurantState extends State<CardRestaurant> {
           child: Padding(
             padding: const EdgeInsets.only(right: 4.0, left: 4.0),
             child: Card(
-              elevation: 0,
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(color: Colors.grey, width: 0.2),
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              ),
+              margin:
+                  const EdgeInsets.only(left: 12, right: 8, top: 4, bottom: 12),
+              color: Get.isDarkMode ? CustomColors.Jet : CustomColors.Lavender,
+              elevation: 8,
               child: ListTile(
                 trailing: isFavorite
                     ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      databaseController.removeFavorite(
-                          widget.restaurant.id.toString());
-                    });
-                  },
-                  icon: const Icon(Icons.favorite, color: Colors.red),
-                )
+                        onPressed: () {
+                          setState(() {
+                            databaseController.removeFavorite(
+                                widget.restaurant.id.toString());
+                          });
+                        },
+                        icon: const Icon(Icons.favorite, color: Colors.red),
+                      )
                     : IconButton(
-                  onPressed: () {
-                    setState(() {
-                      databaseController.addFavorite(widget.restaurant);
-                    });
-                  },
-                  icon: const Icon(Icons.favorite_border),
-                ),
+                        onPressed: () {
+                          setState(() {
+                            databaseController.addFavorite(widget.restaurant);
+                          });
+                        },
+                        icon: const Icon(Icons.favorite_border),
+                      ),
                 contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 leading: widget.restaurant.pictureId != null
                     ? Hero(
-                  tag: widget.restaurant.pictureId.toString(),
-                  child: Image.network(
-                    '$imageBaseUrl${widget.restaurant.pictureId}',
-                    fit: BoxFit.cover,
-                    width: 100,
-                  ),
-                )
+                        tag: widget.restaurant.pictureId.toString(),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                              'https://restaurant-api.dicoding.dev/images/medium/${widget.restaurant.pictureId}',
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: MediaQuery.of(context).size.height),
+                        ),
+                      )
                     : const Center(
-                  child: Text('No Image Available'),
-                ),
+                        child: Text('No Image Available'),
+                      ),
                 title: Text(
                   widget.restaurant.name ?? "",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15),
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? CustomColors.OrangePeel
+                          : CustomColors.DarkOrange,
+                      fontSize: displayWidth(context) * FontSize.s0045,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: Constants.helvetica),
                 ),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -78,13 +89,20 @@ class _CardRestaurantState extends State<CardRestaurant> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(
-                          Icons.location_on_outlined,
-                          color: Colors.grey,
-                          size: 15,
-                        ),
+                        Icon(Icons.location_on_outlined,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? CustomColors.GreenRyb
+                                    : CustomColors.Scarlet),
+                        AppSizes.wSizeBox8,
                         Text(
                           widget.restaurant.city ?? "",
+                          style: TextStyle(
+                              fontSize: displayWidth(context) * FontSize.s0045,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? CustomColors.GreenRyb
+                                  : CustomColors.Scarlet),
                         ),
                       ],
                     ),
@@ -94,15 +112,25 @@ class _CardRestaurantState extends State<CardRestaurant> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 15,
+                        RatingBar.builder(
+                          ignoreGestures: true,
+                          itemSize: displayWidth(context) * FontSize.s005,
+                          initialRating: widget.restaurant.rating.toDouble(),
+                          glowColor: Colors.transparent,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => Icon(Icons.star,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? CustomColors.Gold
+                                  : CustomColors.DarkCornflowerBlue),
+                          onRatingUpdate: (rating) {},
                         ),
-                        Text(
-                          widget.restaurant.rating.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                        AppSizes.wSizeBox50
                       ],
                     ),
                   ],

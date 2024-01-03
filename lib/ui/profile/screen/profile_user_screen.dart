@@ -35,7 +35,7 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                     : CustomColors.DarkOrange,
                 child: InkWell(
                   onTap: () => Get.to(
-                    const SearchScreen(),
+                    SearchScreen(),
                   ),
                   child: const Icon(
                     Icons.search,

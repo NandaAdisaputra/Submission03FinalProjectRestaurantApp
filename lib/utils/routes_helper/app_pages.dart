@@ -30,7 +30,7 @@ class AppPages {
     ),
     GetPage<SearchScreen>(
       name: AppRoutes.SEARCH,
-      page: () => const SearchScreen(),
+      page: () =>  SearchScreen(),
       transition: Transition.fadeIn,
       binding: SearchBinding(),
       preventDuplicates: true,

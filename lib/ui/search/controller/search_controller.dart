@@ -1,53 +1,40 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:submission3nanda/data/model/search_restaurant.dart';
-import 'package:submission3nanda/data/network/api_service.dart';
-import 'package:submission3nanda/utils/result_state.dart';
+import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'package:submission3nanda/data/const/constants.dart';
+import 'package:submission3nanda/utils/error_helper/error_handler.dart';
+import 'package:submission3nanda/data/base/endpoints.dart' as Endpoints;
+import 'package:submission3nanda/utils/widget/custom_progress_indicator.dart';
 
 class SearchRestaurantController extends GetxController {
-  final ApiService apiService;
+  final queryRestaurantsSearch = TextEditingController();
+  var queryInp = ''.obs;
+  var listBodyRestaurants;
+  var isDataLoading = false.obs;
 
-  SearchRestaurantController({required this.apiService});
-
-  final Rx<ResultState> _state = ResultState.noData.obs;
-  final Rx<String> _message = ''.obs;
-  final Rx<SearchRestaurant> _searchRestaurant = SearchRestaurant(restaurants: []).obs;
-  final RxString _query = ''.obs;
-
-  String get message => _message.value;
-  SearchRestaurant get result => _searchRestaurant.value;
-  ResultState get state => _state.value;
-  String get query => _query.value;
-
-  set query(String value) => _query.value = value;
-
-  Future<void> search(String query) async {
-    await _fetchSearchRestaurant(query);
-  }
-
-  Future<void> _fetchSearchRestaurant(String query) async {
+  Future<dynamic> getListRestaurant() async {
+    isDataLoading(true);
+    CustomProgressIndicator.openLoadingDialog();
+    WidgetsFlutterBinding.ensureInitialized();
+    String urlSearch = Endpoints.getSearch.search + "?q=$queryInp";
+    final response = await http
+        .get(Uri.parse(urlSearch))
+        .timeout(const Duration(seconds: 5));
+    var responseJson = json.decode(response.body)[Constants.restaurants];
+    listBodyRestaurants = responseJson;
     try {
-      if (query.isEmpty) {
-        _state(ResultState.noData);
-        _searchRestaurant(SearchRestaurant(restaurants: []));
-        _message.value = 'No Data Restaurant Found';
-        return;
-      }
-
-      _state(ResultState.loading);
-      final restaurant = await apiService.searchRestaurant(query.toLowerCase());
-      if (restaurant.restaurants.isEmpty) {
-        _state(ResultState.noData);
-        _searchRestaurant(SearchRestaurant(restaurants: []));
-        _message.value = 'No Data Restaurant Found';
-        return;
+      if (response.statusCode == 200) {
+        return listBodyRestaurants;
       } else {
-        _state(ResultState.hasData);
-        _searchRestaurant(restaurant);
+        throw Exception(ErrorHandler.handle(dynamic));
       }
-    } catch (e) {
-      _state(ResultState.error);
-      _searchRestaurant(SearchRestaurant(restaurants: []));
-      _message.value = 'Check Your Internet Connection!';
+    } on Error {
+      await CustomProgressIndicator.closeLoadingOverlay();
+      isDataLoading(false);
+      rethrow;
+    } finally {
     }
   }
 }

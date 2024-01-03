@@ -23,7 +23,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
       return Scaffold(
         body: IndexedStack(
           index: controller.tabIndex,
-          children:  const [
+          children:  [
             HomeScreen(),
             FavoriteScreen(),
             ProfileUserScreen()

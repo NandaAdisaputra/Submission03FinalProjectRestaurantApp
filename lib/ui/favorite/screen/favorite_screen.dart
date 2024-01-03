@@ -42,7 +42,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         : CustomColors.DarkOrange,
                     child: InkWell(
                       onTap: () => Get.to(
-                        const SearchScreen(),
+                         SearchScreen(),
                       ),
                       child: const Icon(
                         Icons.search,

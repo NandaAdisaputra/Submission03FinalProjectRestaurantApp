@@ -6,14 +6,12 @@ import 'package:submission3nanda/data/base/base_url.dart';
 import 'package:submission3nanda/data/model/detail_restaurant.dart';
 import 'package:submission3nanda/data/model/list_restaurant.dart';
 import 'package:submission3nanda/data/model/review_model.dart';
-import 'package:submission3nanda/data/model/search_restaurant.dart';
 import 'package:submission3nanda/utils/error_helper/error_handler.dart';
 import 'package:http/http.dart' as http;
 import 'package:submission3nanda/data/base/endpoints.dart' as Endpoints;
 
 class ApiService {
   Dio dio = Dio();
-
   // ApiServices() {
   //   dio = Dio(BaseOptions(baseUrl: base));
   // }
@@ -53,19 +51,6 @@ class ApiService {
       );
     } else {
       throw Exception('Failed to load detail restaurant');
-    }
-  }
-
-  Future<SearchRestaurant> searchRestaurant(String query) async {
-    final response = await client.get(
-      Uri.parse('${base}search?q=$query'),
-    );
-    if (response.statusCode == 200) {
-      return SearchRestaurant.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      throw Exception('Failed to load search restaurant');
     }
   }
 

@@ -4,88 +4,138 @@ import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/main.dart';
 import 'package:submission3nanda/ui/home/controller/home_controller.dart';
-import 'package:submission3nanda/ui/home/screen/app_bar_home.dart';
 import 'package:submission3nanda/ui/search/screen/search_restaurant.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/assets.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
+import 'package:submission3nanda/utils/result_state.dart';
+import 'package:submission3nanda/utils/widget/card_restaurant.dart';
+import 'package:submission3nanda/utils/widget/load_data_error.dart';
 
 var homeController = Get.put(HomeController(apiService: ApiService()));
 var themeController = Get.put(ThemeController());
 
 class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  final homeController = Get.put(HomeController(apiService: ApiService()));
+  final themeController = Get.put(ThemeController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() {
+      return Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Image.asset(ImageAssets.imageLeading),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Tooltip(
-                message: Constants.search,
-                child: Material(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? CustomColors.Jet
-                      : CustomColors.DarkOrange,
-                  child: InkWell(
-                    onTap: () => Get.to(
-                      const SearchScreen(),
-                    ),
-                    child: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ),
-              ),
+            elevation: 0,
+            leading: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Image.asset(ImageAssets.imageLeading),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 30),
-              child: InkWell(
-                onTap: () => Get.to(
-                  Get.bottomSheet(
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.Jet
-                              : CustomColors.DarkOrange,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: Icon(Get.isDarkMode
-                                ? Icons.light_mode
-                                : Icons.dark_mode),
-                            title: Text(Get.isDarkMode
-                                ? Constants.lightMode
-                                : Constants.darkMode),
-                            onTap: () {
-                              favoriteController.changeAppTheme();
-                              Get.back();
-                            },
-                          ),
-                        ],
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Tooltip(
+                  message: Constants.search,
+                  child: Material(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? CustomColors.Jet
+                        : CustomColors.DarkOrange,
+                    child: InkWell(
+                      onTap: () => Get.to(
+                         SearchScreen(),
+                      ),
+                      child: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 35,
                       ),
                     ),
                   ),
                 ),
-                child: const Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                  size: 35,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: InkWell(
+                  onTap: () => Get.to(
+                    Get.bottomSheet(
+                      Container(
+                        decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? CustomColors.Jet
+                                    : CustomColors.DarkOrange,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: Icon(Get.isDarkMode
+                                  ? Icons.light_mode
+                                  : Icons.dark_mode),
+                              title: Text(Get.isDarkMode
+                                  ? Constants.lightMode
+                                  : Constants.darkMode),
+                              onTap: () {
+                                favoriteController.changeAppTheme();
+                                Get.back();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                    size: 35,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ]),
+        body: RefreshIndicator(
+          backgroundColor: Colors.deepOrange,
+          onRefresh: () async {
+            homeController.fetchAllRestaurant();
+          },
+          child: _buildList(context),
         ),
-        body: AppBarHomeScreen());
+      );
+    });
+  }
+
+  Widget _buildList(BuildContext context) {
+    final state = homeController.state;
+    print("Controller state: $state");
+    if (state == ResultState.error) {
+      return LoadDataError(
+        title: 'Problem Occurred',
+        subtitle: homeController.message,
+        bgColor: Colors.red,
+        onTap: () {
+          homeController.fetchAllRestaurant();
+        },
+      );
+    } else if (state == ResultState.hasData) {
+      final dataList = homeController.result;
+      if (dataList.restaurants.isEmpty) {
+        print("Data in dataList.restaurants: ${dataList.restaurants}");
+        return const Center(
+          child: Text('Tidak ada data ditemukan'),
+        );
+      }
+      return ListView.builder(
+        itemCount: dataList.restaurants.length,
+        itemBuilder: (context, index) {
+          print("Building CardRestaurant for index $index");
+          return CardRestaurant(restaurant: dataList.restaurants[index]);
+        },
+      );
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.deepOrange,
+        ),
+      );
+    }
   }
 }
