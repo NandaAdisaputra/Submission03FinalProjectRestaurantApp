@@ -1,15 +1,16 @@
-// ignore_for_file: constant_identifier_names
 import 'package:get/get.dart';
-import 'package:submission3nanda/data/base/binding/home_binding.dart';
-import 'package:submission3nanda/data/base/binding/navbar_binding.dart';
-import 'package:submission3nanda/data/base/binding/review_binding.dart';
-import 'package:submission3nanda/data/base/binding/search_binding.dart';
-import 'package:submission3nanda/data/base/binding/splash_binding.dart';
-import 'package:submission3nanda/ui/home/home_screen.dart';
-import 'package:submission3nanda/ui/navbar/navbar_screen.dart';
-import 'package:submission3nanda/ui/review/add_field_review_screen.dart';
-import 'package:submission3nanda/ui/search/search_restaurant.dart';
-import 'package:submission3nanda/ui/splash/splash_screen.dart';
+import 'package:submission3nanda/ui/favorite/binding/favorite_binding.dart';
+import 'package:submission3nanda/ui/favorite/screen/favorite_screen.dart';
+import 'package:submission3nanda/ui/home/binding/home_binding.dart';
+import 'package:submission3nanda/ui/navbar/binding/navbar_binding.dart';
+import 'package:submission3nanda/ui/review/binding/review_binding.dart';
+import 'package:submission3nanda/ui/search/binding/search_binding.dart';
+import 'package:submission3nanda/ui/splash/binding/splash_binding.dart';
+import 'package:submission3nanda/ui/home/screen/home_screen.dart';
+import 'package:submission3nanda/ui/navbar/screen/navbar_screen.dart';
+import 'package:submission3nanda/ui/review/screen/add_field_review_screen.dart';
+import 'package:submission3nanda/ui/search/screen/search_restaurant.dart';
+import 'package:submission3nanda/ui/splash/screen/splash_screen.dart';
 import 'package:submission3nanda/utils/routes_helper/routes.dart';
 
 class AppPages {
@@ -22,7 +23,7 @@ class AppPages {
     ),
     GetPage<HomeScreen>(
       name: AppRoutes.HOME,
-      page: () => const HomeScreen(),
+      page: () =>  HomeScreen(),
       transition: Transition.fadeIn,
       binding: HomeBinding(),
       preventDuplicates: true,
@@ -47,6 +48,6 @@ class AppPages {
       transition: Transition.fadeIn,
       binding: NavBarBinding(),
       preventDuplicates: true,
-    )
+    ),
   ];
 }

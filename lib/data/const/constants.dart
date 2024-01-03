@@ -7,9 +7,15 @@ class Constants {
   static const String success= "Sukses";
   static const String successNewReviewCreate= "New Review Restaurant created:";
   static const String errorNewReviewCreate= "Error creating review Restaurant:";
+  //favorite
+  static const String subTitle = "Recommendation restaurant for you!";
+  static const String favorite = "Favorite";
   //detail
   static const String menuDrinks = "Menu Minuman";
   static const String menuFoods = "Menu Makanan";
+  //settings
+  static const String lightMode = "Change to Light Mode";
+  static const String darkMode = "Change to Dark Mode";
   //navbar
   static const String home = "Home";
   static const String search = "Cari Restaurant";

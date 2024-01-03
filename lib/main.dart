@@ -4,15 +4,17 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
+import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
-import 'package:submission3nanda/ui/home/home_controller.dart';
-import 'package:submission3nanda/ui/review/review_controller.dart';
+import 'package:submission3nanda/ui/home/controller/home_controller.dart';
+import 'package:submission3nanda/ui/review/controller/review_controller.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/themes/theme.dart';
 import 'package:submission3nanda/utils/routes_helper/app_pages.dart';
 import 'package:submission3nanda/utils/routes_helper/routes.dart';
 import 'package:submission3nanda/utils/widget/custom_error_screen.dart';
-import 'data/base/binding/initial_binding.dart';
+import 'ui/themes/binding/initial_binding.dart';
 import 'data/const/constants.dart';
 import 'utils/widget/keyboards.dart';
 
@@ -28,12 +30,15 @@ void main() async {
   runApp(const MyApp());
 }
 
+final FavoriteController favoriteController =
+    Get.put(FavoriteController(databaseHelper: DatabaseHelper()));
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-        () => KeyboardUtil.hideKeyboard(context);
+    () => KeyboardUtil.hideKeyboard(context);
     final ThemeController _themeController = Get.put(ThemeController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -70,8 +75,7 @@ class MyApp extends StatelessWidget {
                 ResponsiveBreakpoint.resize(1200, name: DESKTOP),
                 ResponsiveBreakpoint.autoScale(2460, name: "4K"),
               ],
-              background: Container(color: Color(0xFFF5F5F5))
-          ),
+              background: Container(color: Color(0xFFF5F5F5))),
         );
       },
       enableLog: kDebugMode,
