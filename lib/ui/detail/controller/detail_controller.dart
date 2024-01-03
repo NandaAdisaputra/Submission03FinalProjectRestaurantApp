@@ -1,32 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:submission3nanda/data/model/detail_restaurant.dart';
-import 'package:submission3nanda/data/network/api_service.dart';
-import 'package:submission3nanda/utils/result_state.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:submission3nanda/data/base/endpoints.dart' as Endpoints;
+import 'package:submission3nanda/ui/review/controller/review_controller.dart';
+import 'package:submission3nanda/utils/error_helper/error_handler.dart';
+
 
 class DetailRestaurantController extends GetxController {
-  late final ApiService apiService;
-  late Rx<DetailRestaurant> _detailRestaurant;
-  late Rx<ResultState> _state;
-  final RxString _message = ''.obs;
+  final reviewController = Get.find<ReviewController>();
+  var listBodyRestaurants;
+  var listBodyRestaurantsMenusFoods = [];
+  var listBodyRestaurantsMenusDrinks = [];
+  var idRestaurant = ' ';
 
-  DetailRestaurant get result => _detailRestaurant.value;
-  ResultState get state => _state.value;
-  String get message => _message.value;
-
-  Future<void> fetchDetailRestaurant(String id) async {
+  Future<dynamic> getListRestaurant() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    String urlDetail = Endpoints.getDetailRestaurant.detail + "/$idRestaurant";
+    final response = await http
+        .get(Uri.parse(urlDetail))
+        .timeout((const Duration(seconds: 5)));
+    var responseJson = json.decode(response.body);
+    listBodyRestaurants = responseJson;
+    listBodyRestaurantsMenusFoods =
+    responseJson['restaurant']['menus']['foods'];
+    listBodyRestaurantsMenusDrinks =
+    responseJson['restaurant']['menus']['drinks'];
     try {
-      if (id.isEmpty) {
-        _state(ResultState.noData);
-        _message('No Data Restaurant Found');
+      if (response.statusCode == 200) {
+        return listBodyRestaurants;
       } else {
-        _state(ResultState.loading);
-        final restaurant = await apiService.detailRestaurant(id);
-        _detailRestaurant.value = restaurant; // Update the value using `.value`
-        _state(ResultState.hasData);
+        throw Exception(ErrorHandler.handle(dynamic));
       }
-    } catch (e) {
-      _state(ResultState.error);
-      _message('Check Your Internet Connection!');
+    } on Error {
+      rethrow;
     }
   }
 }

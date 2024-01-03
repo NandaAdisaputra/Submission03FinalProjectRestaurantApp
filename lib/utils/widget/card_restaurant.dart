@@ -141,7 +141,15 @@ class _CardRestaurantState extends State<CardRestaurant> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (context) => DetailRestaurantScreen(
-                              restaurantId: widget.restaurant.id)),
+                                restaurantID: widget.restaurant.id,
+                                restaurantPICTUREID: widget.restaurant.pictureId,
+                                restaurantNAME: widget.restaurant.name,
+                                restaurantCITY:widget.restaurant.city,
+                                restaurantRATING: widget.restaurant.rating.toString(),
+                                restaurantDESCRIPTION: widget.restaurant.description,
+                                restaurantFood: [],
+                                restaurantDrink: [],
+                              )),
                     ),
                   );
                 },
