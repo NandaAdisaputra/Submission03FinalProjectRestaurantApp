@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:submission3nanda/data/model/detail_restaurant.dart';
-import 'package:submission3nanda/data/preferences/preferences.dart';
+import 'package:submission3nanda/data/preferences/preferences_controller.dart';
 import 'package:submission3nanda/ui/detail/controller/detail_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 
-class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
-  static const routeName = '/restaurant_detail';
+final DetailRestaurantController detailController =
+    Get.put(DetailRestaurantController());
 
+class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
   final String restaurantId;
 
-  const DetailRestaurantScreen({Key? key, required this.restaurantId}) : super(key: key);
+  const DetailRestaurantScreen({Key? key, required this.restaurantId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 double percentSpace =
-                ((constraints.maxHeight - kToolbarHeight) /
-                    (200 - kToolbarHeight));
+                    ((constraints.maxHeight - kToolbarHeight) /
+                        (200 - kToolbarHeight));
                 return FlexibleSpaceBar(
                   centerTitle: percentSpace > 0.5,
                   titlePadding: EdgeInsets.symmetric(
@@ -93,10 +95,13 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                         height: 200,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: controller.result.restaurant.menus.foods.length,
+                          itemCount:
+                              controller.result.restaurant.menus.foods.length,
                           itemBuilder: (context, index) {
                             return _buildFoodItem(
-                                context, controller.result.restaurant.menus.foods[index]);
+                                context,
+                                controller
+                                    .result.restaurant.menus.foods[index]);
                           },
                         ),
                       ),
@@ -110,10 +115,13 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                         height: 200,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: controller.result.restaurant.menus.drinks.length,
+                          itemCount:
+                              controller.result.restaurant.menus.drinks.length,
                           itemBuilder: (context, index) {
-                            return _buildDrinkItem(context,
-                                controller.result.restaurant.menus.drinks[index]);
+                            return _buildDrinkItem(
+                                context,
+                                controller
+                                    .result.restaurant.menus.drinks[index]);
                           },
                         ),
                       ),
@@ -127,20 +135,21 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                         height: 200,
                         decoration: BoxDecoration(
                           color: theme.colorScheme.primary,
-                          border: Border.all(color:  CustomColors.DarkOrange),
+                          border: Border.all(color: CustomColors.DarkOrange),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Obx(
-                              () => ListView.builder(
+                          () => ListView.builder(
                             shrinkWrap: true,
                             physics: const BouncingScrollPhysics(),
-                            itemCount: controller.result.restaurant.customerReviews.length,
+                            itemCount: controller
+                                .result.restaurant.customerReviews.length,
                             itemBuilder: (context, index) {
                               return ListTile(
-                                title: Text(
-                                    controller.result.restaurant.customerReviews[index].name),
-                                subtitle: Text(
-                                    controller.result.restaurant.customerReviews[index].review),
+                                title: Text(controller.result.restaurant
+                                    .customerReviews[index].name),
+                                subtitle: Text(controller.result.restaurant
+                                    .customerReviews[index].review),
                               );
                             },
                           ),
@@ -175,7 +184,7 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
               child: Text(food.name,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    color:  CustomColors.DarkOrange,
+                    color: CustomColors.DarkOrange,
                   )),
             ),
           ],
@@ -203,7 +212,7 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                 drink.name,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  color:  CustomColors.DarkOrange,
+                  color: CustomColors.DarkOrange,
                 ),
               ),
             ),

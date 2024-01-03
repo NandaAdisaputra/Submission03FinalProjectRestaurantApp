@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:submission3nanda/data/preferences/preferences.dart';
 import 'package:submission3nanda/ui/scheduling/sheduling_controller.dart';
+
+import '../../data/preferences/preferences_controller.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);

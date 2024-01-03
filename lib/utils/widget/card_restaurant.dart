@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/model/restaurant_model.dart';
+import 'package:submission3nanda/ui/detail/screen/detail_restaurant_screen.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 import 'package:submission3nanda/utils/resource_helper/fonts.dart';
@@ -136,7 +137,13 @@ class _CardRestaurantState extends State<CardRestaurant> {
                   ],
                 ),
                 onTap: () {
-                  // Navigation.intentWithData(DetailsPage.routeName, restaurant);
+                  Get.to(
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => DetailRestaurantScreen(
+                              restaurantId: widget.restaurant.id)),
+                    ),
+                  );
                 },
               ),
             ),
