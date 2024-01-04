@@ -6,17 +6,13 @@ import 'package:submission3nanda/data/model/detail_restaurant.dart';
 import 'package:submission3nanda/data/model/list_restaurant.dart';
 import 'package:submission3nanda/data/model/review_model.dart';
 import 'package:submission3nanda/utils/error_helper/error_handler.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' show Client;
 import 'package:submission3nanda/data/base/endpoints.dart' as Endpoints;
 
 class ApiService {
   Dio dio = Dio();
-
-  late final Client client;
-
-  ApiService({Client? client}) {
-    this.client = client ?? http.Client();
-  }
+  final Client client;
+  ApiService (this.client);
 
   Future<ListRestaurant> listRestaurant() async {
     debugPrint("Fetching list of restaurants...");

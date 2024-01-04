@@ -1,5 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
@@ -32,7 +33,7 @@ class BackgroundService extends GetxService {
   }
 
   static Future<void> callback() async {
-    print('Alarm fired!');
+    debugPrint('Alarm fired!');
     final NotificationHelper notificationHelper = NotificationHelper();
     var result = await ApiService().listRestaurant();
     await notificationHelper.showNotification(

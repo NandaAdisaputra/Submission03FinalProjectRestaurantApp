@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
+import 'package:submission3nanda/data/preferences/preferences_controller.dart';
 import 'package:submission3nanda/main.dart';
 import 'package:submission3nanda/ui/home/controller/home_controller.dart';
+import 'package:submission3nanda/ui/scheduling/sheduling_controller.dart';
 import 'package:submission3nanda/ui/search/screen/search_restaurant.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/assets.dart';
@@ -14,6 +16,10 @@ import 'package:submission3nanda/utils/widget/load_data_error.dart';
 
 var homeController = Get.put(HomeController(apiService: ApiService()));
 var themeController = Get.put(ThemeController());
+final PreferencesController preferencesController =
+    Get.put(PreferencesController());
+final SchedulingController schedulingController =
+    Get.put(SchedulingController());
 
 class HomeScreen extends GetView<HomeController> {
   HomeScreen({Key? key}) : super(key: key);
@@ -42,7 +48,7 @@ class HomeScreen extends GetView<HomeController> {
                         : CustomColors.DarkOrange,
                     child: InkWell(
                       onTap: () => Get.to(
-                        SearchScreen(),
+                        const SearchScreen(),
                       ),
                       child: const Icon(
                         Icons.search,
@@ -77,6 +83,16 @@ class HomeScreen extends GetView<HomeController> {
                               onTap: () {
                                 favoriteController.changeAppTheme();
                                 Get.back();
+                              },
+                            ),
+                            const Divider(color: Colors.black, height: 36),
+                            SwitchListTile(
+                              title: const Text('Enable Daily Reminder'),
+                              subtitle: const Text('Enable or disable daily reminders'),
+                              value: schedulingController.isRestaurantDailyActive.value,
+                              onChanged: (value) async {
+                                await schedulingController.scheduledRestaurant(value);
+                                preferencesController.enableDailyRestaurant(value);
                               },
                             ),
                           ],

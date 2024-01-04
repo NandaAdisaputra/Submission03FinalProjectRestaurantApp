@@ -1,24 +1,28 @@
+import 'dart:isolate';
+import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:submission3nanda/ui/scheduling/background_service.dart';
-
 import 'date_helper.dart';
 
 class SchedulingController extends GetxController {
-  final RxBool _isScheduled = false.obs;
+  var isRestaurantDailyActive = false.obs;
 
-  bool get isScheduled => _isScheduled.value;
+  bool get isScheduled => isRestaurantDailyActive.value;
 
   Future<bool> scheduledRestaurant(bool value) async {
-    _isScheduled.value = value;
-    if (_isScheduled.value) {
+    isRestaurantDailyActive.value = value;
+    update();
+    if (isRestaurantDailyActive.value) {
       if (kDebugMode) {
         print('Scheduling Restaurant Activated');
       }
       update();
+      final SendPort? send = IsolateNameServer.lookupPortByName('alarmIsolate');
+      send?.send(value);
       return await AndroidAlarmManager.periodic(
-        const Duration(hours: 24),
+        const Duration(hours: 2),
         1,
         BackgroundService.callback,
         startAt: DateTimeHelper.format().value,
@@ -27,10 +31,28 @@ class SchedulingController extends GetxController {
       );
     } else {
       if (kDebugMode) {
-        print('Scheduling Restaurant Canceled');
+        debugPrint('Scheduling Restaurant Canceled');
       }
+      final SendPort? send = IsolateNameServer.lookupPortByName('alarmIsolate');
+      send?.send(value);
       update();
       return await AndroidAlarmManager.cancel(1);
     }
+  }
+
+  void startIsolate() async {
+    ReceivePort port = ReceivePort();
+    IsolateNameServer.registerPortWithName(port.sendPort, 'alarmIsolate');
+
+    await Isolate.spawn(_isolateEntryPoint, port.sendPort);
+  }
+
+  static void _isolateEntryPoint(SendPort sendPort) {
+    final port = ReceivePort();
+    sendPort.send(port.sendPort);
+
+    port.listen((message) {
+      BackgroundService.callback();
+    });
   }
 }
