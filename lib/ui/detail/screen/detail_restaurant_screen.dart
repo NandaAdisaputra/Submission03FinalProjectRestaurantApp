@@ -10,9 +10,11 @@ import 'package:submission3nanda/utils/resource_helper/colors.dart';
 import 'package:submission3nanda/utils/resource_helper/fonts.dart';
 import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 
-final DetailRestaurantController detailController = Get.put(DetailRestaurantController());
+final  detailController = Get.put(DetailRestaurantController());
 
 // ignore: must_be_immutable
+
+//gak direkomendasikan pakai immutable ini mas, mungkin ini bisa di hapus aja bagian ini yang di hapus : // ignore: must_be_immutable
 class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
   DetailRestaurantScreen({
     Key? key,
@@ -22,10 +24,12 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
     required this.restaurantCITY,
     required this.restaurantRATING,
     required this.restaurantDESCRIPTION,
-    required this.restaurantFood,
-    required this.restaurantDrink,
-  }) : super(key: key);
-  final reviewController = detailController.reviewController;
+    // required this.restaurantFood,
+    // required this.restaurantDrink,
+  }) : super(key: key){
+    detailController.getListRestaurant(restaurantID);
+  }
+  // final reviewController = detailController.reviewController;
 
   final String? restaurantID;
   final String? restaurantPICTUREID;
@@ -33,9 +37,9 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
   final String? restaurantCITY;
   final String? restaurantRATING;
   final String? restaurantDESCRIPTION;
-  final List restaurantFood;
-  final List restaurantDrink;
-  var _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  // final List restaurantFood;
+  // final List restaurantDrink;
+  final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -182,55 +186,59 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                     fontFamily: Constants.helvetica))),
                       ],
                     ),
-                    SingleChildScrollView(
-                      child: Column(children: [
+                    Column(
+                      children: [
                         SizedBox(
-                          height: 100 + 12 + 12,
+                          height: 100,
                           child: ListView.builder(
                             shrinkWrap: true,
                             physics: PageScrollPhysics(),
                             scrollDirection: Axis.horizontal,
-                            itemCount: restaurantFood.length,
-                            itemBuilder: (context, index) => AnimatedPadding(
-                              duration: const Duration(milliseconds: 400),
-                              curve: Curves.fastOutSlowIn,
-                              padding: EdgeInsets.all(8),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Card(
-                                  elevation: 8,
-                                  margin: EdgeInsets.all(8),
-                                  shadowColor: CustomColors.OrangePeel,
-                                  color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                      ? CustomColors.SpanishViridian
-                                      : CustomColors.Scarlet,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  semanticContainer: true,
-                                  surfaceTintColor: CustomColors.RoyalBlueDark,
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12),
-                                      child: Text(
-                                        restaurantFood[index]['name'],
-                                        style: TextStyle(
-                                            color:
-                                            Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? CustomColors.White
-                                                : CustomColors.MiddleYellow,
-                                            fontSize: displayWidth(context) *
-                                                FontSize.s0045,
-                                            fontWeight: FontWeight.bold),
+                            itemCount: detailController.result.value.restaurant?.menus.foods.length,
+                            itemBuilder: (context, index) {
+                              String? dataFood = detailController.result.value.restaurant?.menus.foods[index].name;
+                              debugPrint("hahshasha $dataFood");
+                              return AnimatedPadding(
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.fastOutSlowIn,
+                                padding: EdgeInsets.all(8),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Card(
+                                    elevation: 8,
+                                    margin: EdgeInsets.all(8),
+                                    shadowColor: CustomColors.OrangePeel,
+                                    color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                        ? CustomColors.SpanishViridian
+                                        : CustomColors.Scarlet,
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    semanticContainer: true,
+                                    surfaceTintColor: CustomColors.RoyalBlueDark,
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
+                                        child: Text(
+                                          dataFood ?? '',
+                                          style: TextStyle(
+                                              color:
+                                              Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                                  ? CustomColors.White
+                                                  : CustomColors.MiddleYellow,
+                                              fontSize: displayWidth(context) *
+                                                  FontSize.s0045,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                         ),
-                      ]),
+                      ],
                     ),
                     Row(
                       children: [
@@ -253,56 +261,57 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                     fontFamily: Constants.helvetica))),
                       ],
                     ),
-                    SingleChildScrollView(
-                      child: Column(children: [
-                        SizedBox(
-                          height: 100 + 12 + 12,
-                          child: ListView.builder(
+                    Column(children: [
+                      SizedBox(
+                        height: 100,
+                        child: ListView.builder(
                             shrinkWrap: true,
                             physics: PageScrollPhysics(),
                             scrollDirection: Axis.horizontal,
-                            itemCount: restaurantDrink.length,
-                            itemBuilder: (context, index) => AnimatedPadding(
-                              duration: const Duration(milliseconds: 400),
-                              curve: Curves.fastOutSlowIn,
-                              padding: EdgeInsets.all(8),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Card(
-                                  elevation: 8,
-                                  color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                      ? CustomColors.DarkOrange
-                                      : CustomColors.RoyalBlueDark,
-                                  margin: EdgeInsets.all(8),
-                                  shadowColor: CustomColors.OrangePeel,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  semanticContainer: true,
-                                  surfaceTintColor: CustomColors.RoyalBlueDark,
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12),
-                                      child: Text(
-                                        restaurantDrink[index]['name'],
-                                        style: TextStyle(
-                                            color:
-                                            Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? CustomColors.White
-                                                : CustomColors.MiddleYellow,
-                                            fontSize: displayWidth(context) *
-                                                FontSize.s0045,
-                                            fontWeight: FontWeight.bold),
+                            itemCount: detailController.result.value.restaurant?.menus.drinks.length,
+                            itemBuilder: (context, index) {
+                              var dataDrink = detailController.result.value.restaurant?.menus.drinks[index].name;
+                              return AnimatedPadding(
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.fastOutSlowIn,
+                                padding: EdgeInsets.all(8),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Card(
+                                    elevation: 8,
+                                    color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                        ? CustomColors.DarkOrange
+                                        : CustomColors.RoyalBlueDark,
+                                    margin: EdgeInsets.all(8),
+                                    shadowColor: CustomColors.OrangePeel,
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    semanticContainer: true,
+                                    surfaceTintColor: CustomColors.RoyalBlueDark,
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
+                                        child: Text(
+                                          dataDrink ?? '',
+                                          style: TextStyle(
+                                              color:
+                                              Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                                  ? CustomColors.White
+                                                  : CustomColors.MiddleYellow,
+                                              fontSize: displayWidth(context) *
+                                                  FontSize.s0045,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
+                              );
+                            }
                         ),
-                      ]),
-                    ),
+                      ),
+                    ]),
                   ]),
             ),
           ]),
@@ -397,6 +406,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
 
   Future<void> _handleRefresh() async {
     _refreshIndicatorKey.currentState?.show(atTop: false);
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2), (){
+      detailController.getListRestaurant(restaurantID);
+    });
   }
 }

@@ -41,17 +41,21 @@ class ApiService {
     }
   }
 
-  Future<DetailRestaurant> detailRestaurant(String id) async {
-    final response = await client.get(
-      Uri.parse('${base}detail/$id'),
-    );
-    if (response.statusCode == 200) {
-      return DetailRestaurant.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      throw Exception('Failed to load detail restaurant');
-    }
+  Future<DetailRestaurant> detailRestaurant(String? id) async {
+
+     final response = await client.get(
+       Uri.parse(Endpoints.getDetailRestaurant.detail + id.toString()),
+     );
+     if (response.statusCode == 200) {
+       return DetailRestaurant.fromJson(
+         json.decode(response.body),
+       );
+     } else {
+       throw DetailRestaurant.fromJson(
+         json.decode(response.body),
+       );
+     }
+
   }
 
   Future<List<Review>> createReview(

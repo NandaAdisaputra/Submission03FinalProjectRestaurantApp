@@ -137,21 +137,16 @@ class _CardRestaurantState extends State<CardRestaurant> {
                   ],
                 ),
                 onTap: () {
-                  Get.to(
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => DetailRestaurantScreen(
-                                restaurantID: widget.restaurant.id,
-                                restaurantPICTUREID: widget.restaurant.pictureId,
-                                restaurantNAME: widget.restaurant.name,
-                                restaurantCITY:widget.restaurant.city,
-                                restaurantRATING: widget.restaurant.rating.toString(),
-                                restaurantDESCRIPTION: widget.restaurant.description,
-                                restaurantFood: [],
-                                restaurantDrink: [],
-                              )),
-                    ),
-                  );
+                  Get.to(() => DetailRestaurantScreen(
+                    restaurantID: widget.restaurant.id,
+                    restaurantPICTUREID: widget.restaurant.pictureId,
+                    restaurantNAME: widget.restaurant.name,
+                    restaurantCITY:widget.restaurant.city,
+                    restaurantRATING: widget.restaurant.rating.toString(),
+                    restaurantDESCRIPTION: widget.restaurant.description,
+                    // restaurantFood: [],
+                    // restaurantDrink: [],
+                  ));
                 },
               ),
             ),

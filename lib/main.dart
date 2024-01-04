@@ -30,7 +30,7 @@ void main() async {
   await GetStorage.init();
   Get.put(ReviewController());
   Get.put(PreferencesController());
-  Get.put(DetailRestaurantController());
+  // Get.put(DetailRestaurantController());
   runApp(const MyApp());
 }
 

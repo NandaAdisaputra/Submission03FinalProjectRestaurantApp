@@ -9,7 +9,7 @@ class _getPicture {
 }
 
 class _getDetailRestaurant {
-  final detail = BASE_URL.base + "/detail";
+  final detail = BASE_URL.base + "/detail/";
 }
 
 class _getSearch {
