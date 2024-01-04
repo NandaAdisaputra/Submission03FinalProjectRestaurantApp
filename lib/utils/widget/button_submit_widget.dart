@@ -35,12 +35,12 @@ class ButtonSubmitWidget extends StatelessWidget {
           children: [
             iconData != null
                 ? Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: Icon(
-                iconData,
-                color: textColor,
-              ),
-            )
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Icon(
+                      iconData,
+                      color: textColor,
+                    ),
+                  )
                 : Container(),
             Flexible(
               child: Text(
@@ -55,18 +55,18 @@ class ButtonSubmitWidget extends StatelessWidget {
             ),
             loading == true
                 ? Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    textColor!,
-                  ),
-                ),
-              ),
-            )
+                    padding: const EdgeInsets.only(left: 8),
+                    child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          textColor!,
+                        ),
+                      ),
+                    ),
+                  )
                 : Container(),
           ],
         ),

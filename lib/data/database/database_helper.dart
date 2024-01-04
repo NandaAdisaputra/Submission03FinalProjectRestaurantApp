@@ -58,7 +58,7 @@ class DatabaseHelper {
   Future<Map> getFavoriteById(String id) async {
     final db = await database;
     List<Map<String, dynamic>> results =
-    await db!.query(_tblFavorite, where: 'id = ?', whereArgs: [id]);
+        await db!.query(_tblFavorite, where: 'id = ?', whereArgs: [id]);
 
     if (results.isNotEmpty) {
       return results.first;

@@ -35,6 +35,7 @@ class SearchRestaurantController extends GetxController {
       isDataLoading(false);
       rethrow;
     } finally {
+      update();
     }
   }
 }

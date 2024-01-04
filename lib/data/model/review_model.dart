@@ -6,7 +6,7 @@ class Review {
 
   Review(
       {required this.id,
-        required this.name,
-        required this.review,
-        required this.date});
+      required this.name,
+      required this.review,
+      required this.date});
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:submission3nanda/data/const/constants.dart';
+import 'package:submission3nanda/data/model/review_model.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/utils/widget/custom_progress_indicator.dart';
-
-import '../../../data/model/review_model.dart';
 
 class ReviewController extends GetxController {
   final ApiService apiServices = ApiService();
@@ -13,11 +12,6 @@ class ReviewController extends GetxController {
   final readPrivacy = false.obs;
   final enableIntroButton = false.obs;
   var isDataLoading = false.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   Future<void> createReview(
       {required String? id,

@@ -42,7 +42,7 @@ class HomeScreen extends GetView<HomeController> {
                         : CustomColors.DarkOrange,
                     child: InkWell(
                       onTap: () => Get.to(
-                         SearchScreen(),
+                        SearchScreen(),
                       ),
                       child: const Icon(
                         Icons.search,
@@ -105,7 +105,7 @@ class HomeScreen extends GetView<HomeController> {
 
   Widget _buildList(BuildContext context) {
     final state = homeController.state;
-    print("Controller state: $state");
+    debugPrint("Controller state: $state");
     if (state == ResultState.error) {
       return LoadDataError(
         title: 'Problem Occurred',
@@ -118,7 +118,7 @@ class HomeScreen extends GetView<HomeController> {
     } else if (state == ResultState.hasData) {
       final dataList = homeController.result;
       if (dataList.restaurants.isEmpty) {
-        print("Data in dataList.restaurants: ${dataList.restaurants}");
+        debugPrint("Data in dataList.restaurants: ${dataList.restaurants}");
         return const Center(
           child: Text('Tidak ada data ditemukan'),
         );
@@ -126,7 +126,7 @@ class HomeScreen extends GetView<HomeController> {
       return ListView.builder(
         itemCount: dataList.restaurants.length,
         itemBuilder: (context, index) {
-          print("Building CardRestaurant for index $index");
+          debugPrint("Building CardRestaurant for index $index");
           return CardRestaurant(restaurant: dataList.restaurants[index]);
         },
       );

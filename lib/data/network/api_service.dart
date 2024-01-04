@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:submission3nanda/data/base/base_url.dart';
 import 'package:submission3nanda/data/model/detail_restaurant.dart';
 import 'package:submission3nanda/data/model/list_restaurant.dart';
 import 'package:submission3nanda/data/model/review_model.dart';
@@ -12,9 +11,6 @@ import 'package:submission3nanda/data/base/endpoints.dart' as Endpoints;
 
 class ApiService {
   Dio dio = Dio();
-  // ApiServices() {
-  //   dio = Dio(BaseOptions(baseUrl: base));
-  // }
 
   late final Client client;
 
@@ -23,39 +19,38 @@ class ApiService {
   }
 
   Future<ListRestaurant> listRestaurant() async {
-    print("Fetching list of restaurants...");
+    debugPrint("Fetching list of restaurants...");
 
     final response = await client.get(
       Uri.parse(Endpoints.getListRestaurant.list),
     );
 
     if (response.statusCode == 200) {
-      print("Response body: ${response.body}");
+      debugPrint("Response body: ${response.body}");
 
       return ListRestaurant.fromJson(
         json.decode(response.body),
       );
     } else {
-      print("Failed to load list restaurant. Status code: ${response.statusCode}");
+      debugPrint(
+          "Failed to load list restaurant. Status code: ${response.statusCode}");
       throw Exception('Failed to load list restaurant');
     }
   }
 
   Future<DetailRestaurant> detailRestaurant(String? id) async {
-
-     final response = await client.get(
-       Uri.parse(Endpoints.getDetailRestaurant.detail + id.toString()),
-     );
-     if (response.statusCode == 200) {
-       return DetailRestaurant.fromJson(
-         json.decode(response.body),
-       );
-     } else {
-       throw DetailRestaurant.fromJson(
-         json.decode(response.body),
-       );
-     }
-
+    final response = await client.get(
+      Uri.parse(Endpoints.getDetailRestaurant.detail + id.toString()),
+    );
+    if (response.statusCode == 200) {
+      return DetailRestaurant.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      throw DetailRestaurant.fromJson(
+        json.decode(response.body),
+      );
+    }
   }
 
   Future<List<Review>> createReview(

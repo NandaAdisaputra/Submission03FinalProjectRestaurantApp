@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
-import '../../../utils/resource_helper/sizes.dart';
-import '../../../utils/resource_helper/strings.dart';
+import 'package:submission3nanda/utils/resource_helper/sizes.dart';
+import 'package:submission3nanda/utils/resource_helper/strings.dart';
 
 var reviewRestaurantController = Get.put(ReviewController());
 
@@ -37,14 +37,14 @@ class AddReviewScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
-          margin: EdgeInsets.fromLTRB(16, 8, 8, 8),
+          margin: const EdgeInsets.fromLTRB(16, 8, 8, 8),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             TextField(
               controller: nameController,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(
+                  border: const OutlineInputBorder(),
+                  prefixIcon: const Icon(
                     Icons.person,
                     color: Colors.deepOrange,
                   ),
@@ -54,8 +54,8 @@ class AddReviewScreen extends StatelessWidget {
             TextField(
               controller: reviewController,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(
+                  border: const OutlineInputBorder(),
+                  prefixIcon: const Icon(
                     Icons.description,
                     color: Colors.deepOrange,
                   ),
@@ -65,8 +65,8 @@ class AddReviewScreen extends StatelessWidget {
             TextField(
               controller: dateController,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(
+                  border: const OutlineInputBorder(),
+                  prefixIcon: const Icon(
                     Icons.date_range,
                     color: Colors.deepOrange,
                   ),
@@ -74,7 +74,7 @@ class AddReviewScreen extends StatelessWidget {
                   hintText: AppStrings.reviewDate),
             ),
             AppSizes.hSizeBox20,
-            Container(
+            SizedBox(
               height: 45,
               width: double.infinity,
               child: ElevatedButton(

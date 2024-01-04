@@ -5,7 +5,7 @@ import 'package:submission3nanda/ui/review/controller/review_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 import 'package:submission3nanda/utils/resource_helper/strings.dart';
-import '../controller/text_field_controller.dart';
+import 'text_field_controller.dart';
 
 class AddReviewFormScreen extends StatelessWidget {
   final ReviewController reviewController = Get.find();

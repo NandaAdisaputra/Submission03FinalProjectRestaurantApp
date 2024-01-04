@@ -261,7 +261,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
           ),
         );
       } else if (detailController.state == ResultState.error) {
-        debugPrint('Error: ${detailController.result.value.error}');
+        final error = detailController.result.value.error;
+        debugPrint('Error: $error');
         return const Center(child: Text('Error occurred'));
       } else {
         return const Center(child: Text('Empty state'));

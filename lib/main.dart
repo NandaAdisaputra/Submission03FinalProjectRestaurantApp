@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:submission3nanda/data/preferences/preferences_controller.dart';
-import 'package:submission3nanda/ui/detail/controller/detail_controller.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
@@ -29,8 +27,6 @@ void main() async {
   InitialBinding().dependencies();
   await GetStorage.init();
   Get.put(ReviewController());
-  Get.put(PreferencesController());
-  // Get.put(DetailRestaurantController());
   runApp(const MyApp());
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:submission3nanda/ui/detail/screen/detail_restaurant_screen.dart';
 import 'package:submission3nanda/ui/search/controller/search_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/assets.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
@@ -87,174 +88,192 @@ class SearchScreen extends GetView<SearchController> {
                                           var data = searchController
                                               .listBodyRestaurants[index];
                                           return InkWell(
-                                              onTap: () {},
-                                              child: Card(
-                                                margin: const EdgeInsets.only(
-                                                    left: 12,
-                                                    right: 8,
-                                                    top: 4,
-                                                    bottom: 12),
-                                                color: Theme.of(context)
-                                                    .brightness ==
-                                                    Brightness.dark
-                                                    ? CustomColors.Jet
-                                                    : CustomColors.Lavender,
-                                                elevation: 8,
-                                                child: Row(
-                                                  children: [
-                                                    Flexible(
-                                                      child: Container(
-                                                        padding:
-                                                        const EdgeInsets.fromLTRB(
-                                                            16, 12, 8, 12),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(10),
-                                                          child: Image.network(
-                                                              'https://restaurant-api.dicoding.dev/images/medium/${data[Constants.image]}',
-                                                              fit: BoxFit.cover,
-                                                              width:
-                                                              MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .width,
-                                                              height: 80),
-                                                        ),
+                                            onTap: () {
+                                              Get.to(
+                                                () => DetailRestaurantScreen(
+                                                    restaurantID:
+                                                        data[Constants.id],
+                                                    restaurantNAME:
+                                                        data[Constants.name],
+                                                    restaurantCITY:
+                                                        data[Constants.city],
+                                                    restaurantDESCRIPTION: data[
+                                                        Constants.description],
+                                                    restaurantPICTUREID:
+                                                        data[Constants.image],
+                                                    restaurantRATING:
+                                                        data[Constants.rating]
+                                                            .toString()),
+                                              );
+                                            },
+                                            child: Card(
+                                              margin: const EdgeInsets.only(
+                                                  left: 12,
+                                                  right: 8,
+                                                  top: 4,
+                                                  bottom: 12),
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? CustomColors.Jet
+                                                  : CustomColors.Lavender,
+                                              elevation: 8,
+                                              child: Row(
+                                                children: [
+                                                  Flexible(
+                                                    child: Container(
+                                                      padding: const EdgeInsets
+                                                          .fromLTRB(
+                                                          16, 12, 8, 12),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        child: Image.network(
+                                                            'https://restaurant-api.dicoding.dev/images/medium/${data[Constants.image]}',
+                                                            fit: BoxFit.cover,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            height: 80),
                                                       ),
                                                     ),
-                                                    AppSizes.wSizeBox15,
-                                                    SizedBox(
-                                                        height: 50,
-                                                        child: VerticalDivider(
-                                                            color: Theme.of(context)
-                                                                .brightness ==
-                                                                Brightness
-                                                                    .dark
-                                                                ? CustomColors
-                                                                .DarkOrange
-                                                                : CustomColors
-                                                                .Scarlet)),
-                                                    Flexible(
-                                                      flex: 2,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                data[Constants
-                                                                    .name],
-                                                                style: TextStyle(
-                                                                    color: Theme.of(context).brightness ==
-                                                                        Brightness
-                                                                            .dark
-                                                                        ? CustomColors
-                                                                        .OrangePeel
-                                                                        : CustomColors
-                                                                        .DarkOrange,
-                                                                    fontSize: displayWidth(
-                                                                        context) *
-                                                                        FontSize
-                                                                            .s0045,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                    fontFamily:
-                                                                    Constants
-                                                                        .helvetica),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                  Icons
-                                                                      .location_on_outlined,
-                                                                  color: Theme.of(context)
+                                                  ),
+                                                  AppSizes.wSizeBox15,
+                                                  SizedBox(
+                                                      height: 50,
+                                                      child: VerticalDivider(
+                                                          color: Theme.of(context)
                                                                       .brightness ==
-                                                                      Brightness
-                                                                          .dark
-                                                                      ? CustomColors
-                                                                      .GreenRyb
-                                                                      : CustomColors
-                                                                      .Scarlet),
-                                                              AppSizes
-                                                                  .wSizeBox8,
-                                                              Text(
-                                                                data[Constants
-                                                                    .city],
-                                                                style: TextStyle(
-                                                                    fontSize: displayWidth(
-                                                                        context) *
-                                                                        FontSize
-                                                                            .s0045,
-                                                                    color: Theme.of(context)
-                                                                        .brightness ==
-                                                                        Brightness
-                                                                            .dark
-                                                                        ? CustomColors
-                                                                        .GreenRyb
-                                                                        : CustomColors
-                                                                        .Scarlet),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          AppSizes.hSizeBox15,
-                                                          Row(
-                                                            children: [
-                                                              RatingBar.builder(
-                                                                ignoreGestures:
-                                                                true,
-                                                                itemSize: displayWidth(
-                                                                    context) *
-                                                                    FontSize
-                                                                        .s005,
-                                                                initialRating: data[
-                                                                Constants
-                                                                    .rating]
-                                                                    .toDouble(),
-                                                                glowColor: Colors
-                                                                    .transparent,
-                                                                minRating: 1,
-                                                                direction: Axis
-                                                                    .horizontal,
-                                                                allowHalfRating:
-                                                                true,
-                                                                itemCount: 5,
-                                                                itemPadding: const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                    4.0),
-                                                                itemBuilder:
-                                                                    (context,
-                                                                    _) =>
-                                                                    Icon(
-                                                                      Icons.star,
-                                                                      color: Theme.of(context)
-                                                                          .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? CustomColors
+                                                                  .DarkOrange
+                                                              : CustomColors
+                                                                  .Scarlet)),
+                                                  Flexible(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              data[Constants
+                                                                  .name],
+                                                              style: TextStyle(
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
                                                                           Brightness
                                                                               .dark
-                                                                          ? CustomColors
-                                                                          .Gold
-                                                                          : CustomColors
-                                                                          .DarkCornflowerBlue,
-                                                                    ),
-                                                                onRatingUpdate:
-                                                                    (rating) {},
+                                                                      ? CustomColors
+                                                                          .OrangePeel
+                                                                      : CustomColors
+                                                                          .DarkOrange,
+                                                                  fontSize: displayWidth(
+                                                                          context) *
+                                                                      FontSize
+                                                                          .s0045,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontFamily:
+                                                                      Constants
+                                                                          .helvetica),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Icon(
+                                                                Icons
+                                                                    .location_on_outlined,
+                                                                color: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? CustomColors
+                                                                        .GreenRyb
+                                                                    : CustomColors
+                                                                        .Scarlet),
+                                                            AppSizes.wSizeBox8,
+                                                            Text(
+                                                              data[Constants
+                                                                  .city],
+                                                              style: TextStyle(
+                                                                  fontSize: displayWidth(
+                                                                          context) *
+                                                                      FontSize
+                                                                          .s0045,
+                                                                  color: Theme.of(context)
+                                                                              .brightness ==
+                                                                          Brightness
+                                                                              .dark
+                                                                      ? CustomColors
+                                                                          .GreenRyb
+                                                                      : CustomColors
+                                                                          .Scarlet),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        AppSizes.hSizeBox15,
+                                                        Row(
+                                                          children: [
+                                                            RatingBar.builder(
+                                                              ignoreGestures:
+                                                                  true,
+                                                              itemSize:
+                                                                  displayWidth(
+                                                                          context) *
+                                                                      FontSize
+                                                                          .s005,
+                                                              initialRating: data[
+                                                                      Constants
+                                                                          .rating]
+                                                                  .toDouble(),
+                                                              glowColor: Colors
+                                                                  .transparent,
+                                                              minRating: 1,
+                                                              direction: Axis
+                                                                  .horizontal,
+                                                              allowHalfRating:
+                                                                  true,
+                                                              itemCount: 5,
+                                                              itemPadding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          4.0),
+                                                              itemBuilder:
+                                                                  (context,
+                                                                          _) =>
+                                                                      Icon(
+                                                                Icons.star,
+                                                                color: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? CustomColors
+                                                                        .Gold
+                                                                    : CustomColors
+                                                                        .DarkCornflowerBlue,
                                                               ),
-                                                              AppSizes
-                                                                  .wSizeBox50
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
+                                                              onRatingUpdate:
+                                                                  (rating) {},
+                                                            ),
+                                                            AppSizes.wSizeBox50
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
                                               ),
+                                            ),
                                           );
                                         },
                                       );

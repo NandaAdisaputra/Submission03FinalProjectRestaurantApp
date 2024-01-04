@@ -1,13 +1,12 @@
-
 class DetailRestaurant {
   bool? error;
   String? message;
   Restaurant? restaurant;
 
   DetailRestaurant({
-     this.error,
-     this.message,
-     this.restaurant,
+    this.error,
+    this.message,
+    this.restaurant,
   });
 
   factory DetailRestaurant.fromJson(Map<String, dynamic> json) {
@@ -148,8 +147,10 @@ class Menus {
 
   factory Menus.fromJson(Map<String, dynamic> json) {
     return Menus(
-      foods: List<Category>.from(json["foods"].map((x) => Category.fromJson(x))),
-      drinks: List<Category>.from(json["drinks"].map((x) => Category.fromJson(x))),
+      foods:
+          List<Category>.from(json["foods"].map((x) => Category.fromJson(x))),
+      drinks:
+          List<Category>.from(json["drinks"].map((x) => Category.fromJson(x))),
     );
   }
 

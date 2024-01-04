@@ -1,14 +1,12 @@
 import 'package:get/get.dart';
-import 'package:submission3nanda/ui/favorite/binding/favorite_binding.dart';
-import 'package:submission3nanda/ui/favorite/screen/favorite_screen.dart';
 import 'package:submission3nanda/ui/home/binding/home_binding.dart';
 import 'package:submission3nanda/ui/navbar/binding/navbar_binding.dart';
 import 'package:submission3nanda/ui/review/binding/review_binding.dart';
+import 'package:submission3nanda/ui/review/screen/add_field_review_screen.dart';
 import 'package:submission3nanda/ui/search/binding/search_binding.dart';
 import 'package:submission3nanda/ui/splash/binding/splash_binding.dart';
 import 'package:submission3nanda/ui/home/screen/home_screen.dart';
 import 'package:submission3nanda/ui/navbar/screen/navbar_screen.dart';
-import 'package:submission3nanda/ui/review/screen/add_field_review_screen.dart';
 import 'package:submission3nanda/ui/search/screen/search_restaurant.dart';
 import 'package:submission3nanda/ui/splash/screen/splash_screen.dart';
 import 'package:submission3nanda/utils/routes_helper/routes.dart';
