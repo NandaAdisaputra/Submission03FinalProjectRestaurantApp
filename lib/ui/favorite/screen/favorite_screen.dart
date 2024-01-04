@@ -75,7 +75,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   ? Constants.lightMode
                                   : Constants.darkMode),
                               onTap: () {
-                                // favoriteController.changeAppTheme();
+                                favoriteController.changeAppTheme();
                                 Get.back();
                               },
                             ),

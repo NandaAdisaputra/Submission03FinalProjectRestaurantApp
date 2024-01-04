@@ -6,27 +6,23 @@ import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
 import 'package:submission3nanda/utils/result_state.dart';
 
-
 class DetailRestaurantController extends GetxController {
-
   final reviewController = Get.find<ReviewController>();
   String? idRestaurant = ' ';
-  DetailRestaurantController({this.idRestaurant = ''}){
+
+  DetailRestaurantController({this.idRestaurant = ''}) {
     getListRestaurant(idRestaurant);
   }
-  // var listBodyRestaurants;
-  // var listBodyRestaurantsMenusFoods = [];
-  // var listBodyRestaurantsMenusDrinks = [];
+
   final Rx<DetailRestaurant> _listRestaurant = DetailRestaurant().obs;
-  late final Rx<ResultState> _state = ResultState.loading.obs;
-  final  RxString _message = ''.obs;
+  final Rx<ResultState> _state = ResultState.loading.obs;
+  final RxString _message = ''.obs;
 
   RxString get message => _message;
 
   Rx<DetailRestaurant> get result => _listRestaurant;
 
   ResultState get state => _state.value;
-
 
   Future<dynamic> getListRestaurant(String? idRestaurant) async {
     try {
@@ -44,29 +40,10 @@ class DetailRestaurantController extends GetxController {
         debugPrint("data $restaurant");
       }
     } catch (e) {
-      _state(ResultState.error); // Set the value using the Rx object
-      update();
+      _state(ResultState.error);
       _message('Check Your Internet Connection!');
-    }
-    // WidgetsFlutterBinding.ensureInitialized();
-    // String urlDetail = Endpoints.getDetailRestaurant.detail + "/$idRestaurant";
-    // final response = await http
-    //     .get(Uri.parse(urlDetail))
-    //     .timeout((const Duration(seconds: 5)));
-    // var responseJson = json.decode(response.body);
-    // listBodyRestaurants = responseJson;
-    // listBodyRestaurantsMenusFoods =
-    // responseJson['restaurant']['menus']['foods'];
-    // listBodyRestaurantsMenusDrinks =
-    // responseJson['restaurant']['menus']['drinks'];
-    // try {
-    //   if (response.statusCode == 200) {
-    //     return listBodyRestaurants;
-    //   } else {
-    //     throw Exception(ErrorHandler.handle(dynamic));
-    //   }
-    // } on Error {
-    //   rethrow;
-    // }
+    } finally {
+      update();
+    } // Set the value using the Rx object
   }
 }

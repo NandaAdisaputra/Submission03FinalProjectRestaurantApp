@@ -143,9 +143,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                     restaurantNAME: widget.restaurant.name,
                     restaurantCITY:widget.restaurant.city,
                     restaurantRATING: widget.restaurant.rating.toString(),
-                    restaurantDESCRIPTION: widget.restaurant.description,
-                    // restaurantFood: [],
-                    // restaurantDrink: [],
+                    restaurantDESCRIPTION: widget.restaurant.description
                   ));
                 },
               ),
