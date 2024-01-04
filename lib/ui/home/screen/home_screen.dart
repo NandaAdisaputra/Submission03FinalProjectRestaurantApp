@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/data/preferences/preferences_controller.dart';
@@ -14,7 +15,7 @@ import 'package:submission3nanda/utils/result_state.dart';
 import 'package:submission3nanda/utils/widget/card_restaurant.dart';
 import 'package:submission3nanda/utils/widget/load_data_error.dart';
 
-var homeController = Get.put(HomeController(apiService: ApiService()));
+var homeController = Get.put(HomeController(apiService: ApiService(Client())));
 var themeController = Get.put(ThemeController());
 final PreferencesController preferencesController =
     Get.put(PreferencesController());
@@ -24,7 +25,7 @@ final SchedulingController schedulingController =
 class HomeScreen extends GetView<HomeController> {
   HomeScreen({Key? key}) : super(key: key);
 
-  final homeController = Get.put(HomeController(apiService: ApiService()));
+  final homeController = Get.put(HomeController(apiService: ApiService(Client())));
   final themeController = Get.put(ThemeController());
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
@@ -21,7 +22,7 @@ import 'utils/widget/keyboards.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  var apiService = ApiService();
+  var apiService = ApiService(Client());
   Get.put(HomeController(apiService: apiService));
   await Hive.openBox('settings');
   InitialBinding().dependencies();

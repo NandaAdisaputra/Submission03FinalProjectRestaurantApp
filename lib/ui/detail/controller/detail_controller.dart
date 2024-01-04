@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:submission3nanda/data/model/detail_restaurant.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
@@ -28,7 +29,7 @@ class DetailRestaurantController extends GetxController {
     try {
       _state(ResultState.loading); // Set the value using the Rx object
       update();
-      final restaurant = await ApiService().detailRestaurant(idRestaurant);
+      final restaurant = await ApiService(Client()).detailRestaurant(idRestaurant);
       if (restaurant.restaurant == null) {
         _state(ResultState.noData); // Set the value using the Rx object
         update();

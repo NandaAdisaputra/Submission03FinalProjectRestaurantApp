@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/model/review_model.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/utils/widget/custom_progress_indicator.dart';
 
 class ReviewController extends GetxController {
-  final ApiService apiServices = ApiService();
+  final ApiService apiServices = ApiService(Client());
   final reviews = <Review>[].obs;
   final readTerms = false.obs;
   final readPrivacy = false.obs;

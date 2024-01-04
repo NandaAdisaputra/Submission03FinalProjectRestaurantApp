@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:submission3nanda/data/model/list_restaurant.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 
@@ -58,7 +59,7 @@ class NotificationHelper extends GetxController {
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,
     );
-    var restaurantList = await ApiService().listRestaurant();
+    var restaurantList = await ApiService(Client()).listRestaurant();
     var restaurantItem = restaurantList.restaurants;
 
     var randomIndex = Random().nextInt(restaurantItem.length);
