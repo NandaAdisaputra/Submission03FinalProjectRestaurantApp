@@ -21,7 +21,7 @@ class SearchScreen extends GetView<SearchController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:
-            Get.isDarkMode ? CustomColors.Jet : CustomColors.DarkOrange,
+            Get.isDarkMode ? CustomColors.jetColor : CustomColors.darkOrange,
         elevation: 0,
       ),
       body: SafeArea(
@@ -38,8 +38,8 @@ class SearchScreen extends GetView<SearchController> {
                       Constants.search,
                       style: TextStyle(
                           color: Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.White
-                              : CustomColors.DarkOrange,
+                              ? CustomColors.whiteColor
+                              : CustomColors.darkOrange,
                           fontSize: displayWidth(context) * 0.08,
                           fontWeight: FontWeight.bold),
                     ),
@@ -49,8 +49,8 @@ class SearchScreen extends GetView<SearchController> {
                       Constants.searchRestaurantYourLikes,
                       style: TextStyle(
                           color: Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.White
-                              : CustomColors.DarkOrange,
+                              ? CustomColors.whiteColor
+                              : CustomColors.darkOrange,
                           fontSize: displayWidth(context) * 0.05),
                     ),
                   ),
@@ -64,8 +64,8 @@ class SearchScreen extends GetView<SearchController> {
                         prefixIcon: Icon(
                           Icons.search,
                           color: Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.White
-                              : CustomColors.DarkOrange,
+                              ? CustomColors.whiteColor
+                              : CustomColors.darkOrange,
                         ),
                         labelText: Constants.inputData,
                         hintText: Constants.search),
@@ -76,7 +76,7 @@ class SearchScreen extends GetView<SearchController> {
                       height: Get.height,
                       child: Center(
                         child: Container(
-                          child: searchController.queryInp != ''
+                          child: searchController.queryInp.value.isNotEmpty
                               ? FutureBuilder(
                                   future: searchController.getListRestaurant(),
                                   builder: (context, snapshot) {
@@ -115,8 +115,8 @@ class SearchScreen extends GetView<SearchController> {
                                               color: Theme.of(context)
                                                           .brightness ==
                                                       Brightness.dark
-                                                  ? CustomColors.Jet
-                                                  : CustomColors.Lavender,
+                                                  ? CustomColors.jetColor
+                                                  : CustomColors.lavenderColor,
                                               elevation: 8,
                                               child: Row(
                                                 children: [
@@ -150,9 +150,9 @@ class SearchScreen extends GetView<SearchController> {
                                                                   Brightness
                                                                       .dark
                                                               ? CustomColors
-                                                                  .DarkOrange
+                                                                  .darkOrange
                                                               : CustomColors
-                                                                  .Scarlet)),
+                                                                  .scarletColor)),
                                                   Flexible(
                                                     flex: 2,
                                                     child: Column(
@@ -171,9 +171,9 @@ class SearchScreen extends GetView<SearchController> {
                                                                           Brightness
                                                                               .dark
                                                                       ? CustomColors
-                                                                          .OrangePeel
+                                                                          .orangePeel
                                                                       : CustomColors
-                                                                          .DarkOrange,
+                                                                          .darkOrange,
                                                                   fontSize: displayWidth(
                                                                           context) *
                                                                       FontSize
@@ -197,9 +197,9 @@ class SearchScreen extends GetView<SearchController> {
                                                                         Brightness
                                                                             .dark
                                                                     ? CustomColors
-                                                                        .GreenRyb
+                                                                        .greenRyb
                                                                     : CustomColors
-                                                                        .Scarlet),
+                                                                        .scarletColor),
                                                             AppSizes.wSizeBox8,
                                                             Text(
                                                               data[Constants
@@ -214,9 +214,9 @@ class SearchScreen extends GetView<SearchController> {
                                                                           Brightness
                                                                               .dark
                                                                       ? CustomColors
-                                                                          .GreenRyb
+                                                                          .greenRyb
                                                                       : CustomColors
-                                                                          .Scarlet),
+                                                                          .scarletColor),
                                                             ),
                                                           ],
                                                         ),
@@ -258,9 +258,9 @@ class SearchScreen extends GetView<SearchController> {
                                                                         Brightness
                                                                             .dark
                                                                     ? CustomColors
-                                                                        .Gold
+                                                                        .goldColor
                                                                     : CustomColors
-                                                                        .DarkCornflowerBlue,
+                                                                        .darkCornflowerBlue,
                                                               ),
                                                               onRatingUpdate:
                                                                   (rating) {},

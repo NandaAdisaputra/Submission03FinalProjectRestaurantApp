@@ -63,8 +63,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                           style: TextStyle(
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
-                                  ? CustomColors.Pear
-                                  : CustomColors.DarkOrange,
+                                  ? CustomColors.pearColor
+                                  : CustomColors.darkOrange,
                               fontSize: displayWidth(context) * FontSize.s008,
                               fontWeight: FontWeight.bold,
                               fontFamily: Constants.helvetica),
@@ -82,8 +82,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                       Icons.location_on_outlined,
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
-                                          ? CustomColors.DarkOrange
-                                          : CustomColors.GreenRyb,
+                                          ? CustomColors.darkOrange
+                                          : CustomColors.greenRyb,
                                     ),
                                   ),
                                   AppSizes.wSizeBox10,
@@ -95,8 +95,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                             FontSize.s005,
                                         color: Theme.of(context).brightness ==
                                                 Brightness.dark
-                                            ? CustomColors.DarkOrange
-                                            : CustomColors.GreenRyb,
+                                            ? CustomColors.darkOrange
+                                            : CustomColors.greenRyb,
                                       ),
                                     ),
                                   )
@@ -107,7 +107,7 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                   child: VerticalDivider(
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
-                                          ? CustomColors.GreenRyb
+                                          ? CustomColors.greenRyb
                                           : Colors.orange)),
                               Center(
                                 child: Text(
@@ -117,8 +117,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                           displayWidth(context) * FontSize.s005,
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
-                                          ? CustomColors.OrangePeel
-                                          : CustomColors.DarkOrange),
+                                          ? CustomColors.orangePeel
+                                          : CustomColors.darkOrange),
                                 ),
                               ),
                               RatingBar.builder(
@@ -137,8 +137,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                 itemBuilder: (_, __) => Icon(Icons.star,
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
-                                        ? CustomColors.Gold
-                                        : CustomColors.Gold),
+                                        ? CustomColors.goldColor
+                                        : CustomColors.goldColor),
                                 onRatingUpdate: (rating) {},
                               ),
                             ],
@@ -147,8 +147,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                         AppSizes.hSizeBox15,
                         Divider(
                           color: Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.UsafaBlue
-                              : CustomColors.SpanishViridian,
+                              ? CustomColors.usaFaBlue
+                              : CustomColors.spanishViRiDian,
                           thickness: 5,
                         ),
                         const Padding(padding: EdgeInsets.all(3)),
@@ -163,8 +163,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                               style: TextStyle(
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
-                                      ? CustomColors.White
-                                      : CustomColors.Black,
+                                      ? CustomColors.whiteColor
+                                      : CustomColors.blackColor,
                                   fontSize:
                                       displayWidth(context) * FontSize.s005,
                                   fontWeight: FontWeight.normal),
@@ -178,14 +178,14 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                 child: VerticalDivider(
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
-                                        ? CustomColors.SpanishViridian
-                                        : CustomColors.Scarlet)),
+                                        ? CustomColors.spanishViRiDian
+                                        : CustomColors.scarletColor)),
                             Text(Constants.menuFoods,
                                 style: TextStyle(
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
-                                        ? CustomColors.SpanishViridian
-                                        : CustomColors.Scarlet,
+                                        ? CustomColors.spanishViRiDian
+                                        : CustomColors.scarletColor,
                                     fontSize:
                                         displayWidth(context) * FontSize.s005,
                                     fontFamily: Constants.helvetica)),
@@ -209,14 +209,14 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                 child: VerticalDivider(
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
-                                        ? CustomColors.DarkOrange
-                                        : CustomColors.RoyalBlueDark)),
+                                        ? CustomColors.darkOrange
+                                        : CustomColors.royalBlueDark)),
                             Text(Constants.menuDrinks,
                                 style: TextStyle(
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
-                                        ? CustomColors.DarkOrange
-                                        : CustomColors.RoyalBlueDark,
+                                        ? CustomColors.darkOrange
+                                        : CustomColors.royalBlueDark,
                                     fontSize:
                                         displayWidth(context) * FontSize.s005,
                                     fontFamily: Constants.helvetica)),
@@ -243,11 +243,11 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
               icon: IconAssets.addIcon,
               label: const Text(Constants.addReviewRestaurant,
                   style: TextStyle(color: Colors.white)),
-              hoverColor: CustomColors.Scarlet,
+              hoverColor: CustomColors.scarletColor,
               tooltip: Constants.addReview,
               backgroundColor: Get.isDarkMode
-                  ? CustomColors.UsafaBlue
-                  : CustomColors.SpanishViridian,
+                  ? CustomColors.usaFaBlue
+                  : CustomColors.spanishViRiDian,
               onPressed: () {
                 Get.to(
                   Navigator.of(context).push(
@@ -269,6 +269,7 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
       }
     });
   }
+
   Widget _buildStack(context) {
     return Stack(
       alignment: const Alignment(0.9, 0.9),
@@ -309,7 +310,7 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                 itemBuilder: (_, __) => const Icon(
                   Icons.star,
-                  color: CustomColors.Gold,
+                  color: CustomColors.goldColor,
                 ),
                 onRatingUpdate: (rating) {},
               ),
@@ -318,7 +319,7 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                 child: Text(
                   double.parse("$restaurantRATING").toString(),
                   style: const TextStyle(
-                      color: CustomColors.White,
+                      color: CustomColors.whiteColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 25),
                 ),

@@ -7,18 +7,19 @@ import 'package:submission3nanda/data/model/list_restaurant.dart';
 import 'package:submission3nanda/data/model/review_model.dart';
 import 'package:submission3nanda/utils/error_helper/error_handler.dart';
 import 'package:http/http.dart' show Client;
-import 'package:submission3nanda/data/base/endpoints.dart' as Endpoints;
+import 'package:submission3nanda/data/base/endpoints.dart' as end_points;
 
 class ApiService {
   Dio dio = Dio();
   final Client client;
-  ApiService (this.client);
+
+  ApiService(this.client);
 
   Future<ListRestaurant> listRestaurant() async {
     debugPrint("Fetching list of restaurants...");
 
     final response = await client.get(
-      Uri.parse(Endpoints.getListRestaurant.list),
+      Uri.parse(end_points.getListRestaurant.list),
     );
 
     if (response.statusCode == 200) {
@@ -36,7 +37,7 @@ class ApiService {
 
   Future<DetailRestaurant> detailRestaurant(String? id) async {
     final response = await client.get(
-      Uri.parse(Endpoints.getDetailRestaurant.detail + id.toString()),
+      Uri.parse(end_points.getDetailRestaurant.detail + id.toString()),
     );
     if (response.statusCode == 200) {
       return DetailRestaurant.fromJson(

@@ -23,11 +23,15 @@ class _NavBarScreenState extends State<NavBarScreen> {
       return Scaffold(
         body: IndexedStack(
           index: controller.tabIndex,
-          children: [HomeScreen(), FavoriteScreen(), ProfileUserScreen()],
+          children: [
+            HomeScreen(),
+            const FavoriteScreen(),
+            const ProfileUserScreen()
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: CustomColors.Scarlet,
-          unselectedItemColor: CustomColors.DarkOrange,
+          selectedItemColor: CustomColors.scarletColor,
+          unselectedItemColor: CustomColors.darkOrange,
           currentIndex: controller.tabIndex,
           onTap: controller.changeTabIndex,
           items: [

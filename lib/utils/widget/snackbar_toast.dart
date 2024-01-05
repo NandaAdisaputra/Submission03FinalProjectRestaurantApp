@@ -4,10 +4,10 @@ import "package:get/get.dart";
 import "package:submission3nanda/utils/resource_helper/colors.dart";
 
 class SnackbarToastUtil {
-  static const Duration _snackbarDuration = Duration(seconds: 8);
-  static SnackbarController? currentSnackbar;
+  static const Duration _snackBarDuration = Duration(seconds: 8);
+  static SnackbarController? currentSnackBar;
 
-  static void showSnackbar({
+  static void showSnackBar({
     required String title,
     required String message,
     Duration? duration,
@@ -16,8 +16,8 @@ class SnackbarToastUtil {
       flushbarPosition: FlushbarPosition.TOP,
       title: title,
       message: message,
-      duration: _snackbarDuration,
-      backgroundColor: CustomColors.DarkOrange,
+      duration: _snackBarDuration,
+      backgroundColor: CustomColors.darkOrange,
       icon: const Icon(
         Icons.info_outline,
         size: 28.0,
@@ -25,7 +25,7 @@ class SnackbarToastUtil {
       ),
       boxShadows: const <BoxShadow>[
         BoxShadow(
-          color: CustomColors.Scarlet,
+          color: CustomColors.scarletColor,
           offset: Offset(0.0, 2.0),
           blurRadius: 3.0,
         ),
@@ -33,7 +33,7 @@ class SnackbarToastUtil {
     ).show(Get.context!);
   }
 
-  static void showErrorSnackbar({
+  static void showErrorSnackBar({
     String? title,
     String? message,
     Duration? duration,
@@ -49,8 +49,8 @@ class SnackbarToastUtil {
           : "app.something.went.wrong".tr,
       message:
           message?.trim().isNotEmpty == true ? message : "app.try.later".tr,
-      duration: _snackbarDuration,
-      backgroundColor: CustomColors.Scarlet,
+      duration: _snackBarDuration,
+      backgroundColor: CustomColors.scarletColor,
       icon: const Icon(
         Icons.error_outline_outlined,
         size: 28.0,
@@ -58,7 +58,7 @@ class SnackbarToastUtil {
       ),
       boxShadows: const <BoxShadow>[
         BoxShadow(
-          color: CustomColors.Scarlet,
+          color: CustomColors.scarletColor,
           offset: Offset(0.0, 2.0),
           blurRadius: 3.0,
         ),

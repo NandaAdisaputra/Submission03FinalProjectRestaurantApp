@@ -1,27 +1,27 @@
-import 'base_url.dart' as BASE_URL;
+import 'base_url.dart' as base_url;
 
-class _getListRestaurant {
-  final list = BASE_URL.base + "/list";
+class GetListRestaurant {
+  final list = "${base_url.base}/list";
 }
 
-class _getPicture {
-  final images = BASE_URL.base + "/images";
+class GetPicture {
+  final images = "${base_url.base}/images";
 }
 
-class _getDetailRestaurant {
-  final detail = BASE_URL.base + "/detail/";
+class GetDetailRestaurant {
+  final detail = "${base_url.base}/detail/";
 }
 
-class _getSearch {
-  final search = BASE_URL.base + "/search";
+class GetSearch {
+  final search = "${base_url.base}/search";
 }
 
-class _postReview {
-  final review = BASE_URL.base + "/review";
+class PostReview {
+  final review = "${base_url.base}/review";
 }
 
-final getListRestaurant = _getListRestaurant();
-final getPicture = _getPicture();
-final getDetailRestaurant = _getDetailRestaurant();
-final getSearch = _getSearch();
-final postReview = _postReview();
+final getListRestaurant = GetListRestaurant();
+final getPicture = GetPicture();
+final getDetailRestaurant = GetDetailRestaurant();
+final getSearch = GetSearch();
+final postReview = PostReview();

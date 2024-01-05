@@ -25,7 +25,8 @@ final SchedulingController schedulingController =
 class HomeScreen extends GetView<HomeController> {
   HomeScreen({Key? key}) : super(key: key);
 
-  final homeController = Get.put(HomeController(apiService: ApiService(Client())));
+  final homeController =
+      Get.put(HomeController(apiService: ApiService(Client())));
   final themeController = Get.put(ThemeController());
 
   @override
@@ -45,8 +46,8 @@ class HomeScreen extends GetView<HomeController> {
                   message: Constants.search,
                   child: Material(
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? CustomColors.Jet
-                        : CustomColors.DarkOrange,
+                        ? CustomColors.jetColor
+                        : CustomColors.darkOrange,
                     child: InkWell(
                       onTap: () => Get.to(
                         const SearchScreen(),
@@ -69,8 +70,8 @@ class HomeScreen extends GetView<HomeController> {
                         decoration: BoxDecoration(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? CustomColors.Jet
-                                    : CustomColors.DarkOrange,
+                                    ? CustomColors.jetColor
+                                    : CustomColors.darkOrange,
                             borderRadius: BorderRadius.circular(30)),
                         child: Column(
                           children: [
@@ -89,11 +90,15 @@ class HomeScreen extends GetView<HomeController> {
                             const Divider(color: Colors.black, height: 36),
                             SwitchListTile(
                               title: const Text('Enable Daily Reminder'),
-                              subtitle: const Text('Enable or disable daily reminders'),
-                              value: schedulingController.isRestaurantDailyActive.value,
+                              subtitle: const Text(
+                                  'Enable or disable daily reminders'),
+                              value: schedulingController
+                                  .isRestaurantDailyActive.value,
                               onChanged: (value) async {
-                                await schedulingController.scheduledRestaurant(value);
-                                preferencesController.enableDailyRestaurant(value);
+                                await schedulingController
+                                    .scheduledRestaurant(value);
+                                preferencesController
+                                    .enableDailyRestaurant(value);
                               },
                             ),
                           ],

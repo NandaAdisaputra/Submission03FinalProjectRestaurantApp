@@ -22,13 +22,13 @@ class DrinksList extends StatelessWidget {
             child: Card(
               elevation: 8,
               margin: const EdgeInsets.all(8),
-              shadowColor: CustomColors.OrangePeel,
+              shadowColor: CustomColors.orangePeel,
               color: Theme.of(context).brightness == Brightness.dark
-                  ? CustomColors.DarkOrange
-                  : CustomColors.RoyalBlueDark,
+                  ? CustomColors.darkOrange
+                  : CustomColors.royalBlueDark,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               semanticContainer: true,
-              surfaceTintColor: CustomColors.RoyalBlueDark,
+              surfaceTintColor: CustomColors.royalBlueDark,
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(left: 16, right: 16),
@@ -36,8 +36,8 @@ class DrinksList extends StatelessWidget {
                   drinks[index].name,
                   style: TextStyle(
                       color: Theme.of(context).brightness == Brightness.dark
-                          ? CustomColors.White
-                          : CustomColors.MiddleYellow,
+                          ? CustomColors.whiteColor
+                          : CustomColors.middleYellow,
                       fontSize: displayWidth(context) * FontSize.s0045,
                       fontWeight: FontWeight.bold),
                 ),

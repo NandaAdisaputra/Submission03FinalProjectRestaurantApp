@@ -13,7 +13,7 @@ import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 class CardRestaurant extends StatefulWidget {
   final Restaurant restaurant;
 
-  CardRestaurant({Key? key, required this.restaurant}) : super(key: key);
+  const CardRestaurant({Key? key, required this.restaurant}) : super(key: key);
 
   @override
   State<CardRestaurant> createState() => _CardRestaurantState();
@@ -29,14 +29,16 @@ class _CardRestaurantState extends State<CardRestaurant> {
       future: databaseController.isFavorite(widget.restaurant.id.toString()),
       builder: (context, snapshot) {
         var isFavorite = snapshot.data ?? false;
-        print('isfavorite${snapshot.data}');
+        debugPrint('is favorite${snapshot.data}');
         return Material(
           child: Padding(
             padding: const EdgeInsets.only(right: 4.0, left: 4.0),
             child: Card(
               margin:
                   const EdgeInsets.only(left: 12, right: 8, top: 4, bottom: 12),
-              color: Get.isDarkMode ? CustomColors.Jet : CustomColors.Lavender,
+              color: Get.isDarkMode
+                  ? CustomColors.jetColor
+                  : CustomColors.lavenderColor,
               elevation: 8,
               child: ListTile(
                 trailing: isFavorite
@@ -59,7 +61,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
                       ),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                leading: widget.restaurant.pictureId != null
+                leading: widget.restaurant.pictureId.isNotEmpty
                     ? Hero(
                         tag: widget.restaurant.pictureId.toString(),
                         child: ClipRRect(
@@ -75,11 +77,11 @@ class _CardRestaurantState extends State<CardRestaurant> {
                         child: Text('No Image Available'),
                       ),
                 title: Text(
-                  widget.restaurant.name ?? "",
+                  widget.restaurant.name,
                   style: TextStyle(
                       color: Theme.of(context).brightness == Brightness.dark
-                          ? CustomColors.OrangePeel
-                          : CustomColors.DarkOrange,
+                          ? CustomColors.orangePeel
+                          : CustomColors.darkOrange,
                       fontSize: displayWidth(context) * FontSize.s0045,
                       fontWeight: FontWeight.bold,
                       fontFamily: Constants.helvetica),
@@ -93,17 +95,17 @@ class _CardRestaurantState extends State<CardRestaurant> {
                         Icon(Icons.location_on_outlined,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? CustomColors.GreenRyb
-                                    : CustomColors.Scarlet),
+                                    ? CustomColors.greenRyb
+                                    : CustomColors.scarletColor),
                         AppSizes.wSizeBox8,
                         Text(
-                          widget.restaurant.city ?? "",
+                          widget.restaurant.city,
                           style: TextStyle(
                               fontSize: displayWidth(context) * FontSize.s0045,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
-                                  ? CustomColors.GreenRyb
-                                  : CustomColors.Scarlet),
+                                  ? CustomColors.greenRyb
+                                  : CustomColors.scarletColor),
                         ),
                       ],
                     ),
@@ -127,8 +129,8 @@ class _CardRestaurantState extends State<CardRestaurant> {
                           itemBuilder: (context, _) => Icon(Icons.star,
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
-                                  ? CustomColors.Gold
-                                  : CustomColors.DarkCornflowerBlue),
+                                  ? CustomColors.goldColor
+                                  : CustomColors.darkCornflowerBlue),
                           onRatingUpdate: (rating) {},
                         ),
                         AppSizes.wSizeBox50

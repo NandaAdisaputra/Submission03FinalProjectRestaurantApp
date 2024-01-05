@@ -14,8 +14,8 @@ class SplashScreen extends GetView<SplashController> {
     Get.put(SplashController());
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? CustomColors.Jet
-          : CustomColors.DarkOrange,
+          ? CustomColors.jetColor
+          : CustomColors.darkOrange,
       body: Center(
         child: Lottie.asset(JsonAssets.splash, width: 250, height: 250),
       ),

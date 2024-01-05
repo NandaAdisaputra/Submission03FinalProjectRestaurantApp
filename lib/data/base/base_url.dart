@@ -1,1 +1,1 @@
-final base = "https://restaurant-api.dicoding.dev";
+const base = "https://restaurant-api.dicoding.dev";

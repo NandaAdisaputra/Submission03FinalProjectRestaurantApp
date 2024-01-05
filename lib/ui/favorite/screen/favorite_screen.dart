@@ -38,11 +38,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   message: Constants.search,
                   child: Material(
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? CustomColors.Jet
-                        : CustomColors.DarkOrange,
+                        ? CustomColors.jetColor
+                        : CustomColors.darkOrange,
                     child: InkWell(
                       onTap: () => Get.to(
-                         SearchScreen(),
+                        const SearchScreen(),
                       ),
                       child: const Icon(
                         Icons.search,
@@ -62,8 +62,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         decoration: BoxDecoration(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? CustomColors.Jet
-                                    : CustomColors.DarkOrange,
+                                    ? CustomColors.jetColor
+                                    : CustomColors.darkOrange,
                             borderRadius: BorderRadius.circular(30)),
                         child: Column(
                           children: [

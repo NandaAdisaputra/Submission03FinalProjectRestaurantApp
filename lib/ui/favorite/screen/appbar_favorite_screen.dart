@@ -20,15 +20,15 @@ class AppBarFavoriteScreen extends StatelessWidget {
       appBar: AppBar(
         title: Container(
           color: Theme.of(context).brightness == Brightness.dark
-              ? CustomColors.Jet
-              : CustomColors.SelectiveYellow,
+              ? CustomColors.jetColor
+              : CustomColors.selectiveYellow,
           child: Center(
             child: Text(
               Constants.title,
               style: TextStyle(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.White
-                    : CustomColors.Scarlet,
+                    ? CustomColors.whiteColor
+                    : CustomColors.scarletColor,
                 fontSize: displayWidth(context) * FontSize.s008,
                 fontWeight: FontWeight.bold,
               ),
@@ -38,7 +38,7 @@ class AppBarFavoriteScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.clear_all_outlined,
-                color: CustomColors.White, size: 40),
+                color: CustomColors.whiteColor, size: 40),
             onPressed: () {
               favoriteController.removeAllFavorite();
             },
@@ -53,8 +53,8 @@ class AppBarFavoriteScreen extends StatelessWidget {
             height: 30,
             child: Divider(
               color: Theme.of(context).brightness == Brightness.dark
-                  ? CustomColors.MiddleYellow
-                  : CustomColors.Scarlet,
+                  ? CustomColors.middleYellow
+                  : CustomColors.scarletColor,
             ),
           ),
           Center(
@@ -62,8 +62,8 @@ class AppBarFavoriteScreen extends StatelessWidget {
               Constants.subTitle,
               style: TextStyle(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.MiddleYellow
-                    : CustomColors.Scarlet,
+                    ? CustomColors.middleYellow
+                    : CustomColors.scarletColor,
                 fontSize: displayWidth(context) * FontSize.s0045,
                 fontWeight: FontWeight.bold,
               ),

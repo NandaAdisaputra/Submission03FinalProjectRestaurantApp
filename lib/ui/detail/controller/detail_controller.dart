@@ -29,7 +29,8 @@ class DetailRestaurantController extends GetxController {
     try {
       _state(ResultState.loading); // Set the value using the Rx object
       update();
-      final restaurant = await ApiService(Client()).detailRestaurant(idRestaurant);
+      final restaurant =
+          await ApiService(Client()).detailRestaurant(idRestaurant);
       if (restaurant.restaurant == null) {
         _state(ResultState.noData); // Set the value using the Rx object
         update();

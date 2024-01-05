@@ -23,8 +23,8 @@ class AddReviewFormScreen extends StatelessWidget {
             style: const TextStyle(
                 color: Colors.white, fontFamily: Constants.helvetica)),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? CustomColors.Jet
-            : CustomColors.DarkOrange,
+            ? CustomColors.jetColor
+            : CustomColors.darkOrange,
       ),
       body: Column(
         children: [
@@ -37,8 +37,8 @@ class AddReviewFormScreen extends StatelessWidget {
                   prefixIcon: Icon(
                     Icons.person,
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? CustomColors.White
-                        : CustomColors.DarkOrange,
+                        ? CustomColors.whiteColor
+                        : CustomColors.darkOrange,
                   ),
                   labelText: AppStrings.reviewName,
                   hintText: AppStrings.reviewName),
@@ -53,8 +53,8 @@ class AddReviewFormScreen extends StatelessWidget {
                   prefixIcon: Icon(
                     Icons.description,
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? CustomColors.White
-                        : CustomColors.DarkOrange,
+                        ? CustomColors.whiteColor
+                        : CustomColors.darkOrange,
                   ),
                   labelText: AppStrings.reviewDesc,
                   hintText: AppStrings.reviewDesc),
@@ -69,8 +69,8 @@ class AddReviewFormScreen extends StatelessWidget {
                   prefixIcon: Icon(
                     Icons.date_range,
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? CustomColors.White
-                        : CustomColors.DarkOrange,
+                        ? CustomColors.whiteColor
+                        : CustomColors.darkOrange,
                   ),
                   labelText: AppStrings.reviewDate,
                   hintText: AppStrings.reviewDate),
@@ -85,8 +85,8 @@ class AddReviewFormScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.Jet
-                              : CustomColors.DarkOrange),
+                              ? CustomColors.jetColor
+                              : CustomColors.darkOrange),
                   onPressed: textFieldController.isButtonEnabled.value
                       ? () {
                           createNewReview();
@@ -99,8 +99,8 @@ class AddReviewFormScreen extends StatelessWidget {
                     AppStrings.addReview,
                     style: TextStyle(
                         color: Theme.of(context).brightness == Brightness.dark
-                            ? CustomColors.White
-                            : CustomColors.DarkOrange,
+                            ? CustomColors.whiteColor
+                            : CustomColors.darkOrange,
                         fontFamily: Constants.helvetica),
                   )),
             );
@@ -118,5 +118,4 @@ class AddReviewFormScreen extends StatelessWidget {
     reviewController.createReview(
         name: name, review: review, date: date, id: restaurantID);
   }
-
 }

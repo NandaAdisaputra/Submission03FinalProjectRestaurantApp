@@ -40,14 +40,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     () => KeyboardUtil.hideKeyboard(context);
-    final ThemeController _themeController = Get.put(ThemeController());
+    final ThemeController themeController = Get.put(ThemeController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.title,
-      initialRoute: AppRoutes.NAVBAR,
+      initialRoute: AppRoutes.SPLASH,
       defaultTransition: Transition.fadeIn,
       getPages: AppPages.routes,
-      themeMode: _themeController.themeStateFromHiveSettingBox,
+      themeMode: themeController.themeStateFromHiveSettingBox,
       initialBinding: InitialBinding(),
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           data: mediaQueryData.copyWith(
             platformBrightness: Brightness.light,
             alwaysUse24HourFormat: true,
-            textScaler: TextScaler.linear(1),
+            textScaler: const TextScaler.linear(1),
             boldText: false,
           ),
           child: ResponsiveWrapper.builder(
@@ -69,14 +69,14 @@ class MyApp extends StatelessWidget {
               minWidth: 450,
               defaultScale: true,
               breakpoints: [
-                ResponsiveBreakpoint.resize(450, name: MOBILE),
-                ResponsiveBreakpoint.autoScale(800, name: MOBILE),
-                ResponsiveBreakpoint.autoScale(800, name: TABLET),
-                ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-                ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-                ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+                const ResponsiveBreakpoint.resize(450, name: MOBILE),
+                const ResponsiveBreakpoint.autoScale(800, name: MOBILE),
+                const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+                const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+                const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
               ],
-              background: Container(color: Color(0xFFF5F5F5))),
+              background: Container(color: const Color(0xFFF5F5F5))),
         );
       },
       enableLog: kDebugMode,

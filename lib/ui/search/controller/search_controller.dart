@@ -5,20 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/utils/error_helper/error_handler.dart';
-import 'package:submission3nanda/data/base/endpoints.dart' as Endpoints;
+import 'package:submission3nanda/data/base/endpoints.dart' as end_points;
 import 'package:submission3nanda/utils/widget/custom_progress_indicator.dart';
 
 class SearchRestaurantController extends GetxController {
   final queryRestaurantsSearch = TextEditingController();
   var queryInp = ''.obs;
-  var listBodyRestaurants;
+  late List<dynamic> listBodyRestaurants;
   var isDataLoading = false.obs;
 
   Future<dynamic> getListRestaurant() async {
     isDataLoading(true);
     CustomProgressIndicator.openLoadingDialog();
     WidgetsFlutterBinding.ensureInitialized();
-    String urlSearch = Endpoints.getSearch.search + "?q=$queryInp";
+    String urlSearch = "${end_points.getSearch.search}?q=$queryInp";
     final response = await http
         .get(Uri.parse(urlSearch))
         .timeout(const Duration(seconds: 5));

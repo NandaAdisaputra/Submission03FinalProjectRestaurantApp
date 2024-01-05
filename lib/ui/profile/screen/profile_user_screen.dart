@@ -31,11 +31,11 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
               message: Constants.search,
               child: Material(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.Jet
-                    : CustomColors.DarkOrange,
+                    ? CustomColors.jetColor
+                    : CustomColors.darkOrange,
                 child: InkWell(
                   onTap: () => Get.to(
-                    SearchScreen(),
+                    const SearchScreen(),
                   ),
                   child: const Icon(
                     Icons.search,
@@ -64,8 +64,8 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                   Constants.detailProfile,
                   style: TextStyle(
                       color: Theme.of(context).brightness == Brightness.dark
-                          ? CustomColors.White
-                          : CustomColors.DarkOrange,
+                          ? CustomColors.whiteColor
+                          : CustomColors.darkOrange,
                       fontFamily: Constants.helvetica,
                       fontSize: displayWidth(context) * FontSize.s005),
                 ),
@@ -87,7 +87,7 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
               child: Text(
                 Constants.nameProfile,
                 style: TextStyle(
-                    color: CustomColors.OrangePeel,
+                    color: CustomColors.orangePeel,
                     fontSize: 24,
                     fontWeight: FontWeight.bold),
               ),
@@ -101,7 +101,7 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                 maxLines: 10,
                 textAlign: TextAlign.justify,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: CustomColors.OrangePeel),
+                style: TextStyle(color: CustomColors.orangePeel),
               ),
             ),
           ),
@@ -115,8 +115,8 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.Jet
-                              : CustomColors.DarkOrange),
+                              ? CustomColors.jetColor
+                              : CustomColors.darkOrange),
                   onPressed: () {
                     launchUrlStart(
                         url: "https://www.linkedin.com/in/nandaadisaputra/");
@@ -125,8 +125,8 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                     Constants.visitLinkedin,
                     style: TextStyle(
                         color: Theme.of(context).brightness == Brightness.dark
-                            ? CustomColors.White
-                            : CustomColors.White,
+                            ? CustomColors.whiteColor
+                            : CustomColors.whiteColor,
                         fontFamily: Constants.helvetica,
                         fontSize: displayWidth(context) * FontSize.s005),
                   )),

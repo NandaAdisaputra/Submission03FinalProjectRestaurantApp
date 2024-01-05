@@ -21,14 +21,14 @@ class AppPages {
     ),
     GetPage<HomeScreen>(
       name: AppRoutes.HOME,
-      page: () =>  HomeScreen(),
+      page: () => HomeScreen(),
       transition: Transition.fadeIn,
       binding: HomeBinding(),
       preventDuplicates: true,
     ),
     GetPage<SearchScreen>(
       name: AppRoutes.SEARCH,
-      page: () =>  SearchScreen(),
+      page: () => const SearchScreen(),
       transition: Transition.fadeIn,
       binding: SearchBinding(),
       preventDuplicates: true,

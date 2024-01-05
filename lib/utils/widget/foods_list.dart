@@ -22,13 +22,13 @@ class FoodsList extends StatelessWidget {
             child: Card(
               elevation: 8,
               margin: const EdgeInsets.all(8),
-              shadowColor: CustomColors.OrangePeel,
+              shadowColor: CustomColors.orangePeel,
               color: Theme.of(context).brightness == Brightness.dark
-                  ? CustomColors.SpanishViridian
-                  : CustomColors.Scarlet,
+                  ? CustomColors.spanishViRiDian
+                  : CustomColors.scarletColor,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               semanticContainer: true,
-              surfaceTintColor: CustomColors.RoyalBlueDark,
+              surfaceTintColor: CustomColors.royalBlueDark,
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(left: 16, right: 16),
@@ -38,8 +38,8 @@ class FoodsList extends StatelessWidget {
                       color:
                       Theme.of(context).brightness ==
                           Brightness.dark
-                          ? CustomColors.White
-                          : CustomColors.MiddleYellow,
+                          ? CustomColors.whiteColor
+                          : CustomColors.middleYellow,
                       fontSize: displayWidth(context) *
                           FontSize.s0045,
                       fontWeight: FontWeight.bold),

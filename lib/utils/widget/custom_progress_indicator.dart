@@ -30,10 +30,10 @@ class LoadingOverlay extends StatefulWidget {
   const LoadingOverlay({Key? key}) : super(key: key);
 
   @override
-  _LoadingOverlayState createState() => _LoadingOverlayState();
+  LoadingOverlayState createState() => LoadingOverlayState();
 }
 
-class _LoadingOverlayState extends State<LoadingOverlay>
+class LoadingOverlayState extends State<LoadingOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
