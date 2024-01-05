@@ -64,14 +64,14 @@ class HomeScreen extends GetView<HomeController> {
               Padding(
                 padding: const EdgeInsets.only(right: 30),
                 child: InkWell(
-                  onTap: () => Get.to(
+                  onTap: () {
                     Get.bottomSheet(
                       Container(
                         decoration: BoxDecoration(
                             color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? CustomColors.jetColor
-                                    : CustomColors.darkOrange,
+                            Theme.of(context).brightness == Brightness.dark
+                                ? CustomColors.jetColor
+                                : CustomColors.darkOrange,
                             borderRadius: BorderRadius.circular(30)),
                         child: Column(
                           children: [
@@ -92,20 +92,20 @@ class HomeScreen extends GetView<HomeController> {
                               title: const Text('Enable Daily Reminder'),
                               subtitle: const Text(
                                   'Enable or disable daily reminders'),
-                              value: schedulingController
+                              value: preferencesController
                                   .isRestaurantDailyActive.value,
                               onChanged: (value) async {
-                                await schedulingController
+                                 schedulingController
                                     .scheduledRestaurant(value);
-                                preferencesController
+                                 preferencesController
                                     .enableDailyRestaurant(value);
                               },
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                   child: const Icon(
                     Icons.settings,
                     color: Colors.white,

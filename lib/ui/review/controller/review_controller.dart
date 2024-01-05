@@ -28,8 +28,7 @@ class ReviewController extends GetxController {
         reviews.add(review);
         debugPrint('id:$id');
         debugPrint('newReview:$review');
-        await CustomProgressIndicator.closeLoadingOverlay();
-        isDataLoading(false);
+
       }
       Get.snackbar(
         Constants.success,
@@ -38,6 +37,8 @@ class ReviewController extends GetxController {
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
+      await CustomProgressIndicator.closeLoadingOverlay();
+      isDataLoading(false);
     } catch (error, stackTrace) {
       debugPrint('${Constants.errorNewReviewCreate}$error');
       debugPrint('Stack trace: $stackTrace');

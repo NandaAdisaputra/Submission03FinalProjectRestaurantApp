@@ -54,7 +54,7 @@ class ApiService {
       {String? id, String? name, String? review, String? date}) async {
     try {
       final response = await dio
-          .post("/review", data: {'id': id, 'name': name, 'review': review});
+          .post(end_points.postReview.review, data: {'id': id, 'name': name, 'review': review});
 
       if (response.statusCode == 201) {
         debugPrint(response.data.toString());
