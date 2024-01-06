@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:submission3nanda/data/preferences/preference_helper.dart';
 
 final ThemeData darkTheme = ThemeData.dark();
@@ -21,6 +22,7 @@ class PreferencesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    preferencesHelper = PreferencesHelper(sharedPreferences: SharedPreferences.getInstance());
     _getDarkThemePreferences();
     _getDailyRestaurantPreferences();
   }
