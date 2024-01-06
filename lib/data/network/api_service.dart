@@ -16,22 +16,15 @@ class ApiService {
   ApiService(this.client);
 
   Future<ListRestaurant> listRestaurant() async {
-    debugPrint("Fetching list of restaurants...");
-
     final response = await client.get(
       Uri.parse(end_points.getListRestaurant.list),
     );
-
     if (response.statusCode == 200) {
-      debugPrint("Response body: ${response.body}");
-
       return ListRestaurant.fromJson(
         json.decode(response.body),
       );
     } else {
-      debugPrint(
-          "Failed to load list restaurant. Status code: ${response.statusCode}");
-      throw Exception('Failed to load list restaurant');
+      throw Exception(ErrorHandler.handle(dynamic));
     }
   }
 

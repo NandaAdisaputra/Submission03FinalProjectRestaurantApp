@@ -5,7 +5,7 @@ class DateTimeHelper {
   static Rx<DateTime> format() {
     final now = DateTime.now();
     final dateFormat = DateFormat('y/M/d');
-    const timeSpecific = "10:22:00";
+    const timeSpecific = "11:00:00";
     final completeFormat = DateFormat('y/M/d H:m:s');
 
     final todayDate = dateFormat.format(now);

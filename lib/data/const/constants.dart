@@ -1,7 +1,8 @@
 class Constants {
   static const String title = "Restaurant";
   static const String restaurants = "restaurants";
-
+  //error handler
+  static const String noInternetAccess = "No Internet Access";
   //add review
   static const String addReview = "Review";
   static const String addReviewRestaurant = "Add Review";

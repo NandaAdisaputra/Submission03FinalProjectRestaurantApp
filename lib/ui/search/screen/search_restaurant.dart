@@ -80,7 +80,41 @@ class SearchScreen extends GetView<SearchController> {
                               ? FutureBuilder(
                                   future: searchController.getListRestaurant(),
                                   builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
+                                    if (snapshot.connectionState ==
+                                            ConnectionState.waiting ||
+                                        snapshot.connectionState ==
+                                            ConnectionState.none) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      // Handle error, including no internet connection
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(ImageAssets
+                                                .imageNoInternetAccess),
+                                            const SizedBox(height: 20),
+                                            Center(
+                                              child: Text(
+                                                Constants.noInternetAccess,
+                                                style: TextStyle(
+                                                  color: Colors.deepOrange,
+                                                  fontSize:
+                                                      displayWidth(context) *
+                                                          0.05,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else if (snapshot.hasData) {
                                       return ListView.builder(
                                         itemCount: searchController
                                             .listBodyRestaurants.length,

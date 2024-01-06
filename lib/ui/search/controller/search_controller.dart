@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
@@ -17,24 +19,31 @@ class SearchRestaurantController extends GetxController {
   Future<dynamic> getListRestaurant() async {
     isDataLoading(true);
     CustomProgressIndicator.openLoadingDialog();
-    WidgetsFlutterBinding.ensureInitialized();
-    String urlSearch = "${end_points.getSearch.search}?q=$queryInp";
-    final response = await http
-        .get(Uri.parse(urlSearch))
-        .timeout(const Duration(seconds: 5));
-    var responseJson = json.decode(response.body)[Constants.restaurants];
-    listBodyRestaurants = responseJson;
     try {
+      WidgetsFlutterBinding.ensureInitialized();
+      String urlSearch = "${end_points.getSearch.search}?q=$queryInp";
+      final response = await http
+          .get(Uri.parse(urlSearch))
+          .timeout(const Duration(seconds: 5));
+      var responseJson = json.decode(response.body)[Constants.restaurants];
+      listBodyRestaurants = responseJson;
+
       if (response.statusCode == 200) {
         return listBodyRestaurants;
       } else {
         throw Exception(ErrorHandler.handle(dynamic));
       }
-    } on Error {
+    } on TimeoutException {
+      throw Exception(
+          "Request timed out. Please check your internet connection.");
+    } on SocketException {
+      throw Exception(
+          "No internet connection. Please check your network settings.");
+    } catch (e) {
+      throw Exception("An error occurred: $e");
+    } finally {
       await CustomProgressIndicator.closeLoadingOverlay();
       isDataLoading(false);
-      rethrow;
-    } finally {
       update();
     }
   }

@@ -8,6 +8,7 @@ class ImageAssets {
   static String imageNewPlaceHolder = "$imagePath/place_holder.jpg";
   static String imageLeading = "$imagePath/sendok_garpu.png";
   static String imageProfile = "$imagePath/profile.png";
+  static String imageNoInternetAccess = "$imagePath/no_internet_access.png";
   static App app = App();
   static ImagesVector imagesVector = ImagesVector();
 }

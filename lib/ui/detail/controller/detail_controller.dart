@@ -9,11 +9,6 @@ import 'package:submission3nanda/utils/result_state.dart';
 
 class DetailRestaurantController extends GetxController {
   final reviewController = Get.find<ReviewController>();
-  String? idRestaurant = ' ';
-
-  DetailRestaurantController({this.idRestaurant = ''}) {
-    getListRestaurant(idRestaurant);
-  }
 
   final Rx<DetailRestaurant> _listRestaurant = DetailRestaurant().obs;
   final Rx<ResultState> _state = ResultState.loading.obs;

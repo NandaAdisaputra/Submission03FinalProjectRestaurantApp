@@ -1,6 +1,7 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,6 +13,7 @@ import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/ui/home/controller/home_controller.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
 import 'package:submission3nanda/ui/scheduling/background_service.dart';
+import 'package:submission3nanda/ui/scheduling/notification_helper.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/themes/theme.dart';
 import 'package:submission3nanda/utils/routes_helper/app_pages.dart';
@@ -32,6 +34,8 @@ void main() async {
   AndroidAlarmManager.periodic(
       const Duration(minutes: 15), 1, BackgroundService.callback);
   await GetStorage.init();
+  await NotificationHelper()
+      .initNotifications(FlutterLocalNotificationsPlugin());
   Get.put(ReviewController());
   runApp(const MyApp());
 }

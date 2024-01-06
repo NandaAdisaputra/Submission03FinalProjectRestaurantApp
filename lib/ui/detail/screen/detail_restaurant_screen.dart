@@ -5,6 +5,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/ui/detail/controller/detail_controller.dart';
 import 'package:submission3nanda/ui/review/screen/add_field_review_screen.dart';
+import 'package:submission3nanda/utils/error_helper/error_handler.dart';
 import 'package:submission3nanda/utils/resource_helper/assets.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 import 'package:submission3nanda/utils/resource_helper/fonts.dart';
@@ -12,6 +13,7 @@ import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 import 'package:submission3nanda/utils/result_state.dart';
 import 'package:submission3nanda/utils/widget/drinks_list.dart';
 import 'package:submission3nanda/utils/widget/foods_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final detailController = Get.put(DetailRestaurantController());
 
@@ -51,189 +53,216 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
             showChildOpacityTransition: false,
             child: SizedBox(
               height: Get.height,
-              child: ListView(children: [
-                _buildStack(context),
-                Container(
-                  padding: const EdgeInsets.all(17),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$restaurantNAME',
-                          style: TextStyle(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? CustomColors.pearColor
-                                  : CustomColors.darkOrange,
-                              fontSize: displayWidth(context) * FontSize.s008,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: Constants.helvetica),
-                        ),
-                        AppSizes.hSizeBox15,
-                        Container(
-                          padding: EdgeInsets.zero,
-                          child: Row(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Icon(
-                                      Icons.location_on_outlined,
+              child: ListView(
+                children: [
+                  _buildStack(context),
+                  Container(
+                    padding: const EdgeInsets.all(17),
+                    child: Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  '$restaurantNAME',
+                                  style: TextStyle(
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
-                                          ? CustomColors.darkOrange
-                                          : CustomColors.greenRyb,
-                                    ),
+                                          ? CustomColors.pearColor
+                                          : CustomColors.darkOrange,
+                                      fontSize:
+                                          displayWidth(context) * FontSize.s008,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: Constants.helvetica),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.share,
+                                    size: 30.0,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? CustomColors.darkOrange
+                                        : CustomColors.greenRyb,
                                   ),
-                                  AppSizes.wSizeBox10,
+                                  onPressed: () {
+                                    // Add your share functionality here
+                                    shareToWhatsApp(
+                                      '$restaurantNAME, $restaurantCITY, $restaurantRATING',
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                            AppSizes.hSizeBox15,
+                            Container(
+                              padding: EdgeInsets.zero,
+                              child: Row(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: Icon(
+                                          Icons.location_on_outlined,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? CustomColors.darkOrange
+                                              : CustomColors.greenRyb,
+                                        ),
+                                      ),
+                                      AppSizes.wSizeBox10,
+                                      Center(
+                                        child: Text(
+                                          '$restaurantCITY',
+                                          style: TextStyle(
+                                            fontSize: displayWidth(context) *
+                                                FontSize.s005,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? CustomColors.darkOrange
+                                                    : CustomColors.greenRyb,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height: 30,
+                                      child: VerticalDivider(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? CustomColors.greenRyb
+                                              : Colors.orange)),
                                   Center(
                                     child: Text(
-                                      '$restaurantCITY',
+                                      Constants.ratingDetail,
                                       style: TextStyle(
+                                          fontSize: displayWidth(context) *
+                                              FontSize.s005,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? CustomColors.orangePeel
+                                              : CustomColors.darkOrange),
+                                    ),
+                                  ),
+                                  RatingBar.builder(
+                                    ignoreGestures: true,
+                                    itemSize:
+                                        displayWidth(context) * FontSize.s0045,
+                                    initialRating:
+                                        double.parse("$restaurantRATING"),
+                                    glowColor: Colors.transparent,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemPadding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0),
+                                    itemBuilder: (_, __) => Icon(Icons.star,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? CustomColors.goldColor
+                                            : CustomColors.goldColor),
+                                    onRatingUpdate: (rating) {},
+                                  ),
+                                ],
+                              ),
+                            ),
+                            AppSizes.hSizeBox15,
+                            Divider(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? CustomColors.usaFaBlue
+                                  : CustomColors.spanishViRiDian,
+                              thickness: 5,
+                            ),
+                            const Padding(padding: EdgeInsets.all(3)),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 24),
+                              child: Center(
+                                child: Text(
+                                  '$restaurantDESCRIPTION'.toString(),
+                                  textAlign: TextAlign.justify,
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? CustomColors.whiteColor
+                                          : CustomColors.blackColor,
+                                      fontSize:
+                                          displayWidth(context) * FontSize.s005,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                    height: 30,
+                                    child: VerticalDivider(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? CustomColors.spanishViRiDian
+                                            : CustomColors.scarletColor)),
+                                Text(Constants.menuFoods,
+                                    style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? CustomColors.spanishViRiDian
+                                            : CustomColors.scarletColor,
                                         fontSize: displayWidth(context) *
                                             FontSize.s005,
+                                        fontFamily: Constants.helvetica)),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 100,
+                                  child: FoodsList(
+                                      foods: detailController.result.value
+                                              .restaurant?.menus.foods ??
+                                          []),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                    height: 30,
+                                    child: VerticalDivider(
                                         color: Theme.of(context).brightness ==
                                                 Brightness.dark
                                             ? CustomColors.darkOrange
-                                            : CustomColors.greenRyb,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                            : CustomColors.royalBlueDark)),
+                                Text(Constants.menuDrinks,
+                                    style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? CustomColors.darkOrange
+                                            : CustomColors.royalBlueDark,
+                                        fontSize: displayWidth(context) *
+                                            FontSize.s005,
+                                        fontFamily: Constants.helvetica)),
+                              ],
+                            ),
+                            Column(children: [
                               SizedBox(
-                                  height: 30,
-                                  child: VerticalDivider(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? CustomColors.greenRyb
-                                          : Colors.orange)),
-                              Center(
-                                child: Text(
-                                  Constants.ratingDetail,
-                                  style: TextStyle(
-                                      fontSize:
-                                          displayWidth(context) * FontSize.s005,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? CustomColors.orangePeel
-                                          : CustomColors.darkOrange),
-                                ),
+                                height: 100,
+                                child: DrinksList(
+                                    drinks: detailController.result.value
+                                            .restaurant?.menus.drinks ??
+                                        []),
                               ),
-                              RatingBar.builder(
-                                ignoreGestures: true,
-                                itemSize:
-                                    displayWidth(context) * FontSize.s0045,
-                                initialRating:
-                                    double.parse("$restaurantRATING"),
-                                glowColor: Colors.transparent,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 4.0),
-                                itemBuilder: (_, __) => Icon(Icons.star,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? CustomColors.goldColor
-                                        : CustomColors.goldColor),
-                                onRatingUpdate: (rating) {},
-                              ),
-                            ],
-                          ),
-                        ),
-                        AppSizes.hSizeBox15,
-                        Divider(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.usaFaBlue
-                              : CustomColors.spanishViRiDian,
-                          thickness: 5,
-                        ),
-                        const Padding(padding: EdgeInsets.all(3)),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 24),
-                          child: Center(
-                            child: Text(
-                              '$restaurantDESCRIPTION'.toString(),
-                              textAlign: TextAlign.justify,
-                              maxLines: 4,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.blackColor,
-                                  fontSize:
-                                      displayWidth(context) * FontSize.s005,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                                height: 30,
-                                child: VerticalDivider(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? CustomColors.spanishViRiDian
-                                        : CustomColors.scarletColor)),
-                            Text(Constants.menuFoods,
-                                style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? CustomColors.spanishViRiDian
-                                        : CustomColors.scarletColor,
-                                    fontSize:
-                                        displayWidth(context) * FontSize.s005,
-                                    fontFamily: Constants.helvetica)),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                              child: FoodsList(
-                                  foods: detailController.result.value
-                                          .restaurant?.menus.foods ??
-                                      []),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                                height: 30,
-                                child: VerticalDivider(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? CustomColors.darkOrange
-                                        : CustomColors.royalBlueDark)),
-                            Text(Constants.menuDrinks,
-                                style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? CustomColors.darkOrange
-                                        : CustomColors.royalBlueDark,
-                                    fontSize:
-                                        displayWidth(context) * FontSize.s005,
-                                    fontFamily: Constants.helvetica)),
-                          ],
-                        ),
-                        Column(children: [
-                          SizedBox(
-                            height: 100,
-                            child: DrinksList(
-                                drinks: detailController.result.value.restaurant
-                                        ?.menus.drinks ??
-                                    []),
-                          ),
-                        ]),
-                      ]),
-                ),
-              ]),
+                            ]),
+                          ]),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -334,5 +363,18 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
   Future<void> _handleRefresh() async {
     _refreshIndicatorKey.currentState?.show(atTop: false);
     await detailController.getListRestaurant(restaurantID);
+  }
+}
+
+void shareToWhatsApp(String message) async {
+  final whatsappUrl = "whatsapp://send?text=${Uri.encodeComponent(message)}";
+  try {
+    if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
+      await launchUrl(Uri.parse(whatsappUrl));
+    } else {
+      throw 'Could not launch $whatsappUrl';
+    }
+  } catch (e) {
+    throw Exception(ErrorHandler.handle(dynamic));
   }
 }
