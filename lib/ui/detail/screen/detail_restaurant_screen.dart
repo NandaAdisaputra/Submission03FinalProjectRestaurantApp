@@ -72,10 +72,11 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                           ? CustomColors.pearColor
                                           : CustomColors.darkOrange,
                                       fontSize:
-                                          displayWidth(context) * FontSize.s008,
+                                          displayWidth(context) * FontSize.s006,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: Constants.helvetica),
                                 ),
+                                AppSizes.wSizeBox15,
                                 IconButton(
                                   icon: Icon(
                                     Icons.share,

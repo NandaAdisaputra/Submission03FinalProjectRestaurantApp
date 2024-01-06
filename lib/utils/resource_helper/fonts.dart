@@ -4,6 +4,7 @@ class FontSize {
   static const double s0085 = 0.085;
   static const double s0045 = 0.045;
   static const double s008 = 0.08;
+  static const double s006 = 0.06;
   static const double s005 = 0.05;
   static const double s003 = 0.03;
 }
