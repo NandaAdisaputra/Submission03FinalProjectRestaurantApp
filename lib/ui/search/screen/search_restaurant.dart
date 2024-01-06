@@ -80,14 +80,7 @@ class SearchScreen extends GetView<SearchController> {
                               ? FutureBuilder(
                                   future: searchController.getListRestaurant(),
                                   builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                            ConnectionState.waiting ||
-                                        snapshot.connectionState ==
-                                            ConnectionState.none) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    } else if (snapshot.hasError) {
+                                    if (snapshot.hasError) {
                                       // Handle error, including no internet connection
                                       return Container(
                                         alignment: Alignment.center,

@@ -49,9 +49,9 @@ class HomeScreen extends GetView<HomeController> {
                         ? CustomColors.jetColor
                         : CustomColors.darkOrange,
                     child: InkWell(
-                      onTap: () => Get.to(
-                        const SearchScreen(),
-                      ),
+                      onTap: () {
+                        Get.to(() => const SearchScreen());
+                      },
                       child: const Icon(
                         Icons.search,
                         color: Colors.white,

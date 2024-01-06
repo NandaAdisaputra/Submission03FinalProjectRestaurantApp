@@ -18,7 +18,6 @@ class SearchRestaurantController extends GetxController {
 
   Future<dynamic> getListRestaurant() async {
     isDataLoading(true);
-    CustomProgressIndicator.openLoadingDialog();
     try {
       WidgetsFlutterBinding.ensureInitialized();
       String urlSearch = "${end_points.getSearch.search}?q=$queryInp";
@@ -42,7 +41,7 @@ class SearchRestaurantController extends GetxController {
     } catch (e) {
       throw Exception("An error occurred: $e");
     } finally {
-      await CustomProgressIndicator.closeLoadingOverlay();
+      // await CustomProgressIndicator.closeLoadingOverlay();
       isDataLoading(false);
       update();
     }
