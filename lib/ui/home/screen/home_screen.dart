@@ -66,42 +66,43 @@ class HomeScreen extends GetView<HomeController> {
                 child: InkWell(
                   onTap: () => Get.to(
                     Get.bottomSheet(
-                      Container(
-                        decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? CustomColors.jetColor
-                                    : CustomColors.darkOrange,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: Icon(Get.isDarkMode
-                                  ? Icons.light_mode
-                                  : Icons.dark_mode),
-                              title: Text(Get.isDarkMode
-                                  ? Constants.lightMode
-                                  : Constants.darkMode),
-                              onTap: () {
-                                favoriteController.changeAppTheme();
-                                Get.back();
-                              },
-                            ),
-                            const Divider(color: Colors.black, height: 36),
-                            SwitchListTile(
-                              title: const Text('Enable Daily Reminder'),
-                              subtitle: const Text(
-                                  'Enable or disable daily reminders'),
-                              value: schedulingController
-                                  .isRestaurantDailyActive.value,
-                              onChanged: (value) async {
-                                await schedulingController
-                                    .scheduledRestaurant(value);
-                                preferencesController
-                                    .enableDailyRestaurant(value);
-                              },
-                            ),
-                          ],
+                      Obx(() => Container(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? CustomColors.jetColor
+                                  : CustomColors.darkOrange,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: Icon(Get.isDarkMode
+                                    ? Icons.light_mode
+                                    : Icons.dark_mode),
+                                title: Text(Get.isDarkMode
+                                    ? Constants.lightMode
+                                    : Constants.darkMode),
+                                onTap: () {
+                                  favoriteController.changeAppTheme();
+                                  Get.back();
+                                },
+                              ),
+                              const Divider(color: Colors.black, height: 36),
+                              SwitchListTile(
+                                title: const Text('Enable Daily Reminder'),
+                                subtitle: const Text(
+                                    'Enable or disable daily reminders'),
+                                value: schedulingController
+                                    .isRestaurantDailyActive.value,
+                                onChanged: (value) async {
+                                  await schedulingController
+                                      .scheduledRestaurant(value);
+                                  preferencesController
+                                      .enableDailyRestaurant(value);
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
