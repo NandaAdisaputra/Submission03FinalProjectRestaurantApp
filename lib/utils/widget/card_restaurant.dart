@@ -29,7 +29,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
       future: databaseController.isFavorite(widget.restaurant.id.toString()),
       builder: (context, snapshot) {
         var isFavorite = snapshot.data ?? false;
-        debugPrint('is favorite${snapshot.data}');
+        // debugPrint('is favorite${snapshot.data}');
         return Material(
           child: Padding(
             padding: const EdgeInsets.only(right: 4.0, left: 4.0),
@@ -44,10 +44,34 @@ class _CardRestaurantState extends State<CardRestaurant> {
                 trailing: isFavorite
                     ? IconButton(
                         onPressed: () {
-                          setState(() {
-                            databaseController.removeFavorite(
-                                widget.restaurant.id.toString());
-                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(Constants.deleteConfirmation),
+                                content: const Text(Constants.areYouSure),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        databaseController.removeFavorite(
+                                            widget.restaurant.id.toString());
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text(Constants.yesAction),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                    child: const Text(Constants.noAction),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         icon: const Icon(Icons.favorite, color: Colors.red),
                       )

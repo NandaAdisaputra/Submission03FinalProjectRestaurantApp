@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:submission3nanda/data/const/constants.dart';
+import 'package:submission3nanda/utils/resource_helper/assets.dart';
+import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 import 'package:submission3nanda/utils/widget/button_submit_widget.dart';
 
 class LoadDataError extends StatelessWidget {
@@ -9,10 +12,10 @@ class LoadDataError extends StatelessWidget {
 
   const LoadDataError(
       {Key? key,
-        required this.title,
-        required this.subtitle,
-        required this.bgColor,
-        required this.onTap})
+      required this.title,
+      required this.subtitle,
+      required this.bgColor,
+      required this.onTap})
       : super(key: key);
 
   @override
@@ -23,39 +26,52 @@ class LoadDataError extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: CircleAvatar(
-                foregroundColor: Colors.white,
-                backgroundColor: bgColor,
-                child: const Text(':('),
+            Container(
+              alignment: Alignment.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    ImageAssets.imageNoInternetAccess,
+                    height: 150,
+                    width: 150,
+                  ),
+                  const SizedBox(child: AppSizes.hSizeBox20),
+                  Center(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: displayWidth(context) * 0.05,
+                      ),
+                    ),
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      text: subtitle,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(child: AppSizes.hSizeBox20),
+                  onTap != null
+                      ? Container(
+                          margin: const EdgeInsets.only(left: 16, right: 16),
+                          padding: const EdgeInsets.all(16),
+                          child: ButtonSubmitWidget(
+                            width: double.infinity,
+                            title: Constants.tryAgain,
+                            bgColor: Colors.deepOrange,
+                            textColor: Colors.white,
+                            onPressed: onTap ?? () {},
+                            loading: false,
+                            iconData: null,
+                          ),
+                        )
+                      : Container(),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 16.0),
-              ),
-            ),
-            Text.rich(
-              TextSpan(
-                text: subtitle,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            onTap != null
-                ? ButtonSubmitWidget(
-              width: double.infinity,
-              title: "Coba Lagi",
-              bgColor: Colors.deepOrange,
-              textColor: Colors.white,
-              onPressed: onTap ?? () {},
-              loading: false,
-              iconData: null,
-            )
-                : Container(),
           ],
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:submission3nanda/utils/resource_helper/assets.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 import 'package:submission3nanda/utils/resource_helper/fonts.dart';
 import 'package:submission3nanda/utils/resource_helper/sizes.dart';
+import 'package:submission3nanda/utils/widget/load_data_error.dart';
 import '../../../data/const/constants.dart';
 
 final SearchRestaurantController searchController =
@@ -80,38 +81,16 @@ class SearchScreen extends GetView<SearchController> {
                               ? FutureBuilder(
                                   future: searchController.getListRestaurant(),
                                   builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                            ConnectionState.waiting ||
-                                        snapshot.connectionState ==
-                                            ConnectionState.none) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      // Handle error, including no internet connection
+                                    if (snapshot.hasError) {
                                       return Container(
                                         alignment: Alignment.center,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset(ImageAssets
-                                                .imageNoInternetAccess),
-                                            const SizedBox(height: 20),
-                                            Center(
-                                              child: Text(
-                                                Constants.noInternetAccess,
-                                                style: TextStyle(
-                                                  color: Colors.deepOrange,
-                                                  fontSize:
-                                                      displayWidth(context) *
-                                                          0.05,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                        child: LoadDataError(
+                                          title: Constants.problemOccurred,
+                                          subtitle: searchController.message,
+                                          bgColor: Colors.red,
+                                          onTap: () {
+                                            searchController.listBodyRestaurants;
+                                          },
                                         ),
                                       );
                                     } else if (snapshot.hasData) {

@@ -14,34 +14,34 @@ import 'package:submission3nanda/utils/routes_helper/routes.dart';
 class AppPages {
   static final List<GetPage<dynamic>> routes = <GetPage<dynamic>>[
     GetPage<SplashScreen>(
-      name: AppRoutes.SPLASH,
+      name: AppRoutes.splashRoutes,
       page: () => const SplashScreen(),
       binding: SplashBinding(),
       preventDuplicates: true,
     ),
     GetPage<HomeScreen>(
-      name: AppRoutes.HOME,
-      page: () => HomeScreen(),
+      name: AppRoutes.homeRoutes,
+      page: () => const HomeScreen(),
       transition: Transition.fadeIn,
       binding: HomeBinding(),
       preventDuplicates: true,
     ),
     GetPage<SearchScreen>(
-      name: AppRoutes.SEARCH,
+      name: AppRoutes.searchRoutes,
       page: () => const SearchScreen(),
       transition: Transition.fadeIn,
       binding: SearchBinding(),
       preventDuplicates: true,
     ),
     GetPage<AddReviewFormScreen>(
-      name: AppRoutes.REVIEW,
+      name: AppRoutes.reviewRoutes,
       page: () => AddReviewFormScreen(),
       transition: Transition.fadeIn,
       binding: ReviewRestaurantBinding(),
       preventDuplicates: true,
     ),
     GetPage<NavBarScreen>(
-      name: AppRoutes.NAVBAR,
+      name: AppRoutes.navbarRoutes,
       page: () => const NavBarScreen(),
       transition: Transition.fadeIn,
       binding: NavBarBinding(),

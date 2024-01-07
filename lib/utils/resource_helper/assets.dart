@@ -19,11 +19,7 @@ class App {
 }
 
 class ImagesVector {
-  String get appIconPath => "assets/icons/app_icon.svg";
-
-  String get appIconPngPath => "assets/icons/app_icon.png";
-
-  String get appLogoPath => "assets/icons/app_logo.png";
+  static String appMipmap = "mipmap/ic_launcher";
 }
 
 class JsonAssets {

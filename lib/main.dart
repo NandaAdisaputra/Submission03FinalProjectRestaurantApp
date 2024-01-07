@@ -12,8 +12,8 @@ import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/ui/home/controller/home_controller.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
-import 'package:submission3nanda/ui/scheduling/background_service.dart';
-import 'package:submission3nanda/ui/scheduling/notification_helper.dart';
+import 'package:submission3nanda/ui/scheduling/service/background_service.dart';
+import 'package:submission3nanda/ui/scheduling/helper/notification_helper.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/themes/theme.dart';
 import 'package:submission3nanda/utils/routes_helper/app_pages.dart';
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.title,
-      initialRoute: AppRoutes.SPLASH,
+      initialRoute: AppRoutes.splashRoutes,
       defaultTransition: Transition.fadeIn,
       getPages: AppPages.routes,
       themeMode: themeController.themeStateFromHiveSettingBox,

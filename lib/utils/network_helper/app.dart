@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   // @override
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: Constants.title,
       debugShowCheckedModeBanner: false,
     );

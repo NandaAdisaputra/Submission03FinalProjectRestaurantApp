@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:submission3nanda/data/database/database_helper.dart';
+import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
 import 'package:submission3nanda/ui/profile/screen/component/sliver_delegate.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/ui/profile/controller/profile_user_controller.dart';
@@ -11,6 +13,8 @@ import '../../../utils/resource_helper/colors.dart';
 import '../../../utils/resource_helper/fonts.dart';
 
 var profileUsers = Get.put(ProfileUserController());
+final FavoriteController favoriteController =
+    Get.put(FavoriteController(databaseHelper: DatabaseHelper()));
 
 class ProfileUserScreen extends GetView<ProfileUserController> {
   const ProfileUserScreen({Key? key}) : super(key: key);
@@ -46,6 +50,43 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: InkWell(
+              onTap: () => Get.to(
+                Get.bottomSheet(
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? CustomColors.jetColor
+                            : CustomColors.darkOrange,
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(Get.isDarkMode
+                              ? Icons.light_mode
+                              : Icons.dark_mode),
+                          title: Text(Get.isDarkMode
+                              ? Constants.lightMode
+                              : Constants.darkMode),
+                          onTap: () {
+                            favoriteController.changeAppTheme();
+                            Get.back();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              child: const Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: 35,
+              ),
+            ),
+          ),
         ],
       ),
       body: CustomScrollView(
@@ -56,18 +97,24 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
               minHeight: 50,
               maxHeight: 50,
               child: Container(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? CustomColors.eerieBlack
+                    : CustomColors.darkOrange,
                 width: double.infinity,
                 height: double.infinity,
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  Constants.detailProfile,
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? CustomColors.whiteColor
-                          : CustomColors.darkOrange,
-                      fontFamily: Constants.helvetica,
-                      fontSize: displayWidth(context) * FontSize.s005),
+                child: Container(
+                  margin: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    Constants.detailProfile,
+                    style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? CustomColors.whiteColor
+                            : CustomColors.darkOrange,
+                        fontFamily: Constants.helvetica,
+                        fontSize: displayWidth(context) * FontSize.s005),
+                  ),
                 ),
               ),
             ),
@@ -118,8 +165,7 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                               ? CustomColors.jetColor
                               : CustomColors.darkOrange),
                   onPressed: () {
-                    launchUrlStart(
-                        url: "https://www.linkedin.com/in/nandaadisaputra/");
+                    launchUrlStart(url: Constants.urlLinkedin);
                   },
                   child: Text(
                     Constants.visitLinkedin,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/model/restaurant_model.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
@@ -32,7 +33,7 @@ class FavoriteController extends GetxController
   @override
   void onInit() {
     isDarkMode.value = _themeController.isDarkTheme;
-    currentModeName.value = _themeController.isDarkTheme ? 'Dark' : 'Light';
+    currentModeName.value = _themeController.isDarkTheme ? Constants.darkMode : Constants.lightMode;
 
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 430));
@@ -83,7 +84,7 @@ class FavoriteController extends GetxController
       _state(ResultState.hasData);
     } else {
       _state(ResultState.noData);
-      showMessage('Favorite Restaurant not found');
+      showMessage(Constants.noDataFavorite);
     }
   }
 
@@ -93,7 +94,7 @@ class FavoriteController extends GetxController
       getFavorites();
     } catch (e) {
       _state(ResultState.error);
-      showMessage('Add Favorite Restaurant failed');
+      showMessage(Constants.addDataFavoriteFailed);
     }
   }
 
@@ -109,7 +110,7 @@ class FavoriteController extends GetxController
       getFavorites();
     } catch (e) {
       _state(ResultState.error);
-      showMessage('Remove Favorite Restaurant failed');
+      showMessage(Constants.removeDataFavoriteFailed);
     }
   }
 
@@ -120,7 +121,7 @@ class FavoriteController extends GetxController
       getFavorites();
     } catch (e) {
       _state(ResultState.error);
-      showMessage('Remove All Favorite Restaurant failed');
+      showMessage(Constants.removeAllDataFavoriteFailed);
     }
   }
 
@@ -130,6 +131,6 @@ class FavoriteController extends GetxController
 
   void showMessage(String value) {
     _message(value);
-    update(); // Trigger UI update
+    update();
   }
 }

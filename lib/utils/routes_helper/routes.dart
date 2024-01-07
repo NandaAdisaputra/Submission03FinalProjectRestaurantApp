@@ -1,8 +1,8 @@
 abstract class AppRoutes {
-  static const String SPLASH = "/";
-  static const String HOME = "/home";
-  static const String LIST = "/list";
-  static const String SEARCH = "/search";
-  static const String REVIEW = "/review";
-  static const String NAVBAR = "/navbar";
+  static const String splashRoutes = "/";
+  static const String homeRoutes = "/home";
+  static const String listRoutes = "/list";
+  static const String searchRoutes = "/search";
+  static const String reviewRoutes = "/review";
+  static const String navbarRoutes = "/navbar";
 }

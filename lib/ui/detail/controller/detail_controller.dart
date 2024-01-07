@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/model/detail_restaurant.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
@@ -22,25 +21,24 @@ class DetailRestaurantController extends GetxController {
 
   Future<dynamic> getListRestaurant(String? idRestaurant) async {
     try {
-      _state(ResultState.loading); // Set the value using the Rx object
+      _state(ResultState.loading);
       update();
       final restaurant =
           await ApiService(Client()).detailRestaurant(idRestaurant);
       if (restaurant.restaurant == null) {
-        _state(ResultState.noData); // Set the value using the Rx object
+        _state(ResultState.noData);
         update();
-        _message('No Data Restaurant Found');
+        _message(Constants.noDataFound);
       } else {
-        _state(ResultState.hasData); // Set the value using the Rx object
+        _state(ResultState.hasData);
         _listRestaurant(restaurant);
         update();
-        debugPrint("data $restaurant");
       }
     } catch (e) {
       _state(ResultState.error);
-      _message('Check Your Internet Connection!');
+      _message(Constants.checkYourInternetConnection);
     } finally {
       update();
-    } // Set the value using the Rx object
+    }
   }
 }

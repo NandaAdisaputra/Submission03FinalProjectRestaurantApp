@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/model/list_restaurant.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/utils/result_state.dart';
@@ -29,17 +30,17 @@ class HomeController extends GetxController {
       if (restaurant.restaurants.isEmpty) {
         _state(ResultState.noData); // Set the value using the Rx object
         update();
-        _message = 'No Data Restaurant Found';
+        _message = Constants.noDataFound;
       } else {
         _state(ResultState.hasData); // Set the value using the Rx object
         update();
         _listRestaurant = restaurant;
-        debugPrint("data $restaurant");
       }
     } catch (e) {
       _state(ResultState.error); // Set the value using the Rx object
       update();
-      _message = 'Check Your Internet Connection!';
+      _message = Constants.noInternetAccess;
     }
   }
+
 }

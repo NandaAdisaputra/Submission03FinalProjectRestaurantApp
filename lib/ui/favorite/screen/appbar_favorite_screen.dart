@@ -40,7 +40,30 @@ class AppBarFavoriteScreen extends StatelessWidget {
             icon: const Icon(Icons.clear_all_outlined,
                 color: CustomColors.whiteColor, size: 40),
             onPressed: () {
-              favoriteController.removeAllFavorite();
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text(Constants.deleteAllConfirmation),
+                    content: const Text(Constants.areYouSureAllRemove),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          favoriteController.removeAllFavorite();
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(Constants.yesAction),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(Constants.noAction),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
         ],

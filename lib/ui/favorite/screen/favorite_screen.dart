@@ -9,7 +9,7 @@ import 'package:submission3nanda/utils/resource_helper/assets.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 
 class FavoriteScreen extends StatefulWidget {
-  static const favoritesTitle = 'Favorite Restaurants';
+  static const favoritesTitle = Constants.titleFavorite;
 
   const FavoriteScreen({Key? key}) : super(key: key);
 

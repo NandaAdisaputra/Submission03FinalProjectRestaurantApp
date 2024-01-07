@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
 import 'package:submission3nanda/utils/result_state.dart';
@@ -30,7 +31,7 @@ class DataListFavorite extends StatelessWidget {
       } else if (favoriteController.state.value == ResultState.error) {
         return Center(child: Text(favoriteController.message.value));
       } else {
-        return const Center(child: Text('Please try again later'));
+        return const Center(child: Text(Constants.tryAgainLater));
       }
     });
   }

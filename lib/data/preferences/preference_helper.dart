@@ -1,12 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:submission3nanda/data/const/constants.dart';
 
 class PreferencesHelper {
   final Future<SharedPreferences> sharedPreferences;
 
   PreferencesHelper({required this.sharedPreferences});
 
-  static const darkTheme = 'DARK_THEME';
-  static const dailyRestaurant = 'DAILY_RESTAURANT';
+  static const darkTheme = Constants.darkThemeTitle;
+  static const dailyRestaurant = Constants.dailyTitle;
 
   Future<bool> get isDarkTheme async {
     final prefs = await sharedPreferences;

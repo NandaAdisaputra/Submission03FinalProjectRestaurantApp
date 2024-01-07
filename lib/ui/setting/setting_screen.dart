@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:submission3nanda/ui/scheduling/sheduling_controller.dart';
+import 'package:submission3nanda/data/const/constants.dart';
+import 'package:submission3nanda/ui/scheduling/controller/sheduling_controller.dart';
 
 import '../../data/preferences/preferences_controller.dart';
 
@@ -26,7 +27,7 @@ class _SettingPageState extends State<SettingPage> {
             children: [
               Material(
                 child: ListTile(
-                  title: const Text('Dark Theme'),
+                  title: const Text(Constants.darkTheme),
                   trailing: Switch.adaptive(
                     value: controller.isDarkTheme.value,
                     onChanged: (value) {
