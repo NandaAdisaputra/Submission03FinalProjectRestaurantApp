@@ -97,9 +97,7 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
               minHeight: 50,
               maxHeight: 50,
               child: Container(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.eerieBlack
-                    : CustomColors.darkOrange,
+                color: CustomColors.darkOrange,
                 width: double.infinity,
                 height: double.infinity,
                 alignment: Alignment.centerLeft,
@@ -109,9 +107,7 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                   child: Text(
                     Constants.detailProfile,
                     style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? CustomColors.whiteColor
-                            : CustomColors.darkOrange,
+                        color: CustomColors.whiteColor,
                         fontFamily: Constants.helvetica,
                         fontSize: displayWidth(context) * FontSize.s005),
                   ),

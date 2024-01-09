@@ -29,7 +29,6 @@ class _CardRestaurantState extends State<CardRestaurant> {
       future: databaseController.isFavorite(widget.restaurant.id.toString()),
       builder: (context, snapshot) {
         var isFavorite = snapshot.data ?? false;
-        // debugPrint('is favorite${snapshot.data}');
         return Material(
           child: Padding(
             padding: const EdgeInsets.only(right: 4.0, left: 4.0),

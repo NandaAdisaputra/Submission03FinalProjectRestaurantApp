@@ -1,23 +1,30 @@
 class Constants {
   static const String title = "Restaurant";
   static const String restaurants = "restaurants";
+
   //error handler
   static const String noInternetAccess = "No Internet Access";
-  static const String tryAgain= "Try again";
+  static const String tryAgain = "Try again";
   static const String problemOccurred = "Problem Occurred";
   static const String noDataFound = "No Data Restaurant Found";
-  static const String checkYourInternetConnection = "Check Your Internet Connection!";
+  static const String checkYourInternetConnection =
+      "Check Your Internet Connection!";
   static const String noData = "No Data";
   static const String noDataFavorite = "Favorite Restaurant not found";
   static const String addDataFavoriteFailed = "Add Favorite Restaurant failed";
-  static const String removeDataFavoriteFailed = "Remove Favorite Restaurant failed";
-  static const String removeAllDataFavoriteFailed = "Remove All Favorite Restaurant failed";
+  static const String removeDataFavoriteFailed =
+      "Remove Favorite Restaurant failed";
+  static const String removeAllDataFavoriteFailed =
+      "Remove All Favorite Restaurant failed";
   static const String tryAgainLater = "Please try again later";
-  static const String requestTimedOut = "Request timed out. Please check your internet connection";
-  static const String noInternetConnection = "No internet connection. Please check your network settings.";
+  static const String requestTimedOut =
+      "Request timed out. Please check your internet connection";
+  static const String noInternetConnection =
+      "No internet connection. Please check your network settings.";
 
   //linkedin
-  static const String urlLinkedin = "https://www.linkedin.com/in/nandaadisaputra/";
+  static const String urlLinkedin =
+      "https://www.linkedin.com/in/nandaadisaputra/";
 
   //add review
   static const String addReview = "Review";
@@ -29,11 +36,12 @@ class Constants {
       "Error creating review Restaurant:";
 
   //favorite
-  static const String subTitle = "Restaurant that you like!";
+  static const String subTitle = "Your Favorite Restaurant!";
   static const String favorite = "Favorite";
   static const String titleFavorite = "Favorite Restaurants";
+  static const String emptyFavorite = "Anda Belum Menambahkan Item Favorite";
 
- //Notification
+  //Notification
   static const String restaurantChannel = "Restaurant Channel";
   static const String channelOne = "channel_01";
   static const String tickerNotification = "ticker";
@@ -43,7 +51,8 @@ class Constants {
   static const String titleDailyReminder = "Daily Restaurant Reminder";
   static const String isolate = "isolate";
   static const String enableDailyReminder = "Enable Daily Reminder";
-  static const String enableOrDisableReminders = " Enable or disable daily reminders";
+  static const String enableOrDisableReminders =
+      " Enable or disable daily reminders";
   static const String alarmIsolate = "alarmIsolate";
 
   //setting
@@ -59,9 +68,12 @@ class Constants {
   static const String noAction = "No";
   static const String yesAction = "Yes";
   static const String deleteConfirmation = "Delete Confirmation";
-  static const String areYouSure = "Are you sure you want to remove from favorites?";
-  static const String deleteAllConfirmation = "Delete All Favorites Confirmation";
-  static const String areYouSureAllRemove= "Are you sure you want to remove all favorites?";
+  static const String areYouSure =
+      "Are you sure you want to remove from favorites?";
+  static const String deleteAllConfirmation =
+      "Delete All Favorites Confirmation";
+  static const String areYouSureAllRemove =
+      "Are you sure you want to remove all favorites?";
 
   //detail
   static const String menuDrinks = "Menu Minuman";
@@ -70,7 +82,7 @@ class Constants {
   static const String description = "description";
 
   //search
-  static const String inputData = "Masukkan Nama Restorant";
+  static const String inputData = "Memasukkan Nama Restaurant";
   static const String searchRestaurantYourLikes =
       "Temukan Restoran yang Anda Sukai";
   static const String name = "name";
@@ -78,7 +90,8 @@ class Constants {
   static const String city = "city";
   static const String image = "pictureId";
   static const String id = "id";
-  static const String noDataYet = "Belum Ada Restoran yang Anda Cari";
+  static const String noDataYet = "Anda Belum Ada Data yang Anda Cari";
+  static const String noNotFound = "Maaf,Data yang Anda cari belum tersedia saat ini";
 
   //settings
   static const String changeToLightMode = "Change to Light Mode";

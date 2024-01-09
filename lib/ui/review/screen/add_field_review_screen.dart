@@ -100,7 +100,7 @@ class AddReviewFormScreen extends StatelessWidget {
                     style: TextStyle(
                         color: Theme.of(context).brightness == Brightness.dark
                             ? CustomColors.whiteColor
-                            : CustomColors.darkOrange,
+                            : CustomColors.whiteColor,
                         fontFamily: Constants.helvetica),
                   )),
             );

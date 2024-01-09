@@ -130,7 +130,7 @@ class FavoriteController extends GetxController
   RxString get message => _message;
 
   void showMessage(String value) {
-    _message(value);
+    _message(Constants.emptyFavorite);
     update();
   }
 }

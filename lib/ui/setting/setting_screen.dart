@@ -14,9 +14,9 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   final PreferencesController preferencesController =
-      Get.put(PreferencesController());
+  Get.put(PreferencesController());
   final SchedulingController schedulingController =
-      Get.put(SchedulingController());
+  Get.put(SchedulingController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,31 +25,27 @@ class _SettingPageState extends State<SettingPage> {
         builder: (controller) {
           return ListView(
             children: [
-              Material(
-                child: ListTile(
-                  title: const Text(Constants.darkTheme),
-                  trailing: Switch.adaptive(
-                    value: controller.isDarkTheme.value,
-                    onChanged: (value) {
-                      controller.enableDarkTheme(value);
-                    },
-                  ),
+              ListTile(
+                title: const Text(Constants.darkTheme),
+                trailing: Switch.adaptive(
+                  value: controller.isDarkTheme.value,
+                  onChanged: (value) {
+                    controller.enableDarkTheme(value);
+                  },
                 ),
               ),
-              Material(
-                child: ListTile(
-                  title: const Text('Daily Restaurant Reminder'),
-                  trailing: GetBuilder<SchedulingController>(
-                    builder: (scheduled) {
-                      return Switch.adaptive(
-                        value: controller.isRestaurantDailyActive.value,
-                        onChanged: (value) async {
-                          scheduled.scheduledRestaurant(value);
-                          controller.enableDailyRestaurant(value);
-                        },
-                      );
-                    },
-                  ),
+              ListTile(
+                title: const Text('Daily Restaurant Reminder'),
+                trailing: GetBuilder<SchedulingController>(
+                  builder: (scheduled) {
+                    return Switch.adaptive(
+                      value: controller.isRestaurantDailyActive.value,
+                      onChanged: (value) async {
+                        scheduled.scheduledRestaurant(value);
+                        controller.enableDailyRestaurant(value);
+                      },
+                    );
+                  },
                 ),
               ),
             ],

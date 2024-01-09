@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
+import 'package:submission3nanda/ui/review/screen/text_field_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 import 'package:submission3nanda/utils/resource_helper/strings.dart';
 
 var reviewRestaurantController = Get.put(ReviewController());
 
-// ignore: must_be_immutableZ, must_be_immutable
 class AddReviewScreen extends StatelessWidget {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController reviewController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController reviewController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
   final String? restaurantID;
+  final ReviewController reviewRestaurantController;
+  final TextFieldController textFieldController =
+      Get.put(TextFieldController());
 
-  AddReviewScreen({super.key, this.restaurantID});
+  AddReviewScreen(
+      {Key? key, required this.reviewRestaurantController, this.restaurantID})
+      : super(key: key);
 
   void _createNewReview() {
     final name = nameController.text;
@@ -21,7 +26,11 @@ class AddReviewScreen extends StatelessWidget {
     final date = dateController.text;
 
     reviewRestaurantController.createReview(
-        name: name, review: review, date: date, id: restaurantID);
+      name: name,
+      review: review,
+      date: date,
+      id: restaurantID,
+    );
 
     nameController.clear();
     reviewController.clear();
@@ -38,51 +47,58 @@ class AddReviewScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Container(
           margin: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: textFieldController.nameController,
+                decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(
                     Icons.person,
                     color: Colors.deepOrange,
                   ),
                   labelText: AppStrings.reviewName,
-                  hintText: AppStrings.reviewName),
-            ),
-            TextField(
-              controller: reviewController,
-              decoration: InputDecoration(
+                  hintText: AppStrings.reviewName,
+                ),
+              ),
+              TextField(
+                controller: textFieldController.reviewController,
+                decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(
                     Icons.description,
                     color: Colors.deepOrange,
                   ),
                   labelText: AppStrings.reviewDesc,
-                  hintText: AppStrings.reviewDesc),
-            ),
-            TextField(
-              controller: dateController,
-              decoration: InputDecoration(
+                  hintText: AppStrings.reviewDesc,
+                ),
+              ),
+              TextField(
+                controller: textFieldController.dateController,
+                decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(
                     Icons.date_range,
                     color: Colors.deepOrange,
                   ),
                   labelText: AppStrings.reviewDate,
-                  hintText: AppStrings.reviewDate),
-            ),
-            AppSizes.hSizeBox20,
-            SizedBox(
-              height: 45,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _createNewReview,
-                child: Text(AppStrings.addReview),
+                  hintText: AppStrings.reviewDate,
+                ),
               ),
-            ),
-          ]),
+              AppSizes.hSizeBox20,
+              Obx(() {
+                return ElevatedButton(
+                  onPressed: textFieldController.isButtonEnabled.value
+                      ? () {
+                          _createNewReview;
+                        }
+                      : null,
+                  child: Text(AppStrings.addReview),
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );

@@ -23,7 +23,7 @@ class SchedulingController extends GetxController {
       final SendPort? send = IsolateNameServer.lookupPortByName(Constants.alarmIsolate);
       send?.send(value);
       return await AndroidAlarmManager.oneShotAt(
-        DateTime.now().add(const Duration(seconds: 5)),
+        DateTime.now().add(const Duration(hours: 24)),
         1,
         BackgroundService.callback,
         exact: true,

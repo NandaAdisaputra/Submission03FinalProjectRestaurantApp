@@ -88,7 +88,6 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                                     : CustomColors.greenRyb,
                               ),
                               onPressed: () {
-                                // Add your share functionality here
                                 shareToWhatsApp(
                                   '$restaurantNAME, $restaurantCITY, $restaurantRATING',
                                 );
@@ -329,13 +328,15 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
             ],
           ),
           child: Column(
+            key: const Key('ratingBarList'),
             children: [
               RatingBar.builder(
                 ignoreGestures: true,
-                itemSize: 30,
+                itemSize: displayWidth(context) * FontSize.s0045,
                 initialRating: double.parse("$restaurantRATING"),
                 glowColor: Colors.transparent,
                 minRating: 1,
+                glowRadius: 10,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,

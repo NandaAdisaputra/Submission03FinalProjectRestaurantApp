@@ -14,11 +14,30 @@ class SearchRestaurantController extends GetxController {
   var queryInp = ''.obs;
   late List<dynamic> listBodyRestaurants;
   var isDataLoading = false.obs;
+  var hasError = false.obs;
+  var hasData = false.obs;
   late String _message = '';
 
   String get message => _message;
 
+  @override
+  void onInit() {
+    super.onInit();
+    queryRestaurantsSearch.clear();
+    clearRestaurantData();
+  }
+
+  void clearRestaurantData() {
+    listBodyRestaurants = [];
+    queryInp.value = '';
+    update();
+  }
+
   Future<dynamic> getListRestaurant() async {
+    if (queryInp.isEmpty) {
+      clearRestaurantData();
+      return null;
+    }
     isDataLoading(true);
     try {
       WidgetsFlutterBinding.ensureInitialized();
@@ -29,18 +48,22 @@ class SearchRestaurantController extends GetxController {
       var responseJson = json.decode(response.body)[Constants.restaurants];
       listBodyRestaurants = responseJson;
       if (response.statusCode == 200) {
+        hasError(false);
+        hasData(true);
         return listBodyRestaurants;
       } else {
+        hasError(true);
         throw Exception(ErrorHandler.handle(dynamic));
       }
     } on TimeoutException {
-      throw Exception(
-      _message = Constants.requestTimedOut);
+      hasError(true);
+      throw Exception(_message = Constants.requestTimedOut);
     } on SocketException {
-      throw Exception(
-      _message = Constants.noInternetConnection);
+      hasError(true);
+      throw Exception(_message = Constants.noInternetConnection);
     } catch (error) {
-      throw Exception( _message = "An error occurred: $error");
+      hasError(true);
+      throw Exception(_message = "An error occurred: $error");
     } finally {
       isDataLoading(false);
       update();

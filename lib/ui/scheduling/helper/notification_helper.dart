@@ -65,11 +65,18 @@ class NotificationHelper extends GetxController {
     var randomIndex = Random().nextInt(restaurantItem.length);
     var restaurantRandom = restaurantItem[randomIndex];
 
-    var titleNotification = "<b>Headline Restaurant</b>";
-    var titleRestaurant = restaurantRandom.name;
+    var titleNotification = "<b>New Restaurant Alert!</b>";
+    var titleRestaurant = '<b>${restaurantRandom.name}</b>';
+    var city = '<b>${restaurantRandom.city}</b>';
+    ;
+    var rating = restaurantRandom.rating.toString();
+
+    var notificationMessage = "Explore Restaurant $titleRestaurant\n"
+        "in $city\n"
+        "rating of $rating";
 
     await flutterLocalNotificationsPlugin.show(
-        0, titleNotification, titleRestaurant, platformChannelSpecifics,
+        0, titleNotification, notificationMessage, platformChannelSpecifics,
         payload: json.encode(restaurantRandom.toJson()));
   }
 
