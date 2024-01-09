@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.title,
-      initialRoute: AppRoutes.navbarRoutes,
+      initialRoute: AppRoutes.splashRoutes,
       defaultTransition: Transition.fadeIn,
       getPages: AppPages.routes,
       themeMode: themeController.themeStateFromHiveSettingBox,

@@ -90,7 +90,7 @@ class Constants {
   static const String city = "city";
   static const String image = "pictureId";
   static const String id = "id";
-  static const String noDataYet = "Anda Belum Ada Data yang Anda Cari";
+  static const String noDataYet = "Belum Ada Data yang Anda Cari";
   static const String noNotFound = "Maaf,Data yang Anda cari belum tersedia saat ini";
 
   //settings

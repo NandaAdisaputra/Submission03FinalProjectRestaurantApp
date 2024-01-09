@@ -11,8 +11,7 @@ import 'package:submission3nanda/data/base/endpoints.dart' as end_points;
 
 class SearchRestaurantController extends GetxController {
   final queryRestaurantsSearch = TextEditingController();
-  var queryInp = ''.obs;
-  late List<dynamic> listBodyRestaurants;
+  var listBodyRestaurants = <dynamic>[];
   var isDataLoading = false.obs;
   var hasError = false.obs;
   var hasData = false.obs;
@@ -20,28 +19,37 @@ class SearchRestaurantController extends GetxController {
 
   String get message => _message;
 
+  SearchRestaurantController() {
+    clearRestaurantData();
+  }
+
   @override
   void onInit() {
     super.onInit();
-    queryRestaurantsSearch.clear();
     clearRestaurantData();
   }
 
   void clearRestaurantData() {
-    listBodyRestaurants = [];
-    queryInp.value = '';
+    queryRestaurantsSearch.clear();
+    listBodyRestaurants.clear();
+    queryRestaurantsSearch.clear();
+    listBodyRestaurants.clear();
+    hasData.value = false;
+    hasError.value = false;
+    _message = '';
     update();
   }
 
   Future<dynamic> getListRestaurant() async {
-    if (queryInp.isEmpty) {
+    if (queryRestaurantsSearch.text.isEmpty) {
       clearRestaurantData();
       return null;
     }
     isDataLoading(true);
     try {
       WidgetsFlutterBinding.ensureInitialized();
-      String urlSearch = "${end_points.getSearch.search}?q=$queryInp";
+      String urlSearch =
+          "${end_points.getSearch.search}?q=${queryRestaurantsSearch.text}";
       final response = await http
           .get(Uri.parse(urlSearch))
           .timeout(const Duration(seconds: 5));
@@ -68,5 +76,12 @@ class SearchRestaurantController extends GetxController {
       isDataLoading(false);
       update();
     }
+  }
+
+  @override
+  void onClose() {
+    queryRestaurantsSearch.clear();
+    listBodyRestaurants.clear();
+    super.onClose();
   }
 }

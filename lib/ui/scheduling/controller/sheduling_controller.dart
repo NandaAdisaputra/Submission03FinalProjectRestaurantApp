@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:submission3nanda/data/const/constants.dart';
+import 'package:submission3nanda/ui/scheduling/helper/date_helper.dart';
 import 'package:submission3nanda/ui/scheduling/service/background_service.dart';
 
 
@@ -20,12 +21,11 @@ class SchedulingController extends GetxController {
         debugPrint(Constants.schedulingActivated);
       }
       update();
-      final SendPort? send = IsolateNameServer.lookupPortByName(Constants.alarmIsolate);
-      send?.send(value);
-      return await AndroidAlarmManager.oneShotAt(
-        DateTime.now().add(const Duration(hours: 24)),
+      return await AndroidAlarmManager.periodic(
+        const Duration(hours: 24),
         1,
         BackgroundService.callback,
+        startAt: DateTimeHelper.format().value,
         exact: true,
         wakeup: true,
       );

@@ -24,9 +24,8 @@ class SearchScreen extends GetView<SearchRestaurantController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Get.isDarkMode
-            ? CustomColors.jetColor
-            : CustomColors.darkOrange,
+        backgroundColor:
+            Get.isDarkMode ? CustomColors.jetColor : CustomColors.darkOrange,
         elevation: 0,
       ),
       body: SafeArea(
@@ -62,11 +61,12 @@ class SearchScreen extends GetView<SearchRestaurantController> {
               TextField(
                 onChanged: (text) {
                   if (text.isNotEmpty) {
-                    searchController.queryInp.value = text;
+                    searchController.queryRestaurantsSearch.text = text;
                     searchController.getListRestaurant();
                   } else {
                     searchController.clearRestaurantData();
-                    searchController.queryInp.value = '';
+                    searchController.queryRestaurantsSearch.clear();
+                    searchController.queryRestaurantsSearch.text = '';
                   }
                 },
                 decoration: InputDecoration(
@@ -97,11 +97,12 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                           },
                         )
                       else if (searchController.hasData.value)
-                          searchController.listBodyRestaurants.isEmpty
-                              ? buildNoDataView(context,Constants.noDataYet)
-                              : buildRestaurantList(context, dynamicHeight)
-                        else
-                          buildNoDataView(context,Constants.noDataYet),
+                        searchController.queryRestaurantsSearch.text.isEmpty ||
+                                searchController.listBodyRestaurants.isEmpty
+                            ? buildNoDataView(context, Constants.noDataYet)
+                            : buildRestaurantList(context, dynamicHeight)
+                      else
+                        buildNoDataView(context, Constants.noDataYet),
                     ],
                   ),
                 ),
@@ -115,7 +116,7 @@ class SearchScreen extends GetView<SearchRestaurantController> {
 
   Widget buildRestaurantList(BuildContext context, double dynamicHeight) {
     return Obx(
-          () {
+      () {
         if (searchController.isDataLoading.value) {
           return const Center(child: CircularProgressIndicator());
         } else if (searchController.hasError.value) {
@@ -139,7 +140,7 @@ class SearchScreen extends GetView<SearchRestaurantController> {
               return InkWell(
                 onTap: () {
                   Get.to(
-                        () => DetailRestaurantScreen(
+                    () => DetailRestaurantScreen(
                       restaurantID: data[Constants.id],
                       restaurantNAME: data[Constants.name],
                       restaurantCITY: data[Constants.city],
@@ -147,7 +148,11 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                       restaurantPICTUREID: data[Constants.image],
                       restaurantRATING: data[Constants.rating].toString(),
                     ),
-                  );
+                  )?.then((result) {
+                    searchController.clearRestaurantData();
+                    searchController.queryRestaurantsSearch.clear();
+                    searchController.queryRestaurantsSearch.text = '';
+                  });
                 },
                 child: Card(
                   margin: const EdgeInsets.only(
@@ -196,11 +201,11 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                                   data[Constants.name],
                                   style: TextStyle(
                                     color: Theme.of(context).brightness ==
-                                        Brightness.dark
+                                            Brightness.dark
                                         ? CustomColors.orangePeel
                                         : CustomColors.darkOrange,
-                                    fontSize: displayWidth(context) *
-                                        FontSize.s0045,
+                                    fontSize:
+                                        displayWidth(context) * FontSize.s0045,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: Constants.helvetica,
                                   ),
@@ -212,7 +217,7 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                                 Icon(
                                   Icons.location_on_outlined,
                                   color: Theme.of(context).brightness ==
-                                      Brightness.dark
+                                          Brightness.dark
                                       ? CustomColors.greenRyb
                                       : CustomColors.scarletColor,
                                 ),
@@ -220,10 +225,10 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                                 Text(
                                   data[Constants.city],
                                   style: TextStyle(
-                                    fontSize: displayWidth(context) *
-                                        FontSize.s0045,
+                                    fontSize:
+                                        displayWidth(context) * FontSize.s0045,
                                     color: Theme.of(context).brightness ==
-                                        Brightness.dark
+                                            Brightness.dark
                                         ? CustomColors.greenRyb
                                         : CustomColors.scarletColor,
                                   ),
@@ -236,9 +241,9 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                                 RatingBar.builder(
                                   ignoreGestures: true,
                                   itemSize:
-                                  displayWidth(context) * FontSize.s005,
+                                      displayWidth(context) * FontSize.s005,
                                   initialRating:
-                                  data[Constants.rating].toDouble(),
+                                      data[Constants.rating].toDouble(),
                                   glowColor: Colors.transparent,
                                   minRating: 1,
                                   direction: Axis.horizontal,
@@ -250,7 +255,7 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Theme.of(context).brightness ==
-                                        Brightness.dark
+                                            Brightness.dark
                                         ? CustomColors.goldColor
                                         : CustomColors.darkCornflowerBlue,
                                   ),
@@ -305,4 +310,3 @@ class SearchScreen extends GetView<SearchRestaurantController> {
     );
   }
 }
-
