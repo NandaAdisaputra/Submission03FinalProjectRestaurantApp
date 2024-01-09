@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/utils/resource_helper/assets.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
+import 'package:submission3nanda/utils/resource_helper/fonts.dart';
+import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 
 class NoDataWidget extends StatelessWidget {
   final String title;
   final String subTitle;
 
-  const NoDataWidget({
-    Key? key,
-    required this.title,
-    required this.subTitle,
-  }) : super(key: key);
+  const NoDataWidget({Key? key, required this.title, required this.subTitle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class NoDataWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(
-            width: 100,
+            width: 250,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(0),
                 child: Image.asset(
                   ImageAssets.imageNewPlaceHolder,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   // color: iconColor ?? MyColors.appPrimaryColor.withAlpha(200),
                 )),
           ),
@@ -33,7 +33,13 @@ class NoDataWidget extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: CustomColors.darkOrange),
+              style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? CustomColors.orangePeel
+                      : CustomColors.darkOrange,
+                  fontSize: displayWidth(context) * FontSize.s006,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: Constants.helvetica),
             ),
           ),
           Padding(
@@ -41,6 +47,13 @@ class NoDataWidget extends StatelessWidget {
             child: Text(
               subTitle,
               textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? CustomColors.orangePeel
+                      : CustomColors.darkOrange,
+                  fontSize: displayWidth(context) * FontSize.s0045,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: Constants.helvetica),
             ),
           ),
         ],

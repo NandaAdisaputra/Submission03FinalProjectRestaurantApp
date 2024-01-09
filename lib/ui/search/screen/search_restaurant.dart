@@ -2,17 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:submission3nanda/data/database/database_helper.dart';
+import 'package:submission3nanda/data/preferences/preferences_controller.dart';
 import 'package:submission3nanda/ui/detail/screen/detail_restaurant_screen.dart';
+import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
+import 'package:submission3nanda/ui/scheduling/controller/sheduling_controller.dart';
 import 'package:submission3nanda/ui/search/controller/search_controller.dart';
+import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/assets.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 import 'package:submission3nanda/utils/resource_helper/fonts.dart';
 import 'package:submission3nanda/utils/resource_helper/sizes.dart';
+import 'package:submission3nanda/utils/resource_helper/strings.dart';
+import 'package:submission3nanda/utils/widget/empty_result_search_widget.dart';
 import 'package:submission3nanda/utils/widget/load_data_error.dart';
 import '../../../data/const/constants.dart';
 
 final SearchRestaurantController searchController =
     Get.put(SearchRestaurantController());
+final FavoriteController favoriteController =
+    Get.put(FavoriteController(databaseHelper: DatabaseHelper()));
+final SchedulingController schedulingController =
+    Get.put(SchedulingController());
+final themeController = Get.put(ThemeController());
+final PreferencesController preferencesController =
+    Get.put(PreferencesController());
 
 class SearchScreen extends GetView<SearchRestaurantController> {
   const SearchScreen({Key? key}) : super(key: key);
@@ -24,9 +38,74 @@ class SearchScreen extends GetView<SearchRestaurantController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: const Text(
+          Constants.searchScreen,
+          style: TextStyle(
+              color: CustomColors.whiteColor, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.left,
+        ),
+        elevation: 0,
         backgroundColor:
             Get.isDarkMode ? CustomColors.jetColor : CustomColors.darkOrange,
-        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Image.asset(ImageAssets.imageLeading),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: InkWell(
+              onTap: () => Get.bottomSheet(
+                Obx(
+                  () => Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? CustomColors.jetColor
+                          : CustomColors.darkOrange,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Get.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                          ),
+                          title: Text(
+                            Get.isDarkMode
+                                ? Constants.changeToLightMode
+                                : Constants.changeToDarkMode,
+                          ),
+                          onTap: () {
+                            favoriteController.changeAppTheme();
+                            Get.back();
+                          },
+                        ),
+                        const Divider(color: Colors.black, height: 36),
+                        SwitchListTile(
+                          title: const Text(Constants.enableDailyReminder),
+                          subtitle:
+                              const Text(Constants.enableOrDisableReminders),
+                          value: schedulingController
+                              .isRestaurantDailyActive.value,
+                          onChanged: (value) async {
+                            await schedulingController
+                                .scheduledRestaurant(value);
+                            preferencesController.enableDailyRestaurant(value);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              child: const Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: 35,
+              ),
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -99,10 +178,10 @@ class SearchScreen extends GetView<SearchRestaurantController> {
                       else if (searchController.hasData.value)
                         searchController.queryRestaurantsSearch.text.isEmpty ||
                                 searchController.listBodyRestaurants.isEmpty
-                            ? buildNoDataView(context, Constants.noDataYet)
+                            ? buildNoDataView(context)
                             : buildRestaurantList(context, dynamicHeight)
                       else
-                        buildNoDataView(context, Constants.noDataYet),
+                        buildNoDataView(context),
                     ],
                   ),
                 ),
@@ -280,7 +359,7 @@ class SearchScreen extends GetView<SearchRestaurantController> {
     );
   }
 
-  Widget buildNoDataView(BuildContext context, String message) {
+  Widget buildNoDataView(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: Column(
@@ -290,21 +369,10 @@ class SearchScreen extends GetView<SearchRestaurantController> {
           Lottie.asset(JsonAssets.search),
           const SizedBox(height: 20),
           Container(
-            margin: const EdgeInsets.all(8),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              message,
-              style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.orangePeel
-                    : CustomColors.darkOrange,
-                fontSize: displayWidth(context) * FontSize.s0045,
-                fontWeight: FontWeight.bold,
-                fontFamily: Constants.helvetica,
-              ),
-            ),
-          ),
+              margin: const EdgeInsets.all(8),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(8),
+              child: const EmptySearchWidget(visible: true)),
         ],
       ),
     );

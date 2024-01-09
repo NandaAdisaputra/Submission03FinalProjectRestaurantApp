@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:submission3nanda/data/const/constants.dart';
+import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/data/preferences/preferences_controller.dart';
-import 'package:submission3nanda/main.dart';
+import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
 import 'package:submission3nanda/ui/home/controller/home_controller.dart';
 import 'package:submission3nanda/ui/scheduling/controller/sheduling_controller.dart';
 import 'package:submission3nanda/ui/search/screen/search_restaurant.dart';
@@ -22,6 +23,8 @@ final PreferencesController preferencesController =
     Get.put(PreferencesController());
 final SchedulingController schedulingController =
     Get.put(SchedulingController());
+final FavoriteController favoriteController =
+    Get.put(FavoriteController(databaseHelper: DatabaseHelper()));
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -30,6 +33,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          Constants.homeScreen,
+          style: TextStyle(
+              color: CustomColors.whiteColor, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.left,
+        ),
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.all(12),
@@ -46,7 +55,11 @@ class HomeScreen extends StatelessWidget {
                     : CustomColors.darkOrange,
                 child: InkWell(
                   onTap: () {
-                    Get.to(() => const SearchScreen());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SearchScreen()),
+                    );
                   },
                   child: const Icon(
                     Icons.search,
@@ -60,50 +73,45 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 30),
             child: InkWell(
-              onTap: () => Get.to(
-                Get.bottomSheet(
-                  Obx(
-                    () => Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? CustomColors.jetColor
-                            : CustomColors.darkOrange,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: Icon(
-                              Get.isDarkMode
-                                  ? Icons.light_mode
-                                  : Icons.dark_mode,
-                            ),
-                            title: Text(
-                              Get.isDarkMode
-                                  ? Constants.changeToLightMode
-                                  : Constants.changeToDarkMode,
-                            ),
-                            onTap: () {
-                              favoriteController.changeAppTheme();
-                              Get.back();
-                            },
+              onTap: () => Get.bottomSheet(
+                Obx(
+                  () => Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? CustomColors.jetColor
+                          : CustomColors.darkOrange,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Get.isDarkMode ? Icons.light_mode : Icons.dark_mode,
                           ),
-                          const Divider(color: Colors.black, height: 36),
-                          SwitchListTile(
-                            title: const Text(Constants.enableDailyReminder),
-                            subtitle:
-                                const Text(Constants.enableOrDisableReminders),
-                            value: schedulingController
-                                .isRestaurantDailyActive.value,
-                            onChanged: (value) async {
-                              await schedulingController
-                                  .scheduledRestaurant(value);
-                              preferencesController
-                                  .enableDailyRestaurant(value);
-                            },
+                          title: Text(
+                            Get.isDarkMode
+                                ? Constants.changeToLightMode
+                                : Constants.changeToDarkMode,
                           ),
-                        ],
-                      ),
+                          onTap: () {
+                            favoriteController.changeAppTheme();
+                            Get.back();
+                          },
+                        ),
+                        const Divider(color: Colors.black, height: 36),
+                        SwitchListTile(
+                          title: const Text(Constants.enableDailyReminder),
+                          subtitle:
+                              const Text(Constants.enableOrDisableReminders),
+                          value: schedulingController
+                              .isRestaurantDailyActive.value,
+                          onChanged: (value) async {
+                            await schedulingController
+                                .scheduledRestaurant(value);
+                            preferencesController.enableDailyRestaurant(value);
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -150,7 +158,9 @@ class HomeScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: dataList.restaurants.length,
             itemBuilder: (context, index) {
-              return CardRestaurant(restaurant: dataList.restaurants[index]);
+              return CardRestaurant(
+                  restaurant: dataList.restaurants[index],
+                  isAccessedFromHomePage: true);
             },
           );
         } else {

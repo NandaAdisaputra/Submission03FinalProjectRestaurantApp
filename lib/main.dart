@@ -12,7 +12,6 @@ import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/network/api_service.dart';
 import 'package:submission3nanda/ui/home/controller/home_controller.dart';
 import 'package:submission3nanda/ui/review/controller/review_controller.dart';
-import 'package:submission3nanda/ui/scheduling/service/background_service.dart';
 import 'package:submission3nanda/ui/scheduling/helper/notification_helper.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/resource_helper/themes/theme.dart';
@@ -31,8 +30,6 @@ void main() async {
   await Hive.openBox('settings');
   InitialBinding().dependencies();
   await AndroidAlarmManager.initialize();
-  AndroidAlarmManager.periodic(
-      const Duration(minutes: 15), 1, BackgroundService.callback);
   await GetStorage.init();
   await NotificationHelper()
       .initNotifications(FlutterLocalNotificationsPlugin());

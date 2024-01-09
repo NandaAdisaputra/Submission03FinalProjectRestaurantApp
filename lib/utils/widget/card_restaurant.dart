@@ -12,8 +12,9 @@ import 'package:submission3nanda/utils/resource_helper/sizes.dart';
 
 class CardRestaurant extends StatefulWidget {
   final Restaurant restaurant;
+  final bool isAccessedFromHomePage;
 
-  const CardRestaurant({Key? key, required this.restaurant}) : super(key: key);
+  const CardRestaurant({Key? key, required this.restaurant, required this.isAccessedFromHomePage}) : super(key: key);
 
   @override
   State<CardRestaurant> createState() => _CardRestaurantState();
@@ -86,7 +87,9 @@ class _CardRestaurantState extends State<CardRestaurant> {
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 leading: widget.restaurant.pictureId.isNotEmpty
                     ? Hero(
-                        tag: widget.restaurant.pictureId.toString(),
+                      tag: widget.isAccessedFromHomePage
+                          ? 'home-${widget.restaurant.pictureId}'
+                          : 'favorite-${widget.restaurant.pictureId}',
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(

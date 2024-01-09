@@ -3,11 +3,10 @@ import 'package:get/get.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
-import 'package:submission3nanda/utils/resource_helper/colors.dart';
-import 'package:submission3nanda/utils/resource_helper/fonts.dart';
 import 'package:submission3nanda/utils/result_state.dart';
+import 'package:submission3nanda/utils/widget/empty_result_favorite_widget.dart';
+import 'package:submission3nanda/utils/widget/load_data_error.dart';
 
-import '../../../utils/resource_helper/sizes.dart';
 import '../../../utils/widget/card_restaurant.dart';
 
 class DataListFavorite extends StatelessWidget {
@@ -26,24 +25,20 @@ class DataListFavorite extends StatelessWidget {
           itemCount: favoriteController.favorites.length,
           itemBuilder: (context, index) {
             return CardRestaurant(
-                restaurant: favoriteController.favorites[index]);
+                restaurant: favoriteController.favorites[index], isAccessedFromHomePage: true);
           },
         );
       } else if (favoriteController.state.value == ResultState.noData) {
-        return Center(
-          child: Text(
-            favoriteController.message.value,
-            style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.orangePeel
-                    : CustomColors.darkOrange,
-                fontSize: displayWidth(context) * FontSize.s0045,
-                fontWeight: FontWeight.bold,
-                fontFamily: Constants.helvetica),
-          ),
-        );
+        return const EmptyFavoriteWidget(visible: true);
       } else if (favoriteController.state.value == ResultState.error) {
-        return Center(child: Text(favoriteController.message.value));
+        return LoadDataError(
+          title: Constants.problemOccurred,
+          subtitle: favoriteController.message.value,
+          bgColor: Colors.red,
+          onTap: () {
+            favoriteController.getFavorites();
+          },
+        );
       } else {
         return const Center(child: Text(Constants.tryAgainLater));
       }

@@ -81,28 +81,31 @@ class AddReviewFormScreen extends StatelessWidget {
             return SizedBox(
               height: 45,
               width: double.infinity,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Theme.of(context).brightness == Brightness.dark
-                              ? CustomColors.jetColor
-                              : CustomColors.darkOrange),
-                  onPressed: textFieldController.isButtonEnabled.value
-                      ? () {
-                          createNewReview();
-                          textFieldController.nameController.clear();
-                          textFieldController.reviewController.clear();
-                          textFieldController.dateController.clear();
-                        }
-                      : null,
-                  child: Text(
-                    AppStrings.addReview,
-                    style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? CustomColors.whiteColor
-                            : CustomColors.whiteColor,
-                        fontFamily: Constants.helvetica),
-                  )),
+              child: Container(
+                margin: const EdgeInsets.only(left: 16, right: 16),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? CustomColors.jetColor
+                                : CustomColors.darkOrange),
+                    onPressed: textFieldController.isButtonEnabled.value
+                        ? () {
+                            createNewReview();
+                            textFieldController.nameController.clear();
+                            textFieldController.reviewController.clear();
+                            textFieldController.dateController.clear();
+                          }
+                        : null,
+                    child: Text(
+                      AppStrings.addReview,
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? CustomColors.whiteColor
+                              : CustomColors.whiteColor,
+                          fontFamily: Constants.helvetica),
+                    )),
+              ),
             );
           })
         ],

@@ -34,7 +34,13 @@ class Constants {
   static const String successNewReviewCreate = "New Review Restaurant created:";
   static const String errorNewReviewCreate =
       "Error creating review Restaurant:";
-
+  //title
+  static const String reviewScreen = "Review Restaurant";
+  static const String detailScreen = "Detail Restaurant";
+  static const String searchScreen = "Search Restaurant";
+  static const String favoriteScreen = "Favorite Restaurant";
+  static const String profileScreen = "Profile User";
+  static const String homeScreen = "List Restaurant";
   //favorite
   static const String subTitle = "Your Favorite Restaurant!";
   static const String favorite = "Favorite";
