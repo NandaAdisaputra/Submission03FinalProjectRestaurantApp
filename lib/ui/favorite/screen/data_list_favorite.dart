@@ -25,7 +25,7 @@ class DataListFavorite extends StatelessWidget {
           itemCount: favoriteController.favorites.length,
           itemBuilder: (context, index) {
             return CardRestaurant(
-                restaurant: favoriteController.favorites[index], isAccessedFromHomePage: true);
+                restaurant: favoriteController.favorites[index], isAccessedFromHomePage: false);
           },
         );
       } else if (favoriteController.state.value == ResultState.noData) {

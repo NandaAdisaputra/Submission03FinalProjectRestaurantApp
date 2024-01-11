@@ -103,8 +103,7 @@ class HomeScreen extends StatelessWidget {
                           title: const Text(Constants.enableDailyReminder),
                           subtitle:
                               const Text(Constants.enableOrDisableReminders),
-                          value: schedulingController
-                              .isRestaurantDailyActive.value,
+                          value: preferencesController.isRestaurantDailyActive.value,
                           onChanged: (value) async {
                             await schedulingController
                                 .scheduledRestaurant(value);
@@ -160,7 +159,7 @@ class HomeScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return CardRestaurant(
                   restaurant: dataList.restaurants[index],
-                  isAccessedFromHomePage: true);
+                  isAccessedFromHomePage: false);
             },
           );
         } else {

@@ -39,7 +39,7 @@ class _SettingPageState extends State<SettingPage> {
                 trailing: GetBuilder<SchedulingController>(
                   builder: (scheduled) {
                     return Switch.adaptive(
-                      value: controller.isRestaurantDailyActive.value,
+                      value: preferencesController.isRestaurantDailyActive.value,
                       onChanged: (value) async {
                         scheduled.scheduledRestaurant(value);
                         controller.enableDailyRestaurant(value);

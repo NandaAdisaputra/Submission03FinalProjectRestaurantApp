@@ -99,8 +99,7 @@ class ProfileUserScreen extends GetView<ProfileUserController> {
                           title: const Text(Constants.enableDailyReminder),
                           subtitle:
                               const Text(Constants.enableOrDisableReminders),
-                          value: schedulingController
-                              .isRestaurantDailyActive.value,
+                          value: preferencesController.isRestaurantDailyActive.value,
                           onChanged: (value) async {
                             await schedulingController
                                 .scheduledRestaurant(value);

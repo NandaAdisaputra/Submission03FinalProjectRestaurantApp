@@ -104,8 +104,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               title: const Text(Constants.enableDailyReminder),
                               subtitle: const Text(
                                   Constants.enableOrDisableReminders),
-                              value: schedulingController
-                                  .isRestaurantDailyActive.value,
+                              value: preferencesController.isRestaurantDailyActive.value,
                               onChanged: (value) async {
                                 await schedulingController
                                     .scheduledRestaurant(value);
