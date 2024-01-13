@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:submission3nanda/data/preferences/preference_helper.dart';
 import 'package:submission3nanda/data/preferences/preferences_controller.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
@@ -27,7 +28,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       Get.put(SchedulingController());
   final themeController = Get.put(ThemeController());
   final PreferencesController preferencesController =
-      Get.put(PreferencesController());
+      Get.put(PreferencesController(preferencesHelper: PreferencesHelper()));
 
   @override
   Widget build(BuildContext context) {

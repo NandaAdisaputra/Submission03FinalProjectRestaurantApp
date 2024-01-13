@@ -21,21 +21,21 @@ class DetailRestaurantController extends GetxController {
 
   Future<dynamic> getListRestaurant(String? idRestaurant) async {
     try {
-      _state(ResultState.loading);
+      _state(ResultState.loading); // Corrected
       update();
       final restaurant =
-          await ApiService(Client()).detailRestaurant(idRestaurant);
+      await ApiService(Client()).detailRestaurant(idRestaurant);
       if (restaurant.restaurant == null) {
-        _state(ResultState.noData);
+        _state(ResultState.noData); // Corrected
         update();
         _message(Constants.noDataFound);
       } else {
-        _state(ResultState.hasData);
-        _listRestaurant(restaurant);
+        _state(ResultState.hasData); // Corrected
+        _listRestaurant(restaurant); // Corrected
         update();
       }
     } catch (e) {
-      _state(ResultState.error);
+      _state(ResultState.error); // Corrected
       _message(Constants.checkYourInternetConnection);
     } finally {
       update();

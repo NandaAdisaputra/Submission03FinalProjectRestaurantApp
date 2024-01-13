@@ -13,7 +13,9 @@ class DetailRestaurant {
     return DetailRestaurant(
       error: json["error"],
       message: json["message"],
-      restaurant: Restaurant.fromJson(json["restaurant"]),
+      restaurant: json["restaurant"] != null
+          ? Restaurant.fromJson(json["restaurant"])
+          : null,
     );
   }
 
@@ -59,14 +61,16 @@ class Restaurant {
       city: json["city"],
       address: json["address"],
       pictureId: json["pictureId"],
-      categories: List<Category>.from(
-        json["categories"].map((x) => Category.fromJson(x)),
-      ),
+      categories: (json["categories"] as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .map((x) => Category.fromJson(x))
+          .toList(),
       menus: Menus.fromJson(json["menus"]),
-      rating: json["rating"]?.toDouble(),
-      customerReviews: List<CustomerReview>.from(
-        json["customerReviews"].map((x) => CustomerReview.fromJson(x)),
-      ),
+      rating: json["rating"]?.toDouble() ?? 0.0,
+      customerReviews: (json["customerReviews"] as List<dynamic>)
+          .cast<Map<String, dynamic>>()
+          .map((x) => CustomerReview.fromJson(x))
+          .toList(),
     );
   }
 
@@ -78,12 +82,10 @@ class Restaurant {
       "city": city,
       "address": address,
       "pictureId": pictureId,
-      "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
+      "categories": categories.map((x) => x.toJson()).toList(),
       "menus": menus.toJson(),
       "rating": rating,
-      "customerReviews": List<dynamic>.from(
-        customerReviews.map((x) => x.toJson()),
-      ),
+      "customerReviews": customerReviews.map((x) => x.toJson()).toList(),
     };
   }
 }

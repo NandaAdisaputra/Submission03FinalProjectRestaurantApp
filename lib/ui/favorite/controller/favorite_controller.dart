@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
 import 'package:submission3nanda/data/model/restaurant_model.dart';
+import 'package:submission3nanda/ui/home/controller/home_controller.dart';
 import 'package:submission3nanda/ui/themes/theme_controller.dart';
 import 'package:submission3nanda/utils/result_state.dart';
 
@@ -86,12 +87,16 @@ class FavoriteController extends GetxController
       _state(ResultState.noData);
       showMessage(Constants.noDataFavorite);
     }
+    update();
   }
 
   void addFavorite(Restaurant restaurant) async {
     try {
       await databaseHelper.insertFavorite(restaurant);
+      final homeController = Get.find<HomeController>();
+      homeController.updateNonFavorites();
       getFavorites();
+      update();
     } catch (e) {
       _state(ResultState.error);
       showMessage(Constants.addDataFavoriteFailed);
@@ -106,6 +111,9 @@ class FavoriteController extends GetxController
   void removeFavorite(String id) async {
     try {
       await databaseHelper.removeFavorite(id);
+      final homeController = Get.find<HomeController>();
+      homeController.updateFavorites();
+      homeController.updateNonFavorites();
       update();
       getFavorites();
     } catch (e) {
@@ -117,6 +125,9 @@ class FavoriteController extends GetxController
   void removeAllFavorite() async {
     try {
       await databaseHelper.removeAllFavorite();
+      final homeController = Get.find<HomeController>();
+      homeController.updateFavorites();
+      homeController.updateNonFavorites();
       update();
       getFavorites();
     } catch (e) {

@@ -8,7 +8,7 @@ import 'package:submission3nanda/ui/profile/screen/profile_user_screen.dart';
 import 'package:submission3nanda/utils/resource_helper/colors.dart';
 
 class NavBarScreen extends StatefulWidget {
-  const NavBarScreen({super.key});
+  const NavBarScreen({Key? key}) : super(key: key);
 
   @override
   State<NavBarScreen> createState() => _NavBarScreenState();
@@ -22,29 +22,36 @@ class _NavBarScreenState extends State<NavBarScreen> {
     return GetBuilder<NavBarController>(builder: (context) {
       return Scaffold(
         body: IndexedStack(
-          index: controller.tabIndex,
+          index: controller.tabIndex.value,
           children: const [
             HomeScreen(),
             FavoriteScreen(),
-            ProfileUserScreen()
+            ProfileUserScreen(),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: CustomColors.scarletColor,
-          unselectedItemColor: CustomColors.darkOrange,
-          currentIndex: controller.tabIndex,
-          onTap: controller.changeTabIndex,
-          items: [
-            _bottomBarItem(Icons.home, Constants.home),
-            _bottomBarItem(Icons.favorite, Constants.favorite),
-            _bottomBarItem(Icons.person, Constants.profileUsers)
-          ],
-        ),
+        bottomNavigationBar: buildBottomNavigationBar(controller),
       );
     });
   }
-}
 
-_bottomBarItem(IconData icon, String label) {
-  return BottomNavigationBarItem(icon: Icon(icon), label: label);
+  BottomNavigationBar buildBottomNavigationBar(NavBarController controller) {
+    return BottomNavigationBar(
+      selectedItemColor: CustomColors.scarletColor,
+      unselectedItemColor: CustomColors.darkOrange,
+      currentIndex: controller.tabIndex.value,
+      onTap: controller.changeTabIndex,
+      items: [
+        _bottomBarItem(Icons.home, Constants.home),
+        _bottomBarItem(Icons.favorite, Constants.favorite),
+        _bottomBarItem(Icons.person, Constants.profileUsers),
+      ],
+    );
+  }
+
+  BottomNavigationBarItem _bottomBarItem(IconData icon, String label) {
+    return BottomNavigationBarItem(
+      icon: Icon(icon),
+      label: label,
+    );
+  }
 }

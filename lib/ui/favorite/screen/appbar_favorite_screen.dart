@@ -14,21 +14,25 @@ class AppBarFavoriteScreen extends StatelessWidget {
 
   AppBarFavoriteScreen({Key? key}) : super(key: key);
 
+  Color getThemeColor(BuildContext context, Color darkColor, Color lightColor) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? darkColor
+        : lightColor;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Container(
-          color: Theme.of(context).brightness == Brightness.dark
-              ? CustomColors.jetColor
-              : CustomColors.selectiveYellow,
+          color: getThemeColor(
+              context, CustomColors.jetColor, CustomColors.selectiveYellow),
           child: Center(
             child: Text(
               Constants.title,
               style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.whiteColor
-                    : CustomColors.scarletColor,
+                color: getThemeColor(context, CustomColors.whiteColor,
+                    CustomColors.scarletColor),
                 fontSize: displayWidth(context) * FontSize.s008,
                 fontWeight: FontWeight.bold,
               ),
@@ -36,10 +40,8 @@ class AppBarFavoriteScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.clear_all_outlined,
-                color: CustomColors.whiteColor, size: 40),
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -51,12 +53,14 @@ class AppBarFavoriteScreen extends StatelessWidget {
                         onPressed: () {
                           favoriteController.removeAllFavorite();
                           Navigator.of(context).pop();
+                          favoriteController.update();
                         },
                         child: const Text(Constants.yesAction),
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
+                          favoriteController.update();
                         },
                         child: const Text(Constants.noAction),
                       ),
@@ -65,6 +69,8 @@ class AppBarFavoriteScreen extends StatelessWidget {
                 },
               );
             },
+            child: const Icon(Icons.clear_all_outlined,
+                color: CustomColors.whiteColor, size: 40),
           ),
         ],
       ),
@@ -75,18 +81,16 @@ class AppBarFavoriteScreen extends StatelessWidget {
             margin: const EdgeInsets.only(left: 16, right: 16),
             height: 30,
             child: Divider(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? CustomColors.middleYellow
-                  : CustomColors.scarletColor,
+              color: getThemeColor(context, CustomColors.middleYellow,
+                  CustomColors.scarletColor),
             ),
           ),
           Center(
             child: Text(
               Constants.subTitle,
               style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? CustomColors.middleYellow
-                    : CustomColors.scarletColor,
+                color: getThemeColor(context, CustomColors.middleYellow,
+                    CustomColors.scarletColor),
                 fontSize: displayWidth(context) * FontSize.s0045,
                 fontWeight: FontWeight.bold,
               ),

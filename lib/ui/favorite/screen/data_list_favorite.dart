@@ -17,31 +17,66 @@ class DataListFavorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (favoriteController.state.value == ResultState.loading) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (favoriteController.state.value == ResultState.hasData) {
-        return ListView.builder(
-          itemCount: favoriteController.favorites.length,
-          itemBuilder: (context, index) {
-            return CardRestaurant(
-                restaurant: favoriteController.favorites[index], isAccessedFromHomePage: false);
-          },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(Constants.favorite),
+      ),
+      body: Obx(() {
+        return AnimatedCrossFade(
+          duration: const Duration(milliseconds: 300),
+          crossFadeState: _getCrossFadeState(),
+          firstChild: const EmptyFavoriteWidget(visible: true),
+          secondChild: _buildListView(),
         );
-      } else if (favoriteController.state.value == ResultState.noData) {
+      }),
+    );
+  }
+
+  CrossFadeState _getCrossFadeState() {
+    return favoriteController.state.value == ResultState.noData
+        ? CrossFadeState.showFirst
+        : CrossFadeState.showSecond;
+  }
+
+  Widget _buildListView() {
+    switch (favoriteController.state.value) {
+      case ResultState.loading:
+        return _buildLoadingWidget();
+      case ResultState.hasData:
+        return _buildDataWidget();
+      case ResultState.noData:
         return const EmptyFavoriteWidget(visible: true);
-      } else if (favoriteController.state.value == ResultState.error) {
-        return LoadDataError(
-          title: Constants.problemOccurred,
-          subtitle: favoriteController.message.value,
-          bgColor: Colors.red,
-          onTap: () {
-            favoriteController.getFavorites();
-          },
-        );
-      } else {
+      case ResultState.error:
+        return _buildErrorWidget();
+      default:
         return const Center(child: Text(Constants.tryAgainLater));
-      }
-    });
+    }
+  }
+
+  Widget _buildLoadingWidget() {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  Widget _buildDataWidget() {
+    return ListView.builder(
+      itemCount: favoriteController.favorites.length,
+      itemBuilder: (context, index) {
+        return CardRestaurant(
+          restaurant: favoriteController.favorites[index],
+          isAccessedFromHomePage: false,
+        );
+      },
+    );
+  }
+
+  Widget _buildErrorWidget() {
+    return LoadDataError(
+      title: Constants.problemOccurred,
+      subtitle: favoriteController.message.value,
+      bgColor: Colors.red,
+      onTap: () {
+        favoriteController.getFavorites();
+      },
+    );
   }
 }

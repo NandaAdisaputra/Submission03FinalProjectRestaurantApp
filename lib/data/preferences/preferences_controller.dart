@@ -1,50 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:submission3nanda/data/preferences/preference_helper.dart';
 
 final ThemeData darkTheme = ThemeData.dark();
 final ThemeData lightTheme = ThemeData.light();
 
 class PreferencesController extends GetxController {
-  late PreferencesHelper preferencesHelper;
+  final PreferencesHelper preferencesHelper;
 
-  final RxBool _isDarkTheme = false.obs;
+  final RxBool isDarkTheme = false.obs;
+  final RxBool isRestaurantDailyActive = false.obs;
 
-  ThemeData get themeData => _isDarkTheme.value ? darkTheme : lightTheme;
-
-  RxBool get isDarkTheme => _isDarkTheme;
-
-  final RxBool _isRestaurantDailyActive = false.obs;
-
-  RxBool get isRestaurantDailyActive => _isRestaurantDailyActive;
+  PreferencesController({required this.preferencesHelper});
 
   @override
   void onInit() {
     super.onInit();
-    preferencesHelper = PreferencesHelper(sharedPreferences: SharedPreferences.getInstance());
-    _getDarkThemePreferences();
-    _getDailyRestaurantPreferences();
+    _getPreferences();
   }
 
-  void _getDarkThemePreferences() async {
-    _isDarkTheme.value = await preferencesHelper.isDarkTheme;
-  }
-
-  void _getDailyRestaurantPreferences() async {
-    _isRestaurantDailyActive.value =
-        await preferencesHelper.isDailyRestaurantActive;
+  void _getPreferences() {
+    isDarkTheme.value = preferencesHelper.isDarkTheme;
+    isRestaurantDailyActive.value = preferencesHelper.isDailyRestaurantActive;
   }
 
   void enableDarkTheme(bool value) {
     preferencesHelper.setDarkTheme(value);
-    _getDarkThemePreferences();
-    update();
+    _getPreferences();
   }
 
   void enableDailyRestaurant(bool value) {
     preferencesHelper.setDailyRestaurant(value);
-    _getDailyRestaurantPreferences();
-    update();
+    _getPreferences();
   }
 }

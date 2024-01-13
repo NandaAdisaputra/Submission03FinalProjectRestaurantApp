@@ -1,33 +1,36 @@
-import 'dart:ui';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 
 class PreferencesHelper {
-  final Future<SharedPreferences> sharedPreferences;
+  static final PreferencesHelper _instance = PreferencesHelper._internal();
 
-  PreferencesHelper({required this.sharedPreferences});
+  late SharedPreferences _prefs;
 
-  static const darkTheme = Constants.darkThemeTitle;
-  static const dailyRestaurant =  Constants.dailyTitle;
-
-  Future<bool> get isDarkTheme async {
-    final prefs = await sharedPreferences;
-    return prefs.getBool(darkTheme) ?? false;
+  PreferencesHelper._internal() {
+    _initPreferences();
   }
 
-  void setDarkTheme(bool value) async {
-    final prefs = await sharedPreferences;
-    prefs.setBool(darkTheme, value);
+  factory PreferencesHelper() {
+    return _instance;
   }
 
-  Future<bool> get isDailyRestaurantActive async {
-    final prefs = await sharedPreferences;
-    return prefs.getBool(dailyRestaurant) ?? false;
+  Future<void> _initPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  void setDailyRestaurant(bool value) async {
-    final prefs = await sharedPreferences;
-    prefs.setBool(dailyRestaurant, value);
+  static const darkThemeKey = Constants.darkThemeTitle;
+  static const dailyRestaurantKey = Constants.dailyTitle;
+
+  bool get isDarkTheme => _prefs.getBool(darkThemeKey) ?? false;
+
+  setDarkTheme(bool value) {
+    _prefs.setBool(darkThemeKey, value);
+  }
+
+  bool get isDailyRestaurantActive =>
+      _prefs.getBool(dailyRestaurantKey) ?? false;
+
+  setDailyRestaurant(bool value) {
+    _prefs.setBool(dailyRestaurantKey, value);
   }
 }

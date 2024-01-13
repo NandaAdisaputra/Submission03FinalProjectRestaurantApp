@@ -1,5 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -12,7 +13,7 @@ class BackgroundService extends GetxService {
   static const String _isolateName = Constants.isolate;
   static final Rx<SendPort?> _uiSendPort = Rx<SendPort?>(null);
 
-  Rx<ReceivePort> port = ReceivePort().obs;
+  late Rx<ReceivePort> port = ReceivePort().obs;
 
   BackgroundService._internal() {
     _instance = this;
@@ -35,11 +36,15 @@ class BackgroundService extends GetxService {
 
   static Future<void> callback() async {
     final NotificationHelper notificationHelper = NotificationHelper();
-    var result = await ApiService(Client()).listRestaurant();
-    await notificationHelper.showNotification(
-        FlutterLocalNotificationsPlugin(), result);
+    try {
+      var result = await ApiService(Client()).listRestaurant();
+      await notificationHelper.showNotification(
+          FlutterLocalNotificationsPlugin(), result);
 
-    _uiSendPort.value ??= IsolateNameServer.lookupPortByName(_isolateName);
-    _uiSendPort.value?.send(null);
+      _uiSendPort.value ??= IsolateNameServer.lookupPortByName(_isolateName);
+      _uiSendPort.value?.send(null);
+    } catch (e) {
+      debugPrint('Error in background service callback: $e');
+    }
   }
 }

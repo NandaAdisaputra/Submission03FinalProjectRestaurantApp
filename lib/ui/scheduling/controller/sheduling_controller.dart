@@ -14,29 +14,34 @@ class SchedulingController extends GetxController {
   bool get isScheduled => isRestaurantDailyActive.value;
 
   Future<bool> scheduledRestaurant(bool value) async {
-    isRestaurantDailyActive.value = value;
-    update();
-    if (isRestaurantDailyActive.value) {
-      if (kDebugMode) {
-        debugPrint(Constants.schedulingActivated);
+    try {
+      isRestaurantDailyActive.value = value;
+      if (isRestaurantDailyActive.value) {
+        if (kDebugMode) {
+          debugPrint(Constants.schedulingActivated);
+        }
+
+        await AndroidAlarmManager.periodic(
+          const Duration(hours: 24),
+          1,
+          BackgroundService.callback,
+          startAt: DateTimeHelper.nextScheduledDateTime().value,
+          exact: true,
+          wakeup: true,
+        );
+      } else {
+        if (kDebugMode) {
+          debugPrint(Constants.schedulingCanceled);
+        }
+        final SendPort? send = IsolateNameServer.lookupPortByName(Constants.alarmIsolate);
+        send?.send(value);
+        await AndroidAlarmManager.cancel(1);
       }
+
       update();
-      return await AndroidAlarmManager.periodic(
-        const Duration(hours: 24),
-        1,
-        BackgroundService.callback,
-        startAt: DateTimeHelper.format().value,
-        exact: true,
-        wakeup: true,
-      );
-    } else {
-      if (kDebugMode) {
-        debugPrint(Constants.schedulingCanceled);
-      }
-      final SendPort? send = IsolateNameServer.lookupPortByName(Constants.alarmIsolate);
-      send?.send(value);
-      update();
-      return await AndroidAlarmManager.cancel(1);
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 

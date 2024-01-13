@@ -18,6 +18,7 @@ import 'package:submission3nanda/utils/resource_helper/themes/theme.dart';
 import 'package:submission3nanda/utils/routes_helper/app_pages.dart';
 import 'package:submission3nanda/utils/routes_helper/routes.dart';
 import 'package:submission3nanda/utils/widget/custom_error_screen.dart';
+import 'ui/search/controller/search_controller.dart';
 import 'ui/themes/binding/initial_binding.dart';
 import 'data/const/constants.dart';
 import 'utils/widget/keyboards.dart';
@@ -34,6 +35,8 @@ void main() async {
   await NotificationHelper()
       .initNotifications(FlutterLocalNotificationsPlugin());
   Get.put(ReviewController());
+  Get.put(HomeController(apiService: apiService));
+  Get.put(SearchRestaurantController());
   runApp(const MyApp());
 }
 

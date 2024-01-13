@@ -32,8 +32,6 @@ class SearchRestaurantController extends GetxController {
   void clearRestaurantData() {
     queryRestaurantsSearch.clear();
     listBodyRestaurants.clear();
-    queryRestaurantsSearch.clear();
-    listBodyRestaurants.clear();
     hasData.value = false;
     hasError.value = false;
     _message = '';
@@ -47,34 +45,39 @@ class SearchRestaurantController extends GetxController {
     }
     isDataLoading(true);
     try {
-      WidgetsFlutterBinding.ensureInitialized();
-      String urlSearch =
-          "${end_points.getSearch.search}?q=${queryRestaurantsSearch.text}";
-      final response = await http
-          .get(Uri.parse(urlSearch))
-          .timeout(const Duration(seconds: 5));
-      var responseJson = json.decode(response.body)[Constants.restaurants];
+      final responseJson = await fetchData();
       listBodyRestaurants = responseJson;
-      if (response.statusCode == 200) {
-        hasError(false);
-        hasData(true);
-        return listBodyRestaurants;
-      } else {
-        hasError(true);
-        throw Exception(ErrorHandler.handle(dynamic));
-      }
-    } on TimeoutException {
-      hasError(true);
-      throw Exception(_message = Constants.requestTimedOut);
-    } on SocketException {
-      hasError(true);
-      throw Exception(_message = Constants.noInternetConnection);
+      hasError(false);
+      hasData(true);
+      return listBodyRestaurants;
     } catch (error) {
-      hasError(true);
-      throw Exception(_message = "An error occurred: $error");
+      handleErrorResponse(error);
     } finally {
       isDataLoading(false);
       update();
+    }
+  }
+
+  Future<List<dynamic>> fetchData() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    String urlSearch = "${end_points.getSearch.search}?q=${queryRestaurantsSearch.text}";
+    final response = await http.get(Uri.parse(urlSearch)).timeout(const Duration(seconds: 5));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body)[Constants.restaurants];
+    } else {
+      throw Exception(ErrorHandler.handle(dynamic));
+    }
+  }
+
+  void handleErrorResponse(dynamic error) {
+    hasError(true);
+    if (error is TimeoutException) {
+      _message = Constants.requestTimedOut;
+    } else if (error is SocketException) {
+      _message = Constants.noInternetConnection;
+    } else {
+      _message = "An error occurred: $error";
     }
   }
 

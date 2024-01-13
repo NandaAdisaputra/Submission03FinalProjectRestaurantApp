@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:submission3nanda/data/const/constants.dart';
+import 'package:submission3nanda/data/preferences/preference_helper.dart';
 import 'package:submission3nanda/ui/scheduling/controller/sheduling_controller.dart';
 
 import '../../data/preferences/preferences_controller.dart';
@@ -14,7 +15,7 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   final PreferencesController preferencesController =
-  Get.put(PreferencesController());
+  Get.put(PreferencesController(preferencesHelper: PreferencesHelper()));
   final SchedulingController schedulingController =
   Get.put(SchedulingController());
 

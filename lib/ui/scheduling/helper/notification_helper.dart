@@ -32,43 +32,25 @@ class NotificationHelper extends GetxController {
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String? payload) async {
-      if (payload != null) {
-        debugPrint('notification payload: $payload');
-      }
-      selectNotificationSubject.value = payload ?? Constants.emptyPayload;
-    });
+        onSelectNotification: _onSelectNotification);
   }
 
   Future<void> showNotification(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
       ListRestaurant restaurant) async {
-    var channelId = "1";
-    var channelName = Constants.channelOne;
-    var channelDescription = Constants.restaurantChannel;
-
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        channelId, channelName, channelDescription,
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: Constants.tickerNotification,
-        styleInformation: const DefaultStyleInformation(true, true));
-
-    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
+    var androidPlatformChannelSpecifics = _createAndroidNotificationDetails();
+    var iOSPlatformChannelSpecifics = _createIOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,
     );
-    var restaurantList = await ApiService(Client()).listRestaurant();
-    var restaurantItem = restaurantList.restaurants;
 
-    var randomIndex = Random().nextInt(restaurantItem.length);
-    var restaurantRandom = restaurantItem[randomIndex];
+    var restaurantList = await _fetchRestaurantList();
+    var restaurantRandom = _getRandomRestaurant(restaurantList);
 
     var titleNotification = "<b>New Restaurant Alert!</b>";
     var titleRestaurant = '<b>${restaurantRandom.name}</b>';
     var city = '<b>${restaurantRandom.city}</b>';
-    ;
     var rating = restaurantRandom.rating.toString();
 
     var notificationMessage = "Explore Restaurant $titleRestaurant\n"
@@ -85,5 +67,35 @@ class NotificationHelper extends GetxController {
       var data = Restaurant.fromJson(json.decode(payload));
       Get.toNamed(route, arguments: data.id);
     });
+  }
+
+  Future<ListRestaurant> _fetchRestaurantList() async {
+    return await ApiService(Client()).listRestaurant();
+  }
+
+  Restaurant _getRandomRestaurant(ListRestaurant restaurantList) {
+    var restaurantItem = restaurantList.restaurants;
+    var randomIndex = Random().nextInt(restaurantItem.length);
+    return restaurantItem[randomIndex];
+  }
+
+  Future<void> _onSelectNotification(String? payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    selectNotificationSubject.value = payload ?? Constants.emptyPayload;
+  }
+
+  AndroidNotificationDetails _createAndroidNotificationDetails() {
+    return const AndroidNotificationDetails(
+        "1", Constants.channelOne, Constants.restaurantChannel,
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: Constants.tickerNotification,
+        styleInformation: DefaultStyleInformation(true, true));
+  }
+
+  IOSNotificationDetails _createIOSNotificationDetails() {
+    return const IOSNotificationDetails();
   }
 }

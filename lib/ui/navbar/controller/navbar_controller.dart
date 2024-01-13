@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 
 class NavBarController extends GetxController {
-  var tabIndex = 0;
+  final tabIndex = 0.obs;
 
   void changeTabIndex(int index) {
-    tabIndex = index;
-    update();
+    tabIndex.value = index;
+    updateUI();
   }
+
+  void updateUI() => update();
 }

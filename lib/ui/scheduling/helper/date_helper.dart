@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 class DateTimeHelper {
-  static Rx<DateTime> format() {
+  static Rx<DateTime> nextScheduledDateTime() {
     final now = DateTime.now();
     final dateFormat = DateFormat('y/M/d');
     const timeSpecific = "11:00:00";

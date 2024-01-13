@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:submission3nanda/data/const/constants.dart';
 import 'package:submission3nanda/data/database/database_helper.dart';
+import 'package:submission3nanda/data/preferences/preference_helper.dart';
 import 'package:submission3nanda/data/preferences/preferences_controller.dart';
 import 'package:submission3nanda/ui/detail/controller/detail_controller.dart';
 import 'package:submission3nanda/ui/favorite/controller/favorite_controller.dart';
@@ -31,11 +33,9 @@ final SchedulingController schedulingController =
     Get.put(SchedulingController());
 final themeController = Get.put(ThemeController());
 final PreferencesController preferencesController =
-    Get.put(PreferencesController());
+    Get.put(PreferencesController(preferencesHelper: PreferencesHelper()));
 
 class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
-  static const routeName = '/details';
-
   DetailRestaurantScreen({
     Key? key,
     required this.restaurantID,
@@ -64,8 +64,10 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
       } else if (detailController.state == ResultState.hasData) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text(Constants.detailScreen,style: TextStyle(
-                color: CustomColors.whiteColor, fontWeight: FontWeight.bold),
+            title: const Text(
+              Constants.detailScreen,
+              style: TextStyle(
+                  color: CustomColors.whiteColor, fontWeight: FontWeight.bold),
               textAlign: TextAlign.left,
             ),
             elevation: 0,
@@ -134,7 +136,8 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
                               title: const Text(Constants.enableDailyReminder),
                               subtitle: const Text(
                                   Constants.enableOrDisableReminders),
-                              value: preferencesController.isRestaurantDailyActive.value,
+                              value: preferencesController
+                                  .isRestaurantDailyActive.value,
                               onChanged: (value) async {
                                 await schedulingController
                                     .scheduledRestaurant(value);
@@ -414,9 +417,12 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
         ClipRRect(
           borderRadius:
               const BorderRadius.vertical(bottom: Radius.circular(15)),
-          child: Image.network(
-            'https://restaurant-api.dicoding.dev/images/medium/$restaurantPICTUREID',
+          child: CachedNetworkImage(
+            imageUrl:
+                'https://restaurant-api.dicoding.dev/images/medium/$restaurantPICTUREID',
             fit: BoxFit.cover,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
         Container(
