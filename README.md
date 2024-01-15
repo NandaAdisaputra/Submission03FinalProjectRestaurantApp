@@ -22,6 +22,8 @@ Pada Aplikasi ini telah menerapkan
 17. Menggunakan Cached Network Image untuk menyimpan Cache Image setelah load dari data internet [cached_network_image: ^3.3.1](https://pub.dev/packages/cached_network_image/versions)
 18. Menerapkan daily Reminder sehingga akan muncul notif alarm setiap pada pukul 11.00 WIB   [flutter_local_notifications: ^8.0.0](https://pub.dev/packages/flutter_local_notifications) dan [android_alarm_manager_plus: ^3.0.4](https://pub.dev/packages/android_alarm_manager_plus)
 19. Menggunakan mockito untuk melakukan pengujian automated testing [mockito: ^5.4.4](https://pub.dev/packages/mockito)
+
+
 ====================
 ![Sertifikat Kompetensi Fundamental Flutter](https://github.com/NandaAdisaputra/Submission03FinalProjectRestaurantApp/assets/43689759/c117659a-8037-490c-b77c-b0cf9b98571b)
 ----------------------------
