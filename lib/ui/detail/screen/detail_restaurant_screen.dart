@@ -396,13 +396,15 @@ class DetailRestaurantScreen extends GetView<DetailRestaurantController> {
           ),
         );
       } else if (detailController.state == ResultState.error) {
-        return LoadDataError(
-          title: Constants.problemOccurred,
-          subtitle: detailController.message.value,
-          bgColor: Colors.red,
-          onTap: () {
-            detailController.getListRestaurant(restaurantID);
-          },
+        return Expanded(
+          child: LoadDataError(
+            title: Constants.problemOccurred,
+            subtitle: detailController.message.value,
+            bgColor: Colors.red,
+            onTap: () {
+              detailController.getListRestaurant(restaurantID);
+            },
+          ),
         );
       } else {
         return const EmptyRestaurantWidget(visible: true);

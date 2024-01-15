@@ -216,15 +216,17 @@ class SearchScreen extends GetView<SearchRestaurantController> {
 
   Widget buildErrorWidget(BuildContext context) {
     var searchController = Get.find<SearchRestaurantController>();
-    return Container(
-      alignment: Alignment.topCenter,
-      child: LoadDataError(
-        title: Constants.problemOccurred,
-        subtitle: searchController.message,
-        bgColor: Colors.red,
-        onTap: () {
-          searchController.getListRestaurant();
-        },
+    return Expanded(
+      child: Container(
+        alignment: Alignment.topCenter,
+        child: LoadDataError(
+          title: Constants.problemOccurred,
+          subtitle: searchController.message,
+          bgColor: Colors.red,
+          onTap: () {
+            searchController.getListRestaurant();
+          },
+        ),
       ),
     );
   }

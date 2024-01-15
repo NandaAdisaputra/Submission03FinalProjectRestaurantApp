@@ -26,13 +26,13 @@ class CardRestaurant extends StatefulWidget {
 }
 
 class _CardRestaurantState extends State<CardRestaurant> {
-  final FavoriteController databaseController =
+  final FavoriteController favoriteController =
       Get.put(FavoriteController(databaseHelper: DatabaseHelper()));
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: databaseController.isFavorite(widget.restaurant.id.toString()),
+      future: favoriteController.isFavorite(widget.restaurant.id.toString()),
       builder: (context, snapshot) {
         var isFavorite = snapshot.data ?? false;
         return Material(
@@ -80,7 +80,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
     return IconButton(
       onPressed: () {
         setState(() {
-          databaseController.addFavorite(widget.restaurant);
+          favoriteController.addFavorite(widget.restaurant);
           favoriteController.update();
         });
       },
@@ -102,8 +102,9 @@ class _CardRestaurantState extends State<CardRestaurant> {
                 fit: BoxFit.cover,
                 width: 100,
                 height: MediaQuery.of(context).size.height,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
@@ -209,7 +210,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  databaseController
+                  favoriteController
                       .removeFavorite(widget.restaurant.id.toString());
                 });
                 Navigator.of(context).pop();
@@ -220,7 +221,7 @@ class _CardRestaurantState extends State<CardRestaurant> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                favoriteController.update();// Close the dialog
+                favoriteController.update(); // Close the dialog
               },
               child: const Text(Constants.noAction),
             ),

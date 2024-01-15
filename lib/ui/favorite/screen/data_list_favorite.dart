@@ -70,13 +70,15 @@ class DataListFavorite extends StatelessWidget {
   }
 
   Widget _buildErrorWidget() {
-    return LoadDataError(
-      title: Constants.problemOccurred,
-      subtitle: favoriteController.message.value,
-      bgColor: Colors.red,
-      onTap: () {
-        favoriteController.getFavorites();
-      },
+    return Expanded(
+      child: LoadDataError(
+        title: Constants.problemOccurred,
+        subtitle: favoriteController.message.value,
+        bgColor: Colors.red,
+        onTap: () {
+          favoriteController.getFavorites();
+        },
+      ),
     );
   }
 }
