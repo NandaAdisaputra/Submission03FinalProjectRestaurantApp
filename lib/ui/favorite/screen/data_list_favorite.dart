@@ -18,9 +18,6 @@ class DataListFavorite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Constants.favorite),
-      ),
       body: Obx(() {
         return AnimatedCrossFade(
           duration: const Duration(milliseconds: 300),
