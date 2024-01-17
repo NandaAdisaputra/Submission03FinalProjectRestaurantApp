@@ -40,45 +40,39 @@ class LoadDataError extends StatelessWidget {
                       width: displayWidth(context) * 0.3,
                     ),
                     const SizedBox(child: AppSizes.hSizeBox20),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            color: Colors.deepOrange,
-                            fontSize: displayWidth(context) * 0.05,
-                          ),
+                    Center(
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.deepOrange,
+                          fontSize: displayWidth(context) * 0.05,
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Text.rich(
-                        TextSpan(
-                          text: subtitle,
-                          style: const TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            color: CustomColors.blackColor,
-                          ),
+                    Text.rich(
+                      TextSpan(
+                        text: subtitle,
+                        style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          color: CustomColors.blackColor,
                         ),
-                        textAlign: TextAlign.center,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(child: AppSizes.hSizeBox20),
                     onTap != null
-                        ? Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                        padding: const EdgeInsets.all(16),
-                        child: ButtonSubmitWidget(
-                          width: double.infinity,
-                          title: Constants.tryAgain,
-                          bgColor: Colors.deepOrange,
-                          textColor: Colors.white,
-                          onPressed: onTap ?? () {},
-                          loading: false,
-                          iconData: null,
-                        ),
+                        ? Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.all(16),
+                      child: ButtonSubmitWidget(
+                        width: double.infinity,
+                        title: Constants.tryAgain,
+                        bgColor: Colors.deepOrange,
+                        textColor: Colors.white,
+                        onPressed: onTap ?? () {},
+                        loading: false,
+                        iconData: null,
                       ),
                     )
                         : Container(),

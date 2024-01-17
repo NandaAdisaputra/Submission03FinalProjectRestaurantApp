@@ -167,15 +167,13 @@ class HomeScreen extends StatelessWidget {
       () {
         final state = homeController.state;
         if (state == ResultState.error) {
-          return Expanded(
-            child: LoadDataError(
+          return LoadDataError(
               title: Constants.problemOccurred,
               subtitle: homeController.message,
               bgColor: Colors.red,
               onTap: () {
                 homeController.fetchAllRestaurant();
               },
-            ),
           );
         } else if (state == ResultState.hasData) {
           final dataList = homeController.result;

@@ -216,8 +216,7 @@ class SearchScreen extends GetView<SearchRestaurantController> {
 
   Widget buildErrorWidget(BuildContext context) {
     var searchController = Get.find<SearchRestaurantController>();
-    return Expanded(
-      child: Container(
+    return Container(
         alignment: Alignment.topCenter,
         child: LoadDataError(
           title: Constants.problemOccurred,
@@ -227,7 +226,6 @@ class SearchScreen extends GetView<SearchRestaurantController> {
             searchController.getListRestaurant();
           },
         ),
-      ),
     );
   }
 

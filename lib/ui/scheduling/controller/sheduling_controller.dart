@@ -21,11 +21,11 @@ class SchedulingController extends GetxController {
           debugPrint(Constants.schedulingActivated);
         }
 
-        await AndroidAlarmManager.periodic(
-          const Duration(hours: 24),
+        await AndroidAlarmManager.oneShot(
+          const Duration(seconds: 5),
           1,
           BackgroundService.callback,
-          startAt: DateTimeHelper.nextScheduledDateTime().value,
+          // startAt: DateTimeHelper.nextScheduledDateTime().value,
           exact: true,
           wakeup: true,
         );
