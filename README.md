@@ -10,7 +10,7 @@ Pada Web Profile yang Saya Kerjakan berikut kriteria yang sudah Saya terapkan
    - penerapan padding dan margin yang pas sehingga tidak bertumpuk satu sama lain
    - layout disusun menggunakan flexbox
    - telah menampilkan foto di elemen aside.
-   - telah terdapat elemen <header>, <footer>, <main>, <article>, dan <aside>
+   - telah terdapat elemen header, footer, main, article, dan aside
 
 3. **Layout Responsif**
    - telah menerapkan media query untuk responsive ukuran mobile.
