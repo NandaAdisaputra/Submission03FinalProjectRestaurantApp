@@ -4,25 +4,26 @@ Sesuai dengan termsofuse yang ada pada halaman https://www.dicoding.com/termsofu
 
 Pada Web Profile yang Saya Kerjakan berikut kriteria yang sudah Saya terapkan
 1. **Tampilan Aplikasi Menarik**
-a.) Telah menggunakan pemilihan warna colorhunt.co. (navy orange beige retro kids)
-b.) tata letak elemen yang pas
-c.) penggunaan font font-family: 'Arial', sans-serif; sehingga pas dengan temanya
-d.) penerapan padding dan margin yang pas sehingga tidak bertumpuk satu sama lain
-e.) layout disusun menggunakan flexbox
-f.) telah menampilkan foto di elemen <aside>
-g.) telah terdapat elemen <header>, <footer>, <main>, <article>, dan <aside>
+   - Telah menggunakan pemilihan warna colorhunt.co. (navy orange beige retro kids)
+   - tata letak elemen yang pas
+   - penggunaan font font-family: 'Arial', sans-serif; sehingga pas dengan temanya
+   - penerapan padding dan margin yang pas sehingga tidak bertumpuk satu sama lain
+   - layout disusun menggunakan flexbox
+   - telah menampilkan foto di elemen aside.
+   - telah terdapat elemen <header>, <footer>, <main>, <article>, dan <aside>
 
-2. **Layout Responsif**
-a.) telah menerapkan media query untuk responsive ukuran mobile
-b> tidak ada konten menumpuk atau keluar dari kontainer
+3. **Layout Responsif**
+   - telah menerapkan media query untuk responsive ukuran mobile.
+   - tidak ada konten menumpuk atau keluar dari kontainer.
 
-4. **Memanipulasi DOM**
-a.) Telah terdapat dropdown pendidikan dan skill.
-b.) Telah Memanfaatkan logika seperti looping untuk elemen dan konten pada
-bagian menu kontak wa, ig dan email.
-c.) Telah terdapat Slider
-d.) lainnya telah terdapat animation pada bagian box dan juga teks footernya.
-e.) dapat membuka Lihat CV dan ketika item diklik akan masuk ke website yang dituju.
+5. **Memanipulasi DOM**
+   - Telah terdapat dropdown pendidikan dan skill.
+   - Telah Memanfaatkan logika seperti looping untuk elemen dan konten pada bagian menu kontak wa, ig dan email.
+   - Telah terdapat Slider.
+   - lainnya telah terdapat animation pada bagian box dan juga teks footernya.
+   - dapat membuka Lihat CV dan ketika item diklik akan masuk ke website yang dituju.
+
+
 ====================
 
 
